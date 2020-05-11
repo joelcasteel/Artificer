@@ -1,0 +1,17 @@
+# Compiled class files
+*.class
+
+### Eclipse Data ###
+.project
+/.settings/
+/bin/
+
+# Eclipse Java Development Tools
+.classpath
+
+### Gradle ###
+.gradle
+/build/
+
+#Mac DS file
+.DS_Store

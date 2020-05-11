@@ -1,0 +1,35 @@
+plugins {
+	id 'java-library'
+	id 'application'
+	id 'org.openjfx.javafxplugin' version '0.0.8'
+	id 'eclipse'
+}
+
+mainClassName = 'main.java.artificer.Main'
+
+compileJava.options.encoding = 'UTF-8'
+
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+ 	compile "org.apache.poi:poi:3.17"
+	compile "org.apache.poi:poi-ooxml:3.17"
+}
+
+javafx {
+	version = "13"
+	modules = [ 'javafx.controls']
+}
+
+
+test {
+
+}
+
+run {
+	standardInput = System.in
+}
