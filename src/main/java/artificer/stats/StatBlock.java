@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class StatBlock {
+    
     private Stat strength;
     private Stat dexterity;
     private Stat constitution;
