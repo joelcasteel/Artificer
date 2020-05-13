@@ -53,7 +53,8 @@ public class SearchBox extends VBox {
         
         searchButton.setText("Search");
         searchButton.setGraphic(new ImageView(new Image("main/resources/ui/icons/search.png")));
-        searchButton.setOnAction(buttonHandler);
+        searchButton.setOnAction(searchHandler);
+        searchField.setOnAction(searchHandler);
         HBox searchBox = new HBox();
         searchBox.setSpacing(6);
         searchBox.getChildren().add(searchField);
@@ -151,11 +152,11 @@ public class SearchBox extends VBox {
         return stringBuilder.toString();
     }
     
-    EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
+    EventHandler<ActionEvent> searchHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
-            asynchURLRequest(pre + searchField.getText());
+            asynchURLRequest(pre + searchField.getText().replaceAll(" ", "%20"));
             
         }
         

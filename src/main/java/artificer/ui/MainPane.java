@@ -34,7 +34,7 @@ public class MainPane extends BorderPane {
     
     HBox workbox;
    
-    VBox sideRibbon;
+    SideRibbon sideRibbon;
     
     ImageView icon;
     
@@ -59,65 +59,21 @@ public class MainPane extends BorderPane {
     Group itemGroup;
     
     StackPane workspace;
-    TranslateTransition sideTranslation;
     
     
     public MainPane() {
         
         workbox = new HBox();
         
-        sideRibbon  = new VBox();
-        sideRibbon.setPadding(new Insets(12,6, 120,6));
-        sideRibbon.setSpacing(12);
-        sideRibbon.setAlignment(Pos.TOP_CENTER);
-        BackgroundFill ribbonFill = new BackgroundFill(Color.DARKSEAGREEN,CornerRadii.EMPTY, Insets.EMPTY);
-        sideRibbon.setBackground(new Background(ribbonFill));
-        
-        
-        icon = new ImageView(new Image("main/resources/ui/icons/artificer_hand.png"));
-        sideRibbon.getChildren().add(icon);
-        Separator ribbonSeparator = new Separator();
-        ribbonSeparator.setOrientation(Orientation.HORIZONTAL);
-        ribbonSeparator.setPrefHeight(24);
-        sideRibbon.getChildren().add(ribbonSeparator);
-        
-        search = new Button();
-        search.setGraphic(new ImageView(new Image("main/resources/ui/icons/search.png")));
-        search.setOnAction(ribbonButtonListener);
-        sideRibbon.getChildren().add(search);
-        
-        encounters = new Button();
-        encounters.setGraphic(new ImageView(new Image("main/resources/ui/icons/create.png")));
-        sideRibbon.getChildren().add(encounters);
-        
-        monsters = new Button();
-        monsters.setGraphic(new ImageView(new Image("main/resources/ui/icons/monster.png")));
-        sideRibbon.getChildren().add(monsters);
-        
-        items = new Button();
-        items.setGraphic(new ImageView(new Image("main/resources/ui/icons/items.png")));
-        sideRibbon.getChildren().add(items);
-        
-        
-        add = new Button();
-        add.setGraphic(new ImageView(new Image("main/resources/ui/icons/add_circle.png")));
-        sideRibbon.getChildren().add(add);
-       
-        
-        searchGroup = new Group(new Label("SEARCHGROUP"));
-        searchGroup.setVisible(true);
-        encounterGroup = new Group(new Label("ENCOUNTERGROUP"));
-        encounterGroup.setVisible(true);
+        sideRibbon = new SideRibbon();
         
         
         workspace = new StackPane();
         HBox.setHgrow(workspace, Priority.ALWAYS);
         workspace.getChildren().add(new Label("CONTENT"));
         workspace.setAlignment(Pos.TOP_LEFT);
-        content.setCenter(workspace);
         
         workbox.getChildren().add(sideRibbon);
-        workbox.getChildren().add(searchGroup);
         workbox.getChildren().add(workspace);
         
         setCenter(workbox);
@@ -125,27 +81,6 @@ public class MainPane extends BorderPane {
 
     }
     
-    EventHandler<ActionEvent> ribbonButtonListener = new EventHandler<>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            //sideTranslation.setRate(1);
-            //sideTranslation.play();
-            if(searchGroup.isVisible()) {
-                searchGroup.setVisible(false);
-                searchGroup.setManaged(false);
-                //sidePane.getChildren().remove(searchGroup);
-                //encounterGroup.setVisible(false);
-                
-            } else {
-                searchGroup.setVisible(true);
-                searchGroup.setManaged(true);
-                //sidePane.setRight(searchGroup);
-            }
-            
-        }
-        
-    };
     
     
     
