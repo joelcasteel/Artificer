@@ -59,14 +59,12 @@ public class Monster {
             i++;
         }
         
-        
         entrySet 
             = source.get("senses").getAsJsonObject().entrySet();
-    
         sense = new String[entrySet.size()];
         i = 0;
         for(Map.Entry<String, JsonElement> entry : entrySet) {
-            speed[i] = entry.getKey() + ": " + entry.getValue().getAsString();
+            sense[i] = entry.getKey() + ": " + entry.getValue().getAsString();
             i++;
         }
         
