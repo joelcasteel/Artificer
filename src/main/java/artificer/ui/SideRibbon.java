@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import main.java.artificer.ui.detail.DetailWrapper;
 import main.java.artificer.ui.detail.MonsterDetail;
 import main.java.artificer.ui.menu.MenuWrapper;
 import main.java.artificer.ui.menu.SearchMenu;
@@ -40,6 +41,8 @@ public class SideRibbon extends HBox {
     
     StackPane detailPane;
     MonsterDetail monsterDetail;
+    
+    DetailWrapper detailWrapper;
     
     
     public SideRibbon() {
@@ -85,7 +88,9 @@ public class SideRibbon extends HBox {
         sideRibbon.getChildren().add(add);
         
         
-        menuWrapper = new MenuWrapper();
+        menuWrapper = new MenuWrapper(this);
+        
+        detailWrapper = new DetailWrapper(this);
         
         
         detailPane = new StackPane();
@@ -94,7 +99,12 @@ public class SideRibbon extends HBox {
         
         
         
-        getChildren().addAll(sideRibbon, menuWrapper, detailPane);
+        getChildren().addAll(sideRibbon, menuWrapper, detailWrapper);
+    }
+    
+    
+    public DetailWrapper getDetail() {
+        return detailWrapper;
     }
     
     EventHandler<ActionEvent> ribbonButtonListener = new EventHandler<>() {

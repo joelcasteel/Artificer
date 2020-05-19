@@ -1,74 +1,45 @@
 package main.java.artificer.stats;
 
+import java.awt.List;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class StatBlock {
     
-    private Stat strength;
-    private Stat dexterity;
-    private Stat constitution;
-    private Stat intelligence;
-    private Stat wisdom;
-    private Stat charisma;
+    Map<String, Stat> stats;
     
-    private Proficiency prof[];
+    public StatBlock(int str, int dex, int con, int intl, int wis, int cha) {
+        stats = new HashMap<>();
+        stats.put(Stat.STR, new Stat(str));
+        stats.put(Stat.DEX, new Stat(dex));
+        stats.put(Stat.CON, new Stat(con));
+        stats.put(Stat.INT, new Stat(intl));
+        stats.put(Stat.WIS, new Stat(wis));
+        stats.put(Stat.CHA, new Stat(cha));
+    }
     
     public StatBlock(JsonObject source) {
-        //Physical Stats
-        strength = new Stat(source.get("strength").getAsInt());
-        dexterity = new Stat(source.get("dexterity").getAsInt());
-        constitution = new Stat(source.get("constitution").getAsInt());
-        //Mental Stats
-        intelligence = new Stat(source.get("intelligence").getAsInt());
-        wisdom = new Stat(source.get("wisdom").getAsInt());
-        charisma = new Stat(source.get("charisma").getAsInt());
-        
-        JsonArray profArray = source.getAsJsonArray("proficiencies");
-        prof = new Proficiency[profArray.size()];
-        
-        for(int i = 0; i < profArray.size(); i++) {
-            prof[i] = new Proficiency(
-                    profArray.get(i).getAsJsonObject().get("name").getAsString(),
-                    profArray.get(i).getAsJsonObject().get("value").getAsInt()
-                    );
+        stats = new HashMap<>();
+        stats.put(Stat.STR, new Stat(source.get("strength").getAsInt()));
+        stats.put(Stat.DEX, new Stat(source.get("dexterity").getAsInt()));
+        stats.put(Stat.CON, new Stat(source.get("constitution").getAsInt()));
+        stats.put(Stat.INT, new Stat(source.get("intelligence").getAsInt()));
+        stats.put(Stat.WIS, new Stat(source.get("wisdom").getAsInt()));
+        stats.put(Stat.CHA, new Stat(source.get("charisma").getAsInt()));
+    }
+
+    public Stat getStat(String key) {
+        if(stats.containsKey(key)) {
+            return stats.get(key);
         }
-        
+        return null;
     }
-
-    public Stat getSTR() {
-        return strength;
-    }
-
-
-    public Stat getDEX() {
-        return dexterity;
-    }
-
-
-    public Stat getCON() {
-        return constitution;
-    }
-
-
-    public Stat getINT() {
-        return intelligence;
-    }
-
-
-    public Stat getWIS() {
-        return wisdom;
-    }
-
-    public Stat getCHA() {
-        return charisma;
-    }
-
-
-    public Iterable<Proficiency> getProfs() {
-        return Arrays.asList(prof);
+    public Iterable<Stat> getAllStats(){
+        return stats.values();
     }
 
     

@@ -17,11 +17,13 @@ public class App extends Application {
         
         Scene scene = new Scene(main, 1200, 600);
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        scene.getStylesheets().add("/main/resources/ui/styleSheets/general.css");
         primaryStage.getIcons().add(new Image("main/resources/ui/icons/artificer_hand.png"));
         
         primaryStage.setTitle("Artificer Version: 0.1");
         primaryStage.setScene(scene);
         primaryStage.show();
+
     }
 
 }

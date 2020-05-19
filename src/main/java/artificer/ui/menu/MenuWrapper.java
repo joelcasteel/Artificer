@@ -5,6 +5,7 @@ import java.util.HashMap;
 import javafx.beans.Observable;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import main.java.artificer.ui.SideRibbon;
 
 public class MenuWrapper extends StackPane {
     
@@ -19,8 +20,8 @@ public class MenuWrapper extends StackPane {
     
     
     
-    public MenuWrapper() {
-        menus.put(SEARCH_MENU, new SearchMenu());
+    public MenuWrapper(SideRibbon ribbon) {
+        menus.put(SEARCH_MENU, new SearchMenu(ribbon));
         menus.put(MONSTER_MENU, new MonsterMenu());
         
         getChildren().addAll(menus.values());

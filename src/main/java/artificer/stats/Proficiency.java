@@ -2,23 +2,28 @@ package main.java.artificer.stats;
 
 public class Proficiency {
     private String name;
-    private int mod;
+    private String url;
+    private int value;
     
-    Proficiency() {
-        name = "Nothing";
-        mod = 0;
-    }
-    
-    Proficiency(String pName, int pMod) {
-        name = pName;
-        mod = pMod;
-    }
     
     public String getName() {
         return name;
     }
-    
-    public int getMod() {
-        return mod;
+    public void setName(String name) {
+        this.name = name;
     }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    public int getValue() {
+        return value;
+    }
+    public void setValue(int value) {
+        this.value = value;
+    }
+    
+    
 }

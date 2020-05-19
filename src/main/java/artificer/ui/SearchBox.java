@@ -33,6 +33,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import main.java.artificer.ui.menu.SideMenu;
 
 public class SearchBox extends VBox {
     
@@ -44,10 +45,12 @@ public class SearchBox extends VBox {
     private TextField filterField = new TextField("Filter...");
     private Button addButton = new Button("Create");
     
+    SideMenu sideMenuParent;
+    SideRibbon parentRibbon;
     
     
-    
-    public SearchBox() {
+    public SearchBox(SideRibbon parent) {
+        parentRibbon = parent;
         setPrefSize(240, 540);
         setSpacing(12);
         
@@ -97,7 +100,7 @@ public class SearchBox extends VBox {
         ListView<MonsterCard> resultView = new ListView<>();
         ArrayList<MonsterCard> list = new ArrayList<>();
         for(int i = 0; i < results.size(); i++) {
-            list.add(new MonsterCard(results.get(i).getAsJsonObject()));
+            list.add(new MonsterCard(results.get(i).getAsJsonObject(), this));
         }
         Platform.runLater(new Runnable() {
 
@@ -150,6 +153,11 @@ public class SearchBox extends VBox {
         System.out.println("Finished Request");
         
         return stringBuilder.toString();
+    }
+    
+    public SideRibbon getParentRibbon() {
+        return parentRibbon;
+        
     }
     
     EventHandler<ActionEvent> searchHandler = new EventHandler<ActionEvent>() {

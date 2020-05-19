@@ -16,7 +16,7 @@ public class WorktableTab extends Tab {
     
     private HBox content = new HBox();
     
-    private VBox searchBox = new SearchBox();
+    private VBox searchBox = new SearchBox(null);
     
     private TextArea detailsText = new TextArea();
     private Button clearButton = new Button();

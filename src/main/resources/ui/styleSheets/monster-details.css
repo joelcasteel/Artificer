@@ -1,0 +1,45 @@
+.text-field{
+	-fx-background-color: transparent;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-padding: 3 0 3 0;
+	
+}
+
+.text-field:focused{
+	-fx-background-color: lightgrey;
+}
+
+.number-text-field {
+	-fx-background-color: lightgrey;
+	-fx-border-width: 2;
+	-fx-border-radius: 12;
+	-fx-padding: 3 0 3 0;
+}
+
+.number-text-field:focused{
+	-fx-background-color: lightgrey;
+}
+
+.scroll-pane{
+	-fx-background-color: white;
+	-fx-background: white;
+}
+
+.pane {
+	
+	
+}
+
+
+/*.scroll-pane:focused{
+	-fx-background-color: pink pink pink pink;
+	-fx-background-insets: 0, 0, 0;
+	-fx-background-radius: 0;
+	-fx-border-style: none none none none;
+	-fx-padding: 12 12 12 12;
+}*/
+
+.grid-pane {
+
+}

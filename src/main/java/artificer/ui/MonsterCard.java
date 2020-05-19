@@ -7,6 +7,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.time.Duration;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -16,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import main.java.artificer.stats.Monster;
+import main.java.artificer.stats.MonsterFactory;
 
 public class MonsterCard extends VBox {
     String name = "Empty";
@@ -26,15 +28,20 @@ public class MonsterCard extends VBox {
     static Font cardFont = new Font("sans-serif", 12);
     private Label label = new Label();
     
-    public MonsterCard() {
+    SearchBox parentSearch;
+    
+    private String responseString = null;
+    
+    public MonsterCard(SearchBox parent) {
+        parentSearch = parent;
         label.setFont(cardFont);
         label.setText(name);
         getChildren().add(label);
         setOnMouseClicked(mouseHandler);
     }
     
-    public MonsterCard(JsonObject source) {
-        this();
+    public MonsterCard(JsonObject source, SearchBox parent) {
+        this(parent);
         name = source.get("name").getAsString();
         index = source.get("index").getAsString();
         url = source.get("url").getAsString();
@@ -62,13 +69,15 @@ public class MonsterCard extends VBox {
     }
     
     private void handleResponse(String response) {
-        JsonObject source = JsonParser.parseString(response).getAsJsonObject();
         System.out.println(response);
-        Monster monster = new Monster(source);
+        responseString = response;
+        
     }
     
     public void selected() {
         asynchURLRequest(pre + url);
+        Monster monster = MonsterFactory.createMonster(responseString);
+        parentSearch.getParentRibbon().getDetail().getMonsterDetail().setContent(monster);
     }
     
     EventHandler<MouseEvent> mouseHandler = new EventHandler<>() {
