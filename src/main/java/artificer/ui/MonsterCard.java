@@ -29,12 +29,12 @@ public class MonsterCard extends ListCell<MonsterCache> {
     public void updateItem(MonsterCache cache, boolean empty) {
         super.updateItem(cache, empty);
         if(empty) {
-            setText("empty");
+            setText(null);
         } else {
             setText(cache.getName());
+            setOnMouseClicked(mouseHandler);
         }
         
-        setOnMouseClicked(mouseHandler);
     }
     
     

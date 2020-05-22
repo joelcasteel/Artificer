@@ -202,7 +202,7 @@ public class SearchBox extends VBox {
         filteredList = new ArrayList<>();
         if(resultList != null) {
         for(MonsterCache card : resultList) {
-            if(card.getName().contains(filText)) {
+            if(card.getName().toLowerCase().contains(filText.toLowerCase())) {
                 filteredList.add(card);
             }
         }
