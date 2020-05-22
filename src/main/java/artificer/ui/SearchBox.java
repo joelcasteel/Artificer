@@ -52,7 +52,7 @@ public class SearchBox extends VBox {
     private Button searchButton = new Button();
     private HBox searchBox = new HBox();
     private TextField filterField = new TextField();
-    private ImageView filterIcon = new ImageView(new Image("main/resources/ui/icons/filter.png"));
+    private ImageView filterIcon = new ImageView(new Image(getClass().getResource("/ui/icons/filter.png").toString()));
     private HBox filterBox = new HBox();
     
     private ArrayList<MonsterCache> resultList;
@@ -66,14 +66,14 @@ public class SearchBox extends VBox {
         parentRibbon = parent;
         
         
-        getStylesheets().add("main/resources/ui/styleSheets/search-bar.css");
+        getStylesheets().add(getClass().getResource("/ui/styleSheets/search-bar.css").toString());
         getStyleClass().add("root");
        
         
         setPrefSize(240, 540);
         setSpacing(12);
         
-        searchButton.setGraphic(new ImageView(new Image("main/resources/ui/icons/search.png")));
+        searchButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/search.png").toString())));
         searchButton.setOnAction(searchHandler);
         searchField.setOnAction(searchHandler);
         searchField.setPromptText("Search...");

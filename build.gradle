@@ -1,6 +1,7 @@
 plugins {
 	id 'java-library'
 	id 'application'
+	id 'java'
 	id 'org.openjfx.javafxplugin' version '0.0.8'
 	id 'eclipse'
 }
@@ -20,6 +21,18 @@ dependencies {
 	compile "org.apache.poi:poi-ooxml:3.17"
 	implementation 'com.google.code.gson:gson:2.8.6'
 }
+
+sourceSets {
+        main {
+                java {
+                        srcDirs= ["src/main/java"]
+                }
+                resources {
+                        srcDirs= ["src/main/resources"]
+                }
+        }
+}
+
 
 javafx {
 	version = "13"

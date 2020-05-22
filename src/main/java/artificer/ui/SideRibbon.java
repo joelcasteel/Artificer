@@ -55,7 +55,12 @@ public class SideRibbon extends HBox {
         sideRibbon.setBackground(new Background(ribbonFill));
         
         //RIBBON SETUP
-        icon = new ImageView(new Image("main/resources/ui/icons/artificer_hand.png"));
+        try {
+            
+        icon = new ImageView(new Image(getClass().getResource("/ui/icons/artificer_hand.png").toString()));
+        } catch (Exception ex) {
+            System.out.println("OOPS: " + ex.getMessage());
+        }
         sideRibbon.getChildren().add(icon);
         Separator ribbonSeparator = new Separator();
         ribbonSeparator.setOrientation(Orientation.HORIZONTAL);
@@ -65,26 +70,26 @@ public class SideRibbon extends HBox {
         
         //RIBBON BUTTONS
         search = new Button();
-        search.setGraphic(new ImageView(new Image("main/resources/ui/icons/search.png")));
+        search.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/search.png").toString())));
         search.setOnAction(ribbonButtonListener);
         sideRibbon.getChildren().add(search);
         
         encounters = new Button();
-        encounters.setGraphic(new ImageView(new Image("main/resources/ui/icons/create.png")));
+        encounters.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/create.png").toString())));
         sideRibbon.getChildren().add(encounters);
         
         monsters = new Button();
-        monsters.setGraphic(new ImageView(new Image("main/resources/ui/icons/monster.png")));
+        monsters.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/monster.png").toString())));
         monsters.setOnAction(ribbonButtonListener);
         sideRibbon.getChildren().add(monsters);
         
         items = new Button();
-        items.setGraphic(new ImageView(new Image("main/resources/ui/icons/items.png")));
+        items.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/items.png").toString())));
         sideRibbon.getChildren().add(items);
         
         
         add = new Button();
-        add.setGraphic(new ImageView(new Image("main/resources/ui/icons/add_circle.png")));
+        add.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         sideRibbon.getChildren().add(add);
         
         
