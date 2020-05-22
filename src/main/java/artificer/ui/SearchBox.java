@@ -13,16 +13,21 @@ import java.nio.charset.Charset;
 import java.time.Duration;
 import java.util.ArrayList;
 
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -32,18 +37,26 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
+import main.java.artificer.stats.Monster;
 import main.java.artificer.ui.menu.SideMenu;
 
 public class SearchBox extends VBox {
     
     private String pre = "https://www.dnd5eapi.co/api/monsters/?name=";
     
-    private ListView<Node> scroller = new ListView<Node>();
+    private ListView<MonsterCache> scroller = new ListView<MonsterCache>();
     private TextField searchField = new TextField();
-    private Button searchButton = new Button("Search");
-    private TextField filterField = new TextField("Filter...");
-    private Button addButton = new Button("Create");
+    private Button searchButton = new Button();
+    private HBox searchBox = new HBox();
+    private TextField filterField = new TextField();
+    private ImageView filterIcon = new ImageView(new Image("main/resources/ui/icons/filter.png"));
+    private HBox filterBox = new HBox();
+    
+    private ArrayList<MonsterCache> resultList;
+    private ArrayList<MonsterCache> filteredList;
     
     SideMenu sideMenuParent;
     SideRibbon parentRibbon;
@@ -51,27 +64,58 @@ public class SearchBox extends VBox {
     
     public SearchBox(SideRibbon parent) {
         parentRibbon = parent;
+        
+        
+        getStylesheets().add("main/resources/ui/styleSheets/search-bar.css");
+        getStyleClass().add("root");
+       
+        
         setPrefSize(240, 540);
         setSpacing(12);
         
-        searchButton.setText("Search");
         searchButton.setGraphic(new ImageView(new Image("main/resources/ui/icons/search.png")));
         searchButton.setOnAction(searchHandler);
         searchField.setOnAction(searchHandler);
-        HBox searchBox = new HBox();
+        searchField.setPromptText("Search...");
+        searchField.setPrefWidth(200);
+        
+        searchBox.getStyleClass().add("hbox");
+        searchBox.setPrefHeight(18);
         searchBox.setSpacing(6);
         searchBox.getChildren().add(searchField);
         searchBox.getChildren().add(searchButton);
         getChildren().add(searchBox);
         
-        filterField.setPrefHeight(12);
-        getChildren().add(filterField);
+        StackPane filterImg = new StackPane();
+        filterImg.setPadding(new Insets(4));
+        filterImg.getChildren().add(filterIcon);
+        filterField.setPrefWidth(200);
+        filterField.setPromptText("Filter...");
+        filterField.textProperty().addListener(filterHandler);
         
-        scroller.setPrefSize(240, 480);
+        filterField.setPrefHeight(18);
+        
+        filterBox.getStyleClass().add("hbox");
+        
+        filterBox.setSpacing(6);
+        filterBox.getChildren().addAll(
+                filterField, filterImg
+                );
+        
+        
+        getChildren().add(filterBox);
+        
+        scroller.setPrefSize(240, 600 );
+        scroller.setCellFactory(new Callback<ListView<MonsterCache>, ListCell<MonsterCache>>(){
+            @Override
+            public ListCell<MonsterCache> call(ListView<MonsterCache> monsterListView) {
+                return new MonsterCard();
+                
+            }
+        });
+        
         getChildren().add(scroller);
         
-        addButton.setGraphic(new ImageView(new Image("main/resources/ui/icons/add_circle.png")));
-        getChildren().add(addButton);
         
     }
     
@@ -97,16 +141,15 @@ public class SearchBox extends VBox {
         System.out.println(response);
         JsonObject source = JsonParser.parseString(response).getAsJsonObject();
         JsonArray results = source.get("results").getAsJsonArray();
-        ListView<MonsterCard> resultView = new ListView<>();
-        ArrayList<MonsterCard> list = new ArrayList<>();
+        resultList = new ArrayList<>();
         for(int i = 0; i < results.size(); i++) {
-            list.add(new MonsterCard(results.get(i).getAsJsonObject(), this));
+            resultList.add(new MonsterCache(results.get(i).getAsJsonObject(), this));
         }
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
-                scroller.setItems(FXCollections.observableArrayList(list));
+                scroller.setItems(FXCollections.observableArrayList(resultList));
                 
             }
         });
@@ -155,6 +198,18 @@ public class SearchBox extends VBox {
         return stringBuilder.toString();
     }
     
+    private void filterResults(String filText) {
+        filteredList = new ArrayList<>();
+        if(resultList != null) {
+        for(MonsterCache card : resultList) {
+            if(card.getName().contains(filText)) {
+                filteredList.add(card);
+            }
+        }
+        scroller.setItems(FXCollections.observableArrayList(filteredList));
+        }
+    }
+    
     public SideRibbon getParentRibbon() {
         return parentRibbon;
         
@@ -168,6 +223,15 @@ public class SearchBox extends VBox {
             
         }
         
+    };
+    
+    ChangeListener<String> filterHandler = new ChangeListener<String>() {
+
+        @Override
+        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+            filterResults(newValue);
+            
+        }
     };
     
     EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
