@@ -1,8 +1,8 @@
 package main.java.artificer.stats;
 
 public class HitDice {
-    private int dice;
-    private int number;
+    private int dice = 0;
+    private int number = 0;
     
     public HitDice(String hd) {
         String dn[] = hd.split("d");
