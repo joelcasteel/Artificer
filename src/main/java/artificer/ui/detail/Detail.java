@@ -22,8 +22,8 @@ public abstract class Detail extends BorderPane {
     protected VBox holder;
     
     public Detail() {
-        getStylesheets().add(getClass().getResource("/ui/styleSheets/side-menu.css").toString());
-        getStylesheets().add(getClass().getResource("/ui/styleSheets/monster-details.css").toString());
+        getStylesheets().add(getClass().getResource("/ui/stylesheets/side-menu.css").toString());
+        getStylesheets().add(getClass().getResource("/ui/stylesheets/monster-details.css").toString());
         getStyleClass().add("root");
         
         

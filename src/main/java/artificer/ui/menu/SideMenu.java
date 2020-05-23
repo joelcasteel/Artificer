@@ -10,7 +10,7 @@ public abstract class SideMenu extends VBox {
     
     
     public SideMenu(String pName) {
-        getStylesheets().add(getClass().getResource("/ui/styleSheets/side-menu.css").toString());
+        getStylesheets().add(getClass().getResource("/ui/stylesheets/side-menu.css").toString());
         getStyleClass().add("root");
         
         name = pName;

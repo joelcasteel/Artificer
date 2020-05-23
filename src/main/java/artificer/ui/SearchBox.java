@@ -25,7 +25,6 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -40,7 +39,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
-import main.java.artificer.stats.Monster;
 import main.java.artificer.ui.menu.SideMenu;
 
 public class SearchBox extends VBox {
@@ -66,7 +64,7 @@ public class SearchBox extends VBox {
         parentRibbon = parent;
         
         
-        getStylesheets().add(getClass().getResource("/ui/styleSheets/search-bar.css").toString());
+        getStylesheets().add(getClass().getResource("/ui/stylesheets/search-bar.css").toString());
         getStyleClass().add("root");
        
         

@@ -18,7 +18,7 @@ public class DetailWrapper extends StackPane {
     SideRibbon parentRibbon;
     
     public DetailWrapper(SideRibbon ribbon) {
-        getStylesheets().add(getClass().getResource("/ui/styleSheets/monster-details.css").toString());
+        getStylesheets().add(getClass().getResource("/ui/stylesheets/monster-details.css").toString());
         parentRibbon = ribbon;
         details.put(MONSTER_DETAIL, new MonsterDetail());
         
