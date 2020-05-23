@@ -1,6 +1,9 @@
 # Compiled class files
 *.class
 
+# Astah Locks
+*.lock
+
 ### Eclipse Data ###
 .project
 /.settings/
