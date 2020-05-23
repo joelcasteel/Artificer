@@ -9,7 +9,7 @@ public class MonsterFactory {
         JsonObject source = JsonParser.parseString(response).getAsJsonObject();
         Gson gson = new Gson();
         Monster monster = gson.fromJson(source, Monster.class);
-        monster.setStats(new StatBlock(source));
+        //monster.setStats(new StatBlock(source));
         return monster;
     }
 }
