@@ -61,7 +61,7 @@ public class StatTable extends GridPane {
             }
             modString += ")";
             mods[i].setText(modString);
-            fields[i].setText(Integer.toString(stat.getStat()));
+            fields[i].setText(Integer.toString(stat.getScore()));
         }
         
     }

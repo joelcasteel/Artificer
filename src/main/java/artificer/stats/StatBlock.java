@@ -1,7 +1,6 @@
 package main.java.artificer.stats;
 
-import java.awt.List;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,25 +10,31 @@ import com.google.gson.JsonObject;
 public class StatBlock {
     
     Map<String, Stat> stats;
+    ArrayList<Proficiency> profs;
     
-    public StatBlock(int str, int dex, int con, int intl, int wis, int cha) {
-        stats = new HashMap<>();
-        stats.put(Stat.STR, new Stat(str));
-        stats.put(Stat.DEX, new Stat(dex));
-        stats.put(Stat.CON, new Stat(con));
-        stats.put(Stat.INT, new Stat(intl));
-        stats.put(Stat.WIS, new Stat(wis));
-        stats.put(Stat.CHA, new Stat(cha));
-    }
     
     public StatBlock(JsonObject source) {
+        
+        //De-Serializae the stats one by one.
         stats = new HashMap<>();
+        
         stats.put(Stat.STR, new Stat(source.get("strength").getAsInt()));
         stats.put(Stat.DEX, new Stat(source.get("dexterity").getAsInt()));
         stats.put(Stat.CON, new Stat(source.get("constitution").getAsInt()));
         stats.put(Stat.INT, new Stat(source.get("intelligence").getAsInt()));
         stats.put(Stat.WIS, new Stat(source.get("wisdom").getAsInt()));
         stats.put(Stat.CHA, new Stat(source.get("charisma").getAsInt()));
+        
+        
+        //De-Serialize the Proficiencies one by one.
+        profs = new ArrayList<>();
+        
+        JsonArray profArr = source.get("proficiencies").getAsJsonArray();
+        for(int i = 0; i < profArr.size(); i++) {
+            profs.add(new Proficiency(profArr.get(i).getAsJsonObject()));
+        }
+        
+        
     }
 
     public Stat getStat(String key) {
@@ -38,8 +43,17 @@ public class StatBlock {
         }
         return null;
     }
+    
     public Iterable<Stat> getAllStats(){
         return stats.values();
+    }
+    
+    public Proficiency getProf(int i) {
+        return profs.get(i);
+    }
+    
+    public Iterable<Proficiency> getAllProfs() {
+        return profs;
     }
 
     

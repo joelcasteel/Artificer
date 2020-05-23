@@ -9,17 +9,17 @@ public class Stat {
     public static final String WIS = "Wisdom";
     public static final String CHA = "Charisma";
     
-    private int stat = 0;
+    private int score = 0;
     
     public Stat(int pStat) {
-        stat = pStat;
+        score = pStat;
     }
     
     public int getMod() {
-        return (stat-10)/2;
+        return (score-10)/2;
     }
-    public int getStat() {
-        return stat;
+    public int getScore() {
+        return score;
     }
     
 }
