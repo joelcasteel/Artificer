@@ -22,7 +22,7 @@ public class StatTable extends GridPane {
         
         
         stats = null;
-        setHgap(12);
+        setVgap(6);
         setAlignment(Pos.CENTER_LEFT);
         getColumnConstraints().addAll(
                 new ColumnConstraints(100),

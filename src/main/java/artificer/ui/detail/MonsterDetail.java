@@ -4,10 +4,12 @@ import com.google.gson.JsonObject;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -19,7 +21,7 @@ public class MonsterDetail extends Detail {
     private StatTable statsTable;
     private GridPane detailGrid;
     
-    private TextField name, size, type, alignment;
+    private TextField name, size, type, alignment, hitPoints, armorClass;
     
     
     
@@ -39,6 +41,8 @@ public class MonsterDetail extends Detail {
         detailGrid.add(new Label("Size:"), 0, 1);
         detailGrid.add(new Label("Type:"), 0, 2);
         detailGrid.add(new Label("Alignment:"), 0, 3);
+        detailGrid.add(new Label("Hit Points:"), 0, 4);
+        detailGrid.add(new Label("Armor Class"), 0, 5);
         
         name = new TextField();
         detailGrid.add(name, 1, 0);
@@ -52,15 +56,22 @@ public class MonsterDetail extends Detail {
         alignment = new TextField();
         detailGrid.add(alignment, 1, 3);
         
+        hitPoints = new TextField();
+        detailGrid.add(hitPoints, 1, 4);
+        
+        armorClass = new TextField();
+        detailGrid.add(armorClass, 1, 5);
+        
         
         
         statsTable = new StatTable();
         
-        
+        Separator split = new Separator();
+        split.setHalignment(HPos.CENTER);
         
         
         holder.getChildren().addAll(
-               detailGrid, statsTable
+               detailGrid, split, statsTable
                );
         
     }
@@ -71,7 +82,10 @@ public class MonsterDetail extends Detail {
         size.setText(source.getSize());
         type.setText(source.getType());
         alignment.setText(source.getAlignment());
+        hitPoints.setText(Integer.toString(source.getHP()));
+        armorClass.setText(Integer.toString(source.getAC()));
         statsTable.setValues(source.getStats());
+        
         
         
     }
