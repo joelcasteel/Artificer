@@ -1,5 +1,6 @@
 package main.java.artificer.ui.menu;
 import javafx.scene.layout.VBox;
+import main.java.artificer.ui.App;
 
 
 public abstract class SideMenu extends VBox {
@@ -10,8 +11,8 @@ public abstract class SideMenu extends VBox {
     
     
     public SideMenu(String pName) {
-        getStylesheets().add(getClass().getResource("/ui/stylesheets/side-menu.css").toString());
-        getStyleClass().add("root");
+        getStylesheets().add(getClass().getResource(App.stylesheet).toString());
+        getStyleClass().add("side-menu");
         
         name = pName;
         open = false;

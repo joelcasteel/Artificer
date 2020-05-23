@@ -47,12 +47,8 @@ public class SideRibbon extends HBox {
     public SideRibbon() {
       //SIDE RIBBON
         sideRibbon  = new VBox();
-        sideRibbon.setPadding(new Insets(12,6, 120,6));
-        sideRibbon.setSpacing(12);
-        sideRibbon.setAlignment(Pos.TOP_CENTER);
-        BackgroundFill ribbonFill = new BackgroundFill(Color.DARKSEAGREEN,CornerRadii.EMPTY, Insets.EMPTY);
-        sideRibbon.setBackground(new Background(ribbonFill));
-        
+        getStylesheets().add(getClass().getResource(App.stylesheet).toString());
+        sideRibbon.setId("side-ribbon");
         //RIBBON SETUP
         try {
             

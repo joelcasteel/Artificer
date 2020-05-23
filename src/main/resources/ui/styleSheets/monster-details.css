@@ -1,3 +1,5 @@
+
+
 .text-field{
 	-fx-background-color: transparent;
 	-fx-border-width: 0;
@@ -8,6 +10,9 @@
 
 .text-field:focused{
 	-fx-background-color: lightgrey;
+}
+
+.label {
 }
 
 .number-text-field {

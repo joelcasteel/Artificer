@@ -29,6 +29,8 @@ public class MonsterDetail extends Detail {
     
     public MonsterDetail() {
         
+        
+        
         headerLabel.setText("Monster Details");
         
         

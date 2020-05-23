@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
+import main.java.artificer.ui.App;
 import main.java.artificer.ui.SideRibbon;
 
 public class DetailWrapper extends StackPane {
@@ -18,7 +19,7 @@ public class DetailWrapper extends StackPane {
     SideRibbon parentRibbon;
     
     public DetailWrapper(SideRibbon ribbon) {
-        getStylesheets().add(getClass().getResource("/ui/stylesheets/monster-details.css").toString());
+        getStylesheets().add(getClass().getResource(App.stylesheet).toString());
         parentRibbon = ribbon;
         details.put(MONSTER_DETAIL, new MonsterDetail());
         

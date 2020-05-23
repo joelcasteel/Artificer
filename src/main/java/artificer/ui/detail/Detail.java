@@ -7,11 +7,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import main.java.artificer.ui.App;
 
 public abstract class Detail extends BorderPane {
     protected boolean open;
@@ -22,21 +25,19 @@ public abstract class Detail extends BorderPane {
     protected VBox holder;
     
     public Detail() {
-        getStylesheets().add(getClass().getResource("/ui/stylesheets/side-menu.css").toString());
-        getStylesheets().add(getClass().getResource("/ui/stylesheets/monster-details.css").toString());
-        getStyleClass().add("root");
-        
         
         
         layout = new ScrollPane();
-        layout.getStyleClass().add("scroll-pane");
+        
         
         header = new HBox();
         header.setSpacing(12);
         header.setAlignment(Pos.CENTER_LEFT);
+        header.setId("detail-header");
         
         headerLabel = new Label();
-        backButton = new Button("<-");
+        backButton = new Button();
+        backButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/exit.png").toString())));
         
         header.getChildren().addAll(backButton, headerLabel);
         setTop(header);
@@ -46,7 +47,6 @@ public abstract class Detail extends BorderPane {
         holder = new VBox();
         holder.setPadding(new Insets(24, 0, 0, 0));
         holder.setSpacing(12);
-        holder.getStyleClass().add("pane");
         layout.setContent(holder);
         
         open = false;

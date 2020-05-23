@@ -64,8 +64,9 @@ public class SearchBox extends VBox {
         parentRibbon = parent;
         
         
-        getStylesheets().add(getClass().getResource("/ui/stylesheets/search-bar.css").toString());
+        getStylesheets().add(getClass().getResource(App.stylesheet).toString());
         getStyleClass().add("root");
+        setId("search-menu");
        
         
         setPrefSize(240, 540);
@@ -76,8 +77,9 @@ public class SearchBox extends VBox {
         searchField.setOnAction(searchHandler);
         searchField.setPromptText("Search...");
         searchField.setPrefWidth(200);
+        searchField.setId("search-field");
         
-        searchBox.getStyleClass().add("hbox");
+        searchBox.getStyleClass().add("search-box");
         searchBox.setPrefHeight(18);
         searchBox.setSpacing(6);
         searchBox.getChildren().add(searchField);
@@ -90,10 +92,11 @@ public class SearchBox extends VBox {
         filterField.setPrefWidth(200);
         filterField.setPromptText("Filter...");
         filterField.textProperty().addListener(filterHandler);
+        filterField.setId("filter-field");
         
         filterField.setPrefHeight(18);
         
-        filterBox.getStyleClass().add("hbox");
+        filterBox.getStyleClass().add("search-box");
         
         filterBox.setSpacing(6);
         filterBox.getChildren().addAll(

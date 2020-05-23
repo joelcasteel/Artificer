@@ -1,0 +1,176 @@
+@font-face {
+	font-family: "Open Sans Bold";
+	src: url('../fonts/OpenSans-Bold.ttf');
+}
+
+@font-face {
+	font-family: "Open Sans SemiBold";
+	src: url('../fonts/OpenSans-SemiBold.ttf');
+}
+
+
+@font-face {
+	font-family: "Open Sans";
+	src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+	font-family: "Open Sans ExtraBold";
+	src: url('../fonts/OpenSans-ExtraBold.ttf');
+}
+
+
+.root {
+	-fx-background-color: white;
+	-fx-font-family: "Open Sans";
+}
+
+#side-ribbon {
+	-fx-background-color: #e8bb46;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-padding: 12 6 120 6;
+	-fx-alignment: top-center;
+	-fx-spacing: 12;
+}
+
+#side-ribbon > .button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 24;
+	-fx-border-width: 1;
+	-fx-border-radius: 0;
+}
+
+#side-ribbon > .button:hover {
+	-fx-background-color: rgba(0,0,0,0.25);
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+}
+
+#side-ribbon > .button:pressed {
+	-fx-background-color: rgba(0,0,0,0.5);
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+}
+
+.side-menu {
+	-fx-border-style: solid solid none none;
+	-fx-border-width: 0.5;
+	-fx-border-color: darkgrey;
+	-fx-padding: 12 12 48 12;
+	-fx-background-color: white;
+}
+
+
+#search-menu {
+	-fx-background-color: white;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-padding: 0 0 0 0;
+	-fx-font-size: 8pt;
+}
+
+#search-menu > .text-field {
+	-fx-background-color: transparent;
+	-fx-padding: 2 4 2 4;
+	-fx-alignment: center-left;
+}
+
+#search-menu > .search-box {
+	-fx-background-color: #e3e3e3;
+	-fx-border-width: 0.5;
+	-fx-border-color: #e3e3e3;
+	-fx-padding: 0 0 0 0;
+	
+	-fx-alignment: center-left;
+	
+	-fx-background-radius: 2;
+	-fx-border-radius: 2;
+}
+
+#search-menu > .search-box:focused {
+	-fx-border-color: lightgrey;
+}
+
+#search-menu > .search-box > #search-field {
+	-fx-background-color: transparent;
+	-fx-padding: 2 4 2 4;
+	-fx-alignment: center-left;
+	-fx-font-size: 10pt;
+	-fx-font-family: "Open Sans SemiBold"
+}
+
+#search-menu > .search-box > #filter-field {
+	-fx-background-color: transparent;
+	-fx-padding: 2 4 2 4;
+	-fx-alignment: center-left;
+	-fx-font-size: 8pt;
+	-fx-font-family: "Open Sans"
+}
+
+#search-menu > .search-box > .button {
+	-fx-border-width: 0;
+	-fx-background-color: transparent;
+	-fx-background-radius: 24;
+}
+
+#search-menu > .search-box > .button:hover {
+	-fx-background-color: rgba(0,0,0,0.25);
+	
+}
+
+#search-menu > .search-box > .button:pressed {
+	-fx-background-color: rgba(0,0,0,0.5);
+}
+
+.list-view {
+	-fx-cell-size: 24;
+	-fx-border-width: 0.5;
+	-fx-border-color: #e3e3e3;
+	-fx-border-radius: 2;
+	-fx-font-size: 10pt;
+	
+}
+
+.list-cell:even, .list-cell:odd {
+	-fx-background-color: white;
+}
+
+
+.list-cell:filled:selected, .list-cell:filled:selected:focused {
+	-fx-background-color: #70a3bb;
+	-fx-text-fill: black;
+}
+
+.list-cell:filled:hover, .list-cell:filled:selected:hover {
+	-fx-background-color: lightgrey;
+}
+
+
+#detail-header {
+	-fx-spacing: 24;
+	-fx-alignment: center-left;
+}
+
+#detail-header > .button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 24;
+	-fx-background-insets: 3 6 3 6;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-padding: 6 12 6 12
+}
+
+#detail-header > .button:hover {
+	-fx-background-color: rgba(0,0,0,0.25);
+	
+}
+
+#detail-header > .button:pressed {
+	-fx-background-color: rgba(0,0,0,0.5);
+}
+
+#detail-header > .label {
+	-fx-font-family: "Open Sans Bold";
+	-fx-font-size: 10pt;
+}

@@ -11,13 +11,15 @@ public class App extends Application {
     
     MainPane main = new MainPane();
     
+    public static String stylesheet = "/ui/stylesheets/artificer-light.css";
+    
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         
         Scene scene = new Scene(main, 1200, 600);
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        scene.getStylesheets().add(getClass().getResource("/ui/stylesheets/general.css").toString());
+        scene.getStylesheets().add(getClass().getResource(stylesheet).toString());
         primaryStage.getIcons().add(new Image(getClass().getResource("/ui/icons/artificer_hand.png").toString()));
         
         primaryStage.setTitle("Artificer Version: 0.1");
