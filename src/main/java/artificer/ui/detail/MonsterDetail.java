@@ -67,11 +67,11 @@ public class MonsterDetail extends Detail {
     
     public void setContent(Monster source) {
         open();
-        /*name.setText(source.getName());
+        name.setText(source.getName());
         size.setText(source.getSize());
         type.setText(source.getType());
         alignment.setText(source.getAlignment());
-        statsTable.setValues(source.getStats());*/
+        statsTable.setValues(source.getStats());
         
         
     }
