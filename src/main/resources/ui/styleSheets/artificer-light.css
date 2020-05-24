@@ -146,13 +146,23 @@
 	-fx-background-color: lightgrey;
 }
 
-
-#detail-header {
-	-fx-spacing: 24;
-	-fx-alignment: center-left;
+#detail-menu {
+	-fx-background-color: transparent;
+	-fx-border-width: 0.5;
+	-fx-border-radius: 0;
+	-fx-border-style: none solid none none;
+	-fx-border-color: darkgrey;
 }
 
-#detail-header > .button {
+#detail-menu > .hbox {
+	-fx-spacing: 24;
+	-fx-alignment: center-left;
+	-fx-border-width: 0.5;
+	-fx-border-style: solid none solid none;
+	-fx-border-color: darkgrey;
+}
+
+#detail-menu > .hbox > .button {
 	-fx-background-color: transparent;
 	-fx-background-radius: 24;
 	-fx-background-insets: 3 6 3 6;
@@ -161,16 +171,83 @@
 	-fx-padding: 6 12 6 12
 }
 
-#detail-header > .button:hover {
+#detail-menu > .hbox > .button:hover {
 	-fx-background-color: rgba(0,0,0,0.25);
 	
 }
 
-#detail-header > .button:pressed {
+#detail-menu > .hbox > .button:pressed {
 	-fx-background-color: rgba(0,0,0,0.5);
 }
 
-#detail-header > .label {
+#detail-menu > .hbox > .label {
 	-fx-font-family: "Open Sans Bold";
 	-fx-font-size: 10pt;
 }
+
+#detail-menu > .scroll-pane {
+	-fx-padding: 12 12 48 12;
+	-fx-border-width: 0.5;
+	-fx-border-style: none solid none none;
+	-fx-border-radius: 0;
+	-fx-background-color: transparent;
+}
+
+#detail-menu > .scroll-pane > .viewport {
+	-fx-background-color: transparent;
+}
+
+#monster-detail {
+	-fx-background-color: transparent;	
+	-fx-padding: 12 0 0 0;
+	-fx-spacing: 12;
+}
+
+#monster-detail > #detail-grid {
+	-fx-background-color: white;	
+	-fx-hgap: 12;
+}
+
+#monster-detail > #detail-grid > .label {
+	-fx-font-family: "Open Sans SemiBold";
+}
+
+#monster-detail > #detail-grid > .text-field {
+	-fx-background-color: transparent;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	-fx-padding: 3 0 3 0;
+}
+
+#monster-detail > #detail-grid > .text-field:hover {
+	-fx-background-color: rgba(0,0,0,0.1);
+}
+
+
+#monster-detail > #detail-grid > .text-field:focused {
+	-fx-background-color: rgba(0,0,0,0.2);
+}
+
+#stat-table {
+	
+}
+
+#stat-table > .label {
+	-fx-font-family: "Open Sans";
+}
+
+#stat-table > .text-field {
+	-fx-background-color: rgba(0,0,0,0.1);
+	-fx-background-radius: 24;
+	-fx-alignment: center;
+	-fx-padding: 3 0 3 0;
+}
+
+.number-text-field:hover{
+	-fx-background-color: rgba(0,0,0,0.15);
+}
+
+.number-text-field:focused{
+	-fx-background-color: rgba(0,0,0,0.2);
+}
+

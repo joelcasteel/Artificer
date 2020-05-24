@@ -25,15 +25,16 @@ public abstract class Detail extends BorderPane {
     protected VBox holder;
     
     public Detail() {
-        
+        setId("detail-menu");
         
         layout = new ScrollPane();
         
         
         header = new HBox();
+        header.getStyleClass().add("hbox");
         header.setSpacing(12);
         header.setAlignment(Pos.CENTER_LEFT);
-        header.setId("detail-header");
+        
         
         headerLabel = new Label();
         backButton = new Button();
@@ -45,8 +46,6 @@ public abstract class Detail extends BorderPane {
         
         
         holder = new VBox();
-        holder.setPadding(new Insets(24, 0, 0, 0));
-        holder.setSpacing(12);
         layout.setContent(holder);
         
         open = false;

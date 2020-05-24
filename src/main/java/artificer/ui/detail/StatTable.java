@@ -19,7 +19,7 @@ public class StatTable extends GridPane {
 
     
     public StatTable() {
-        
+        setId("stat-table");
         
         stats = null;
         setVgap(6);
@@ -41,7 +41,6 @@ public class StatTable extends GridPane {
             add(mods[i], 1, i);
             fields[i] = new TextField();
             fields[i].setMaxWidth(24);
-            fields[i].getStyleClass().add("number-text-field");
             add(fields[i], 2, i);
         }
     }

@@ -29,13 +29,14 @@ public class MonsterDetail extends Detail {
     
     public MonsterDetail() {
         
+        holder.setId("monster-detail");
         
         
         headerLabel.setText("Monster Details");
         
         
         detailGrid = new GridPane();
-        detailGrid.setHgap(12);
+        detailGrid.setId("detail-grid");
         detailGrid.getColumnConstraints().add(new ColumnConstraints(100));
         detailGrid.getColumnConstraints().add(new ColumnConstraints(200));
         
