@@ -2,6 +2,8 @@ package main.java.artificer.ui.detail;
 
 import java.util.Iterator;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,7 +14,6 @@ import main.java.artificer.stats.StatBlock;
 
 public class StatTable extends GridPane {
     StatBlock stats;
-    
     
     Label mods[] = new Label[6];
     TextField fields[] = new TextField[6];
@@ -41,6 +42,7 @@ public class StatTable extends GridPane {
             add(mods[i], 1, i);
             fields[i] = new TextField();
             fields[i].setMaxWidth(60);
+            fields[i].setOnAction(fieldHandler);
             add(fields[i], 2, i);
         }
     }
@@ -65,5 +67,61 @@ public class StatTable extends GridPane {
         
     }
     
+    public void updateValues() {
+        Iterator<Stat> iter = stats.getAllStats().iterator();
+        for(int i = 0; i < 6; i++) {
+            Stat stat = iter.next();
+            System.out.println(stat.getScore());
+            String modString = " (";
+            if(stat.getMod() >= 0) {
+                modString += "+ ";
+                modString += Integer.toString(stat.getMod());
+            } else {
+                modString += "- ";
+                modString += Integer.toString(stat.getMod()*-1);
+            }
+            modString += ")";
+            mods[i].setText(modString);
+            fields[i].setText(Integer.toString(stat.getScore()));
+        }
+    }
+    
+    class StatRow extends GridPane {
+        
+        
+        public StatRow() {
+            setAlignment(Pos.CENTER_LEFT);
+            getColumnConstraints().addAll(
+                new ColumnConstraints(100),
+                new ColumnConstraints(100),
+                new ColumnConstraints(100)
+                );
+        }
+    }
+    
+    EventHandler<ActionEvent> fieldHandler = new EventHandler<ActionEvent>(){
+
+        @Override
+        public void handle(ActionEvent event) {
+            int i = 0;
+            while(!event.getSource().equals(fields[i])) {
+                i++;
+            }
+            
+            boolean changed = stats.changeScore(Stat.STATNAME[i], 
+                    Integer.parseInt(((TextField)event.getSource()).getText()));
+            
+            
+            if(changed)
+                System.out.println("GOTTEM");
+            
+            System.out.println(stats.getStat(Stat.STATNAME[i]).getScore());
+            
+            updateValues();
+            
+            
+        }
+        
+    };
 
 }

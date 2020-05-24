@@ -2,6 +2,7 @@ package main.java.artificer.stats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
@@ -56,7 +57,15 @@ public class StatBlock {
         return profs;
     }
 
-    
+    public boolean changeScore(String key, int score) {
+        if(stats.containsKey(key)) {
+            stats.remove(key);
+            stats.put(key, new Stat(score));
+            System.out.println(stats);
+            return true;
+        }
+        return false;
+    }
     
 
 }

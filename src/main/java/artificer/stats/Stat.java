@@ -9,6 +9,10 @@ public class Stat {
     public static final String WIS = "Wisdom";
     public static final String CHA = "Charisma";
     
+    public static final String STATNAME[] = {
+        STR, DEX, CON, INT, WIS, CHA
+    };
+    
     private int score = 0;
     
     public Stat(int pStat) {
@@ -20,6 +24,9 @@ public class Stat {
     }
     public int getScore() {
         return score;
+    }
+    public String toString() {
+        return "" + getScore();
     }
     
 }
