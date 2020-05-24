@@ -40,7 +40,7 @@ public class StatTable extends GridPane {
             mods[i] = new Label();
             add(mods[i], 1, i);
             fields[i] = new TextField();
-            fields[i].setMaxWidth(24);
+            fields[i].setMaxWidth(60);
             add(fields[i], 2, i);
         }
     }

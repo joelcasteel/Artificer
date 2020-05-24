@@ -77,27 +77,31 @@
 }
 
 #search-menu > .search-box {
-	-fx-background-color: #e3e3e3;
-	-fx-border-width: 0.5;
-	-fx-border-color: #e3e3e3;
-	-fx-padding: 0 0 0 0;
+	-fx-background-color: transparent; /*rgba(0,0,0,0.2);*/
+	-fx-border-width: 0;
 	
 	-fx-alignment: center-left;
-	
-	-fx-background-radius: 2;
-	-fx-border-radius: 2;
 }
 
-#search-menu > .search-box:focused {
-	-fx-border-color: lightgrey;
-}
-
-#search-menu > .search-box > #search-field {
-	-fx-background-color: transparent;
+#search-menu > .search-box > .text-field {
+	-fx-background-color: rgba(0,0,0,0.1);
 	-fx-padding: 2 4 2 4;
 	-fx-alignment: center-left;
 	-fx-font-size: 10pt;
-	-fx-font-family: "Open Sans SemiBold"
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-border-width: 2;
+	-fx-border-radius: 4;
+	-fx-border-style: none none solid none;
+	-fx-border-color: transparent;
+}
+
+#search-menu > .search-box > .text-field:hover {
+	-fx-background-color: rgba(0,0,0,0.2);
+}
+
+#search-menu > .search-box > .text-field:focused {
+	-fx-background-color: transparent;
+	-fx-border-color: #70a3bb;
 }
 
 #search-menu > .search-box > #filter-field {
@@ -210,13 +214,17 @@
 
 #monster-detail > #detail-grid > .label {
 	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-size: 10pt;
 }
 
 #monster-detail > #detail-grid > .text-field {
 	-fx-background-color: transparent;
-	-fx-border-width: 0;
-	-fx-border-radius: 0;
-	-fx-padding: 3 0 3 0;
+	-fx-border-width: 2;
+	-fx-border-radius: 4;
+	-fx-border-color: transparent;
+	-fx-padding: 3 6 3 6;
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 10pt;
 }
 
 #monster-detail > #detail-grid > .text-field:hover {
@@ -225,7 +233,8 @@
 
 
 #monster-detail > #detail-grid > .text-field:focused {
-	-fx-background-color: rgba(0,0,0,0.2);
+	-fx-border-color: #70a3bb;
+	-fx-background-color: transparent;
 }
 
 #stat-table {
@@ -233,7 +242,7 @@
 }
 
 #stat-table > .label {
-	-fx-font-family: "Open Sans";
+	-fx-font-family: "Open Sans SemiBold";
 }
 
 #stat-table > .text-field {
@@ -241,13 +250,17 @@
 	-fx-background-radius: 24;
 	-fx-alignment: center;
 	-fx-padding: 3 0 3 0;
+	-fx-border-width: 2;
+	-fx-border-radius: 24;
+	-fx-border-color: transparent;
 }
 
-.number-text-field:hover{
-	-fx-background-color: rgba(0,0,0,0.15);
-}
-
-.number-text-field:focused{
+#stat-table > .text-field:hover{
 	-fx-background-color: rgba(0,0,0,0.2);
+}
+
+#stat-table > .text-field:focused{
+	-fx-background-color: transparent;
+	-fx-border-color: #70a3bb;
 }
 

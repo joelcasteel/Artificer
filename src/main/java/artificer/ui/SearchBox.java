@@ -77,7 +77,6 @@ public class SearchBox extends VBox {
         searchField.setOnAction(searchHandler);
         searchField.setPromptText("Search...");
         searchField.setPrefWidth(200);
-        searchField.setId("search-field");
         
         searchBox.getStyleClass().add("search-box");
         searchBox.setPrefHeight(18);
@@ -87,12 +86,12 @@ public class SearchBox extends VBox {
         getChildren().add(searchBox);
         
         StackPane filterImg = new StackPane();
-        filterImg.setPadding(new Insets(4));
+        filterImg.setPadding(new Insets(6));
         filterImg.getChildren().add(filterIcon);
         filterField.setPrefWidth(200);
         filterField.setPromptText("Filter...");
         filterField.textProperty().addListener(filterHandler);
-        filterField.setId("filter-field");
+        //filterField.setId("filter-field");
         
         filterField.setPrefHeight(18);
         
