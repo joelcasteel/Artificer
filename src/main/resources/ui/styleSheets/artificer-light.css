@@ -245,7 +245,11 @@
 	-fx-font-family: "Open Sans SemiBold";
 }
 
-#stat-table > .text-field {
+#stat-table > .stat-row > .label {
+	-fx-font-family: "Open Sans SemiBold";
+}
+
+#stat-table > .stat-row > .text-field {
 	-fx-background-color: rgba(0,0,0,0.1);
 	-fx-background-radius: 24;
 	-fx-alignment: center;
@@ -255,11 +259,11 @@
 	-fx-border-color: transparent;
 }
 
-#stat-table > .text-field:hover{
+#stat-table > .stat-row > .text-field:hover{
 	-fx-background-color: rgba(0,0,0,0.2);
 }
 
-#stat-table > .text-field:focused{
+#stat-table > .stat-row > .text-field:focused{
 	-fx-background-color: transparent;
 	-fx-border-color: #70a3bb;
 }

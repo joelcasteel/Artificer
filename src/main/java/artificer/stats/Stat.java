@@ -22,6 +22,20 @@ public class Stat {
     public int getMod() {
         return (score-10)/2;
     }
+    
+    public String getModString() {
+        String modString = " (";
+        if(getMod() >= 0) {
+            modString += "+ ";
+            modString += Integer.toString(getMod());
+        } else {
+            modString += "- ";
+            modString += Integer.toString(getMod()*-1);
+        }
+        modString += ")";
+        
+        return modString;
+    }
     public int getScore() {
         return score;
     }
