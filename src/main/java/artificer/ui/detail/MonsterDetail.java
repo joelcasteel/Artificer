@@ -1,7 +1,12 @@
 package main.java.artificer.ui.detail;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.google.gson.JsonObject;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -9,12 +14,19 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
+import main.java.artificer.stats.Proficiency;
+import main.java.artificer.ui.MonsterCache;
+import main.java.artificer.ui.MonsterCard;
+import main.java.artificer.ui.ProfCell;
 
 public class MonsterDetail extends Detail {
     
@@ -23,7 +35,7 @@ public class MonsterDetail extends Detail {
     
     private TextField name, size, type, alignment, hitPoints, armorClass;
     
-    
+    private ListView<Proficiency> profList = new ListView<Proficiency>();
     
     
     
@@ -69,12 +81,27 @@ public class MonsterDetail extends Detail {
         
         statsTable = new StatTable();
         
-        Separator split = new Separator();
-        split.setHalignment(HPos.CENTER);
+        Separator split[] = new Separator[2];
+        split[0] = new Separator();
+        split[0].setHalignment(HPos.CENTER);
+        split[1] = new Separator();
+        split[1].setHalignment(HPos.CENTER);
+        
+        Label profLabel = new Label("Proficiencies");
+        profList.setPrefSize(300, 180);
+        profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
+            @Override
+            public ListCell<Proficiency> call(ListView<Proficiency> monsterListView) {
+                return new ProfCell();
+                
+            }
+        });
+        
         
         
         holder.getChildren().addAll(
-               detailGrid, split, statsTable
+               detailGrid, split[0], statsTable, split[1],
+               profLabel, profList
                );
         
     }
@@ -88,6 +115,13 @@ public class MonsterDetail extends Detail {
         hitPoints.setText(Integer.toString(source.getHP()));
         armorClass.setText(Integer.toString(source.getAC()));
         statsTable.setValues(source.getStats());
+        ArrayList<Proficiency> profs = new ArrayList<>();
+        Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
+        while(iter.hasNext()) {
+            profs.add(iter.next());
+        }
+        
+        profList.setItems(FXCollections.observableArrayList(profs));
         
         
         
