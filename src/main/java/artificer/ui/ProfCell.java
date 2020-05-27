@@ -3,6 +3,7 @@ package main.java.artificer.ui;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -14,7 +15,7 @@ public class ProfCell extends ListCell<Proficiency> {
 
     private GridPane grid = new GridPane();
     private Label name = new Label();
-    private Label stat = new Label();
+    private TextField stat = new TextField();
     private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
     private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
     private StackPane imgPane = new StackPane();
@@ -27,6 +28,10 @@ public class ProfCell extends ListCell<Proficiency> {
                 new ColumnConstraints(120),
                 new ColumnConstraints(48)
                 );
+        
+        name.getStyleClass().add("proficiency-label");
+        stat.getStyleClass().add("number-field");
+        
         grid.add(name, 1, 0);
         grid.add(stat, 2, 0);
         

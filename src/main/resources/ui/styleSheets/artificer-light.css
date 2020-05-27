@@ -146,6 +146,13 @@
 	-fx-text-fill: black;
 }
 
+
+
+.proficiency-label {
+	-fx-font-family: "Open Sans";
+	-fx-text-fill: black;
+}
+
 .list-cell:filled:hover, .list-cell:filled:selected:hover {
 	-fx-background-color: lightgrey;
 }
@@ -247,6 +254,25 @@
 
 #stat-table > .stat-row > .label {
 	-fx-font-family: "Open Sans SemiBold";
+}
+
+.number-field {
+	-fx-background-color: rgba(0,0,0,0.1);
+	-fx-background-radius: 24;
+	-fx-alignment: center;
+	-fx-padding: 3 0 3 0;
+	-fx-border-width: 2;
+	-fx-border-radius: 24;
+	-fx-border-color: transparent;
+}
+
+.number-field:hover{
+	-fx-background-color: rgba(0,0,0,0.2);
+}
+
+.number-field:focused{
+	-fx-background-color: transparent;
+	-fx-border-color: #70a3bb;
 }
 
 #stat-table > .stat-row > .text-field {
