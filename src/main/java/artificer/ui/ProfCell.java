@@ -1,5 +1,7 @@
 package main.java.artificer.ui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -10,12 +12,13 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import main.java.artificer.stats.Proficiency;
+import main.java.artificer.ui.detail.ModNumberField;
 
 public class ProfCell extends ListCell<Proficiency> {
 
     private GridPane grid = new GridPane();
     private Label name = new Label();
-    private TextField stat = new TextField();
+    private ModNumberField stat = new ModNumberField();
     private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
     private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
     private StackPane imgPane = new StackPane();
@@ -31,6 +34,8 @@ public class ProfCell extends ListCell<Proficiency> {
         
         name.getStyleClass().add("proficiency-label");
         stat.getStyleClass().add("number-field");
+        
+        stat.setOnAction(fieldHandler);
         
         grid.add(name, 1, 0);
         grid.add(stat, 2, 0);
@@ -48,7 +53,7 @@ public class ProfCell extends ListCell<Proficiency> {
             setText(null);
         } else {
             chooseIcon(prof.getName());
-            stat.setText(Integer.toString(prof.getValue()));
+            stat.setNumericValue(prof.getValue());
             setGraphic(grid);
             
         }
@@ -65,5 +70,17 @@ public class ProfCell extends ListCell<Proficiency> {
         }
         name.setText(split[1]);
     }
+    
+    
+    EventHandler<ActionEvent> fieldHandler = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            stat.getNumericValue();
+            
+        }
+        
+    };
+    
     
 }
