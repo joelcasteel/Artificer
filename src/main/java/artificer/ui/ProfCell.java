@@ -32,7 +32,7 @@ public class ProfCell extends ListCell<Proficiency> {
         
         grid.setHgap(12);
         grid.getColumnConstraints().addAll(
-                new ColumnConstraints(24),
+                new ColumnConstraints(48),
                 new ColumnConstraints(120),
                 new ColumnConstraints(48)
                 );

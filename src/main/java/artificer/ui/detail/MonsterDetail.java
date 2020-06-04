@@ -16,6 +16,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -47,6 +48,8 @@ public class MonsterDetail extends Detail {
     private TextField newProfName = new TextField();
     private ModNumberField stat = new ModNumberField();
     private Button addButton = new Button();
+    private ComboBox<String> typeBox = new ComboBox<String>();
+    
     
     
     
@@ -116,18 +119,22 @@ public class MonsterDetail extends Detail {
         
         grid.setHgap(12);
         grid.getColumnConstraints().addAll(
-                new ColumnConstraints(24),
+                new ColumnConstraints(48),
                 new ColumnConstraints(120),
                 new ColumnConstraints(48)
                 );
         
         
         stat.getStyleClass().add("number-field");
+        newProfName.getStyleClass().add("blank-text-field");
+        newProfName.setPromptText("New...");
         
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         addButton.setPadding(new Insets(6));
         
-        grid.add(addButton, 0, 0);
+        typeBox.setItems(FXCollections.observableArrayList("Skill", "Save"));
+        
+        grid.add(typeBox, 0, 0);
         grid.add(newProfName, 1, 0);
         grid.add(stat, 2, 0);
         

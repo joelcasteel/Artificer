@@ -326,5 +326,26 @@
 	-fx-background-color: rgba(0,0,0,0.5);
 }
 
+.blank-text-field {
+	-fx-background-color: transparent;
+	-fx-border-width: 2;
+	-fx-border-radius: 4;
+	-fx-border-color: transparent;
+	-fx-padding: 3 6 3 6;
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 10pt;
+}
+
+.blank-text-field:hover {
+	-fx-background-color: rgba(0,0,0,0.1);
+}
+
+
+.blank-text-field:focused {
+	-fx-border-color: #70a3bb;
+	-fx-background-color: transparent;
+}
+
+
 
 
