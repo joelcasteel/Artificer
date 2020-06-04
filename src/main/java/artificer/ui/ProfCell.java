@@ -16,6 +16,8 @@ import main.java.artificer.ui.detail.ModNumberField;
 
 public class ProfCell extends ListCell<Proficiency> {
 
+    public static final int CELL_HEIGHT = 36;
+    
     private GridPane grid = new GridPane();
     private Label name = new Label();
     private ModNumberField stat = new ModNumberField();
@@ -24,6 +26,9 @@ public class ProfCell extends ListCell<Proficiency> {
     private StackPane imgPane = new StackPane();
     
     public ProfCell() {
+        
+        setMaxHeight(CELL_HEIGHT);
+        setPrefHeight(CELL_HEIGHT);
         
         grid.setHgap(12);
         grid.getColumnConstraints().addAll(

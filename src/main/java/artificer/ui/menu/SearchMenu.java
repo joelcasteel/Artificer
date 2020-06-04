@@ -16,9 +16,8 @@ public class SearchMenu extends SideMenu {
         searcher = new SearchBox(ribbon);
         getChildren().add(searcher);
         
-        
-        
     }
+    
     
     
     

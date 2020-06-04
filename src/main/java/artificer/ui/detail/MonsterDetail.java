@@ -7,9 +7,12 @@ import java.util.List;
 import com.google.gson.JsonObject;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -18,6 +21,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -36,6 +41,12 @@ public class MonsterDetail extends Detail {
     private TextField name, size, type, alignment, hitPoints, armorClass;
     
     private ListView<Proficiency> profList = new ListView<Proficiency>();
+    private ObservableList<Proficiency> profs = FXCollections.observableArrayList();
+    
+    private GridPane grid = new GridPane();
+    private TextField newProfName = new TextField();
+    private ModNumberField stat = new ModNumberField();
+    private Button addButton = new Button();
     
     
     
@@ -87,7 +98,7 @@ public class MonsterDetail extends Detail {
         split[1] = new Separator();
         split[1].setHalignment(HPos.CENTER);
         
-        Label profLabel = new Label("Proficiencies");
+        profList.getStyleClass().add("prof-list");
         profList.setPrefSize(300, 180);
         profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
             @Override
@@ -97,11 +108,33 @@ public class MonsterDetail extends Detail {
             }
         });
         
+        grid.setMaxHeight(ProfCell.CELL_HEIGHT);
+        grid.setPrefHeight(ProfCell.CELL_HEIGHT);
+        
+        grid.setPrefWidth(300);
+        grid.getStyleClass().add("create-box");
+        
+        grid.setHgap(12);
+        grid.getColumnConstraints().addAll(
+                new ColumnConstraints(24),
+                new ColumnConstraints(120),
+                new ColumnConstraints(48)
+                );
+        
+        
+        stat.getStyleClass().add("number-field");
+        
+        addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
+        addButton.setPadding(new Insets(6));
+        
+        grid.add(addButton, 0, 0);
+        grid.add(newProfName, 1, 0);
+        grid.add(stat, 2, 0);
         
         
         holder.getChildren().addAll(
                detailGrid, split[0], statsTable, split[1],
-               profLabel, profList
+               profList, grid
                );
         
     }
@@ -115,13 +148,15 @@ public class MonsterDetail extends Detail {
         hitPoints.setText(Integer.toString(source.getHP()));
         armorClass.setText(Integer.toString(source.getAC()));
         statsTable.setValues(source.getStats());
-        ArrayList<Proficiency> profs = new ArrayList<>();
         Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
+        List<Proficiency> profs = new ArrayList<Proficiency>();
+        
         while(iter.hasNext()) {
             profs.add(iter.next());
         }
-        
         profList.setItems(FXCollections.observableArrayList(profs));
+        
+        
         
         
         
