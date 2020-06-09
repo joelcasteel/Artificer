@@ -346,6 +346,13 @@
 	-fx-background-color: transparent;
 }
 
+.combo-box-base {
+	-fx-background-color: rgba(0,0,0,0.1);
+	-fx-padding: 0;
+}
 
+.select-cell {
+	-fx-background-color: red;
+}
 
 

@@ -51,6 +51,15 @@ public class MonsterDetail extends Detail {
     private ComboBox<String> typeBox = new ComboBox<String>();
     
     
+    private Label saveIconLabel = new Label("Save");
+    private Label skillIconLabel = new Label("Skill");
+    private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
+    private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
+    
+    private ImageView saveIconButton = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
+    private ImageView skillIconButton = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
+    
+    
     
     
     public MonsterDetail() {
@@ -132,7 +141,63 @@ public class MonsterDetail extends Detail {
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         addButton.setPadding(new Insets(6));
         
+        saveIconLabel.setGraphic(saveIcon);
+        skillIconLabel.setGraphic(skillIcon);
+        
+        
         typeBox.setItems(FXCollections.observableArrayList("Skill", "Save"));
+        
+        typeBox.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+
+            @Override public ListCell<String> call(ListView<String> p) {
+                return new ListCell<String>() {
+                    
+                    Label label;
+                    {
+                        label = new Label();
+                        getStyleClass().add("select-cell");
+                        
+                    }
+
+                    @Override protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setGraphic(null);
+                        } else {
+                            label.setText(item);
+                            if(item.contentEquals("Skill")) {
+                                label.setGraphic(skillIcon);
+                            } else if (item.contentEquals("Save")) {
+                                label.setGraphic(saveIcon);
+                            }
+                            setGraphic(label);
+                            
+                        }
+                   }
+              };
+          }
+        });
+        
+        class IconTextCellClass extends ListCell<String> {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item != null) {
+                    if(item.contentEquals("Skill")) {
+                        setGraphic(skillIconButton);
+                    } else if (item.contentEquals("Save")) {
+                        setGraphic(saveIconButton);
+                    }
+                }
+            }
+        };
+
+        typeBox.setButtonCell(new IconTextCellClass());
+        
+        typeBox.getSelectionModel().selectFirst();
+        
+        
         
         grid.add(typeBox, 0, 0);
         grid.add(newProfName, 1, 0);
@@ -162,6 +227,7 @@ public class MonsterDetail extends Detail {
             profs.add(iter.next());
         }
         profList.setItems(FXCollections.observableArrayList(profs));
+        
         
         
         
