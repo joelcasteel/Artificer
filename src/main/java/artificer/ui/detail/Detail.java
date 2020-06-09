@@ -1,11 +1,14 @@
 package main.java.artificer.ui.detail;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +31,7 @@ public abstract class Detail extends BorderPane {
         setId("detail-menu");
         
         layout = new ScrollPane();
+        layout.setHbarPolicy(ScrollBarPolicy.NEVER);
         
         
         header = new HBox();
@@ -39,6 +43,7 @@ public abstract class Detail extends BorderPane {
         headerLabel = new Label();
         backButton = new Button();
         backButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/exit.png").toString())));
+        backButton.setOnAction(buttonHandler);
         
         header.getChildren().addAll(backButton, headerLabel);
         setTop(header);
@@ -111,6 +116,21 @@ public abstract class Detail extends BorderPane {
         
         
     }
+    
+    /**
+     * Event Handler for the back button.
+     */
+    EventHandler<ActionEvent> buttonHandler = new EventHandler<>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            if(event.getSource().equals(backButton)) {
+                close();
+            }
+            
+        }
+        
+    };
     
     
 }

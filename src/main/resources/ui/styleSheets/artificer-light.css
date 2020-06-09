@@ -170,7 +170,7 @@
 #detail-menu > .hbox {
 	-fx-spacing: 24;
 	-fx-alignment: center-left;
-	-fx-border-width: 0.5;
+	-fx-border-width: 0;
 	-fx-border-style: solid none solid none;
 	-fx-border-color: darkgrey;
 }
@@ -199,12 +199,13 @@
 }
 
 #detail-menu > .scroll-pane {
-	-fx-padding: 12 12 48 12;
+	-fx-padding: 0 12 0 12;
 	-fx-border-width: 0.5;
 	-fx-border-style: none solid none none;
 	-fx-border-radius: 0;
 	-fx-background-color: transparent;
 }
+
 
 #detail-menu > .scroll-pane > .viewport {
 	-fx-background-color: transparent;
@@ -212,7 +213,7 @@
 
 #monster-detail {
 	-fx-background-color: transparent;	
-	-fx-padding: 12 0 0 0;
+	-fx-padding: 12 0 24 0;
 	-fx-spacing: 12;
 }
 
@@ -348,43 +349,43 @@
 	-fx-background-color: transparent;
 }
 
-.combo-box {
+.cool-combo-box {
 	-fx-border-color: rgba(0,0,0,0.1);
 	-fx-background-color: rgba(0,0,0,0.1);
 }
 
-.combo-box > .arrow-button {
+.cool-combo-box > .arrow-button {
 	-fx-background-color: transparent;
 	-fx-padding: 4;
 }
 
-.combo-box:hover {
+.cool-combo-box:hover {
 	-fx-background-color: rgba(0,0,0,0.25);
 }
 
-.combo-box:pressed {
+.cool-combo-box:pressed {
 	-fx-background-color: rgba(0,0,0,0.5);
 }
 
-.combo-box > .list-cell {
+.cool-combo-box > .list-cell {
 	-fx-background-color: transparent;
 }
 
-.combo-cell:even, .combo-cell:odd {
+.cool-combo-cell:even, .cool-combo-cell:odd {
 	-fx-background-color: white;
 	-fx-text-fill: black;
 }
 
-.combo-cell:filled:selected, .combo-cell:filled:selected:focused {
+.cool-combo-cell:filled:selected, .cool-combo-cell:filled:selected:focused {
 	-fx-background-color: #70a3bb;
 	-fx-text-fill: black;
 }
 
-.combo-cell:filled:hover, .combo-cell:filled:selected:hover {
+.cool-combo-cell:filled:hover, .cool-combo-cell:filled:selected:hover {
 	-fx-background-color: lightgrey;
 	-fx-text-fill: black;
 }
 
-.combo-cell > .label {
+.cool-combo-cell > .label {
 	-fx-text-fill: black;
 }

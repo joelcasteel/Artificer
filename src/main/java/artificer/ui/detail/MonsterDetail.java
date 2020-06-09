@@ -4,18 +4,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.gson.JsonObject;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -26,12 +21,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
-import main.java.artificer.ui.MonsterCache;
-import main.java.artificer.ui.MonsterCard;
 import main.java.artificer.ui.ProfCell;
 
 public class MonsterDetail extends Detail {
@@ -42,7 +34,6 @@ public class MonsterDetail extends Detail {
     private TextField name, size, type, alignment, hitPoints, armorClass;
     
     private ListView<Proficiency> profList = new ListView<Proficiency>();
-    private ObservableList<Proficiency> profs = FXCollections.observableArrayList();
     
     private GridPane grid = new GridPane();
     private TextField newProfName = new TextField();
@@ -130,14 +121,15 @@ public class MonsterDetail extends Detail {
         grid.getColumnConstraints().addAll(
                 new ColumnConstraints(48),
                 new ColumnConstraints(120),
-                new ColumnConstraints(48),
                 new ColumnConstraints(48)
                 );
         
         
         stat.getStyleClass().add("number-field");
+        stat.setOnAction(profFieldHandler);
         newProfName.getStyleClass().add("blank-text-field");
         newProfName.setPromptText("New...");
+        newProfName.setOnAction(profFieldHandler);
         
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         addButton.setPadding(new Insets(6));
@@ -147,6 +139,7 @@ public class MonsterDetail extends Detail {
         
         
         typeBox.setItems(FXCollections.observableArrayList("Skill", "Save"));
+        typeBox.getStyleClass().add("cool-combo-box");
         
         typeBox.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 
@@ -155,7 +148,7 @@ public class MonsterDetail extends Detail {
                     
                     Label label;
                     {
-                        getStyleClass().add("combo-cell");
+                        getStyleClass().add("cool-combo-cell");
                         label = new Label();
                         
                     }
@@ -200,6 +193,8 @@ public class MonsterDetail extends Detail {
         
         
         
+        
+        
         grid.add(typeBox, 0, 0);
         grid.add(newProfName, 1, 0);
         grid.add(stat, 2, 0);
@@ -214,38 +209,68 @@ public class MonsterDetail extends Detail {
     
     public void setContent(Monster source) {
         open();
+        
         name.setText(source.getName());
         size.setText(source.getSize());
         type.setText(source.getType());
+        
         alignment.setText(source.getAlignment());
+        
         hitPoints.setText(Integer.toString(source.getHP()));
         armorClass.setText(Integer.toString(source.getAC()));
+        
         statsTable.setValues(source.getStats());
+        
         Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
         List<Proficiency> profs = new ArrayList<Proficiency>();
         
         while(iter.hasNext()) {
             profs.add(iter.next());
         }
+        
         profList.setItems(FXCollections.observableArrayList(profs));
-        
-        
-        
-        
-        
+   
         
     }
     
-    EventHandler<ActionEvent> buttonHandler = new EventHandler<>() {
+    EventHandler<ActionEvent> profFieldHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
-            if(event.getSource().equals(backButton)) {
-                close();
+            int mod;
+            
+            try {
+                mod = Integer.parseInt(stat.getText());
+            } catch (Exception ex) {
+                mod = 0;
             }
+            
+            String profName = "";
+            
+            if(typeBox.getSelectionModel().getSelectedItem().contentEquals("Save")) {
+                profName += "Saving Throw: ";
+            } else {
+                profName += "Skill: ";
+            }
+            
+            profName += newProfName.getText();
+            
+            Proficiency prof = new Proficiency(profName, mod);
+            Iterator<Proficiency> iter = profList.getItems().iterator();
+            List<Proficiency> profs = new ArrayList<Proficiency>();
+            
+            while(iter.hasNext()) {
+                profs.add(iter.next());
+            }
+            profs.add(prof);
+            
+            profList.setItems(FXCollections.observableArrayList(profs));
+            
+            
             
         }
         
     };
+    
     
 }

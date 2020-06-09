@@ -13,6 +13,11 @@ public class Proficiency {
         value = source.get("value").getAsInt();
     }
     
+    public Proficiency(String pName, int val) {
+        name = pName;
+        value = val;
+    }
+    
     public String getName() {
         return name;
     }
