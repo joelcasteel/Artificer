@@ -106,6 +106,7 @@ public class SearchBox extends VBox {
         getChildren().add(filterBox);
         
         scroller.setPrefSize(240, 600 );
+        scroller.getStyleClass().add("cool-list-view");
         scroller.setCellFactory(new Callback<ListView<MonsterCache>, ListCell<MonsterCache>>(){
             @Override
             public ListCell<MonsterCache> call(ListView<MonsterCache> monsterListView) {

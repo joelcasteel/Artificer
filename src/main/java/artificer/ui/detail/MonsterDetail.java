@@ -130,6 +130,7 @@ public class MonsterDetail extends Detail {
         grid.getColumnConstraints().addAll(
                 new ColumnConstraints(48),
                 new ColumnConstraints(120),
+                new ColumnConstraints(48),
                 new ColumnConstraints(48)
                 );
         
@@ -154,8 +155,8 @@ public class MonsterDetail extends Detail {
                     
                     Label label;
                     {
+                        getStyleClass().add("combo-cell");
                         label = new Label();
-                        getStyleClass().add("select-cell");
                         
                     }
 

@@ -7,7 +7,9 @@ import javafx.scene.input.MouseEvent;
 
 public class MonsterCard extends ListCell<MonsterCache> {
     
-    
+    public MonsterCard() {
+        getStyleClass().add("cool-list-cell");
+    }
 
     
     @Override
@@ -28,8 +30,10 @@ public class MonsterCard extends ListCell<MonsterCache> {
 
         @Override
         public void handle(MouseEvent event) {
+            if(getItem() != null) {
             System.out.println("Clicked on: " + getItem().getName());
             getItem().selected();
+            }
             
         }
         

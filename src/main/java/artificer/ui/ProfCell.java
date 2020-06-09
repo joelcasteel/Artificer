@@ -26,7 +26,7 @@ public class ProfCell extends ListCell<Proficiency> {
     private StackPane imgPane = new StackPane();
     
     public ProfCell() {
-        
+        getStyleClass().add("cool-list-cell");
         setMaxHeight(CELL_HEIGHT);
         setPrefHeight(CELL_HEIGHT);
         
