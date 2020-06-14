@@ -36,7 +36,7 @@ public class ProfCell extends ListCell<Proficiency> {
     private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
     private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
     private ImageView deleteIcon = new ImageView(new Image(getClass().getResource("/ui/icons/exit.png").toString()));
-    private StackPane imgPane = new StackPane();
+    private Button imgButton = new Button();
     
     private ProfList profList;
     
@@ -61,6 +61,7 @@ public class ProfCell extends ListCell<Proficiency> {
         nameField.getStyleClass().add("blank-text-field");
         stat.getStyleClass().add("number-field");
         deleteButton.getStyleClass().add("cool-button");
+        deleteButton.setOnAction(deleteHandler);
         
         deleteButton.setGraphic(deleteIcon);
         
@@ -69,6 +70,8 @@ public class ProfCell extends ListCell<Proficiency> {
         stat.setEditable(false);
         stat.setMouseTransparent(true);
         deleteButton.setVisible(false);
+        imgButton.setMouseTransparent(true);
+        imgButton.setDisable(true);
         
         
         stat.setOnAction(fieldHandler);
@@ -77,11 +80,10 @@ public class ProfCell extends ListCell<Proficiency> {
         grid.add(nameField, 1, 0);
         grid.add(stat, 2, 0);
         grid.add(deleteButton, 3, 0);
-        
-        imgPane.setPadding(new Insets(6));
-        grid.add(imgPane, 0, 0);
-        imgPane.getChildren().add(saveIcon);
-        imgPane.getChildren().add(skillIcon);
+
+        imgButton.getStyleClass().add("cool-button");
+        imgButton.setOnAction(fieldHandler);
+        grid.add(imgButton, 0, 0);
         
         
         setOnMouseClicked(selectHandler);
@@ -92,9 +94,7 @@ public class ProfCell extends ListCell<Proficiency> {
         super.updateItem(prof, empty);
         if(empty) {
             setText(null);
-            System.out.println("Heyo");
         } else {
-            System.out.println(prof.getName());
             chooseIcon(prof.isSkill());
             nameField.setText(prof.getName());
             stat.setNumericValue(prof.getValue());
@@ -105,12 +105,10 @@ public class ProfCell extends ListCell<Proficiency> {
     }
     
     public void chooseIcon(boolean skill) {
-        if(!skill) {
-            saveIcon.setVisible(true);
-            skillIcon.setVisible(false);
+        if(skill) {
+            imgButton.setGraphic(skillIcon);
         } else {
-            saveIcon.setVisible(false);
-            skillIcon.setVisible(true);
+            imgButton.setGraphic(saveIcon);
         }
         
     }
@@ -120,16 +118,40 @@ public class ProfCell extends ListCell<Proficiency> {
 
         @Override
         public void handle(ActionEvent event) {
+            boolean isASkill = getItem().isSkill();
+            if(event.getSource().equals(imgButton)) {
+                if(imgButton.getGraphic().equals(skillIcon)) {
+                    isASkill = false;
+                    
+                } else {
+                    isASkill = true;
+                }
+                
+            }
+            
+            final boolean passSkill = isASkill;
             System.out.println(nameField.getText());
             Platform.runLater(new Thread() {
                 public void run() {
-                    profList.switchContent(getItem(), new Proficiency(nameField.getText(), stat.getNumericValue(), getItem().isSkill()));
+                    profList.switchContent(getItem(), new Proficiency(nameField.getText(), stat.getNumericValue(), passSkill));
+                    toggleActive(true);
                     profList.updateContent();
                     
                 }
                 
             });
             
+            
+        }
+        
+    };
+    
+    EventHandler<ActionEvent> deleteHandler = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            profList.removeContent(getItem());
+            profList.getProfList().requestFocus();
             
         }
         
@@ -158,6 +180,8 @@ public class ProfCell extends ListCell<Proficiency> {
         stat.setEditable(on);
         stat.setMouseTransparent(!on);
         deleteButton.setVisible(on);
+        imgButton.setMouseTransparent(!on);
+        imgButton.setDisable(!on);
     }
            
     

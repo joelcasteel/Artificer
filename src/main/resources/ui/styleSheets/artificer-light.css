@@ -57,7 +57,8 @@
 .cool-button {
 	-fx-background-color: transparent;
 	-fx-background-radius: 24;
-	-fx-border-width: 1;
+	-fx-padding: 6;
+	-fx-border-width: 0;
 	-fx-border-radius: 0;
 }
 

@@ -11,7 +11,7 @@ public class Proficiency {
     public Proficiency(JsonObject source) {
         String splits[] = source.get("name").getAsString().split(": ");
         try {
-            isSkill = splits[0].contentEquals("Skill: ");
+            isSkill = splits[0].contentEquals("Skill");
             name = splits[1];
         } catch (Exception ex ) {
             System.out.println("Delimeter Missing from API Source (Proficiency CTOR)");
