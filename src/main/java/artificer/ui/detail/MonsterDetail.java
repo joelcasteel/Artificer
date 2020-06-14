@@ -25,6 +25,7 @@ import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.ui.ProfCell;
+import main.java.artificer.ui.ProfList;
 
 public class MonsterDetail extends Detail {
     
@@ -33,7 +34,7 @@ public class MonsterDetail extends Detail {
     
     private TextField name, size, type, alignment, hitPoints, armorClass;
     
-    private ListView<Proficiency> profList = new ListView<Proficiency>();
+    private ProfList profList = new ProfList();
     
     private GridPane grid = new GridPane();
     private TextField newProfName = new TextField();
@@ -101,15 +102,6 @@ public class MonsterDetail extends Detail {
         split[1] = new Separator();
         split[1].setHalignment(HPos.CENTER);
         
-        profList.getStyleClass().add("prof-list");
-        profList.setPrefSize(300, 180);
-        profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
-            @Override
-            public ListCell<Proficiency> call(ListView<Proficiency> monsterListView) {
-                return new ProfCell();
-                
-            }
-        });
         
         grid.setMaxHeight(ProfCell.CELL_HEIGHT);
         grid.setPrefHeight(ProfCell.CELL_HEIGHT);
@@ -202,7 +194,7 @@ public class MonsterDetail extends Detail {
         
         holder.getChildren().addAll(
                detailGrid, split[0], statsTable, split[1],
-               profList, grid
+               profList.getProfList(), grid
                );
         
     }
@@ -221,14 +213,9 @@ public class MonsterDetail extends Detail {
         
         statsTable.setValues(source.getStats());
         
-        Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
-        List<Proficiency> profs = new ArrayList<Proficiency>();
+
         
-        while(iter.hasNext()) {
-            profs.add(iter.next());
-        }
-        
-        profList.setItems(FXCollections.observableArrayList(profs));
+        profList.setContent(source);
    
         
     }
@@ -245,26 +232,12 @@ public class MonsterDetail extends Detail {
                 mod = 0;
             }
             
-            String profName = "";
+            Proficiency prof = new Proficiency(newProfName.getText(), mod,
+                    typeBox.getSelectionModel().getSelectedItem().contentEquals("Skill"));
             
-            if(typeBox.getSelectionModel().getSelectedItem().contentEquals("Save")) {
-                profName += "Saving Throw: ";
-            } else {
-                profName += "Skill: ";
-            }
             
-            profName += newProfName.getText();
-            
-            Proficiency prof = new Proficiency(profName, mod);
-            Iterator<Proficiency> iter = profList.getItems().iterator();
-            List<Proficiency> profs = new ArrayList<Proficiency>();
-            
-            while(iter.hasNext()) {
-                profs.add(iter.next());
-            }
-            profs.add(prof);
-            
-            profList.setItems(FXCollections.observableArrayList(profs));
+            profList.addContent(prof);
+            profList.updateContent();
             
             
             

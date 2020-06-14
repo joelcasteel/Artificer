@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.sun.prism.paint.Color;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -29,77 +31,66 @@ import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.ui.detail.ModNumberField;
 
-public class ProfList extends BorderPane {
+public class ProfList {
     private ListView<Proficiency> profList = new ListView<Proficiency>();
+    private ObservableList<Proficiency> obvsList =  FXCollections.observableArrayList();
     
-    private Label profLabel = new Label("Proficiencies");
-    
-    private GridPane grid = new GridPane();
-    private TextField name = new TextField();
-    private ModNumberField stat = new ModNumberField();
-    private Button addButton = new Button();
+    private ArrayList<Proficiency> mainList;
     
     
     public ProfList() {
-        getStyleClass().add("prof-list");
-        setPrefHeight(480);
-        profList.setPrefSize(300, 360);
-        profList.setMaxSize(300, 360);
+        
+        ProfList holder = this;
+        profList.getStyleClass().add("prof-list");
+        profList.setPrefSize(300, 180);
         profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
             @Override
             public ListCell<Proficiency> call(ListView<Proficiency> monsterListView) {
-                return new ProfCell();
+                return new ProfCell(holder);
                 
             }
         });
         
-        
-        setTop(profLabel);
-        setCenter(profList);
+        profList.setItems(obvsList);
         
         
-        grid.setMaxHeight(ProfCell.CELL_HEIGHT);
-        grid.setPrefHeight(ProfCell.CELL_HEIGHT);
-        
-        grid.setPrefWidth(300);
-        grid.getStyleClass().add("create-box");
-        
-        grid.setHgap(12);
-        grid.getColumnConstraints().addAll(
-                new ColumnConstraints(24),
-                new ColumnConstraints(120),
-                new ColumnConstraints(48)
-                );
-        
-        
-        stat.getStyleClass().add("number-field");
-        
-        addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
-        addButton.setPadding(new Insets(6));
-        
-        grid.add(addButton, 0, 0);
-        grid.add(name, 1, 0);
-        grid.add(stat, 2, 0);
-        
-        setBottom(grid);
-        
-        
-        
+    }
+    
+    public ListView<Proficiency> getProfList() {
+        return profList;
     }
     
     
     public void setContent(Monster source) {
-       
-        
         Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
-        List<Proficiency> list = new ArrayList<>();
+        //mainList = new ArrayList<>();
+        obvsList = FXCollections.observableArrayList();
         while(iter.hasNext()) {
-            list.add(iter.next());
+            Proficiency aProf = iter.next();
+            obvsList.add(aProf);
             
         }
-        profList.setItems(FXCollections.observableList(list));
-        
+        profList.setItems(obvsList);
+        updateContent();   
         
     }
+    
+    public void removeContent(Proficiency prof) {
+        obvsList.remove(prof);
+    }
+    
+    public void addContent(Proficiency prof) {
+        obvsList.add(prof);
+    }
+    
+    public void updateContent() {
+        //profList.setItems(FXCollections.observableList(mainList));
+    }
+    
+    public void switchContent(Proficiency prof, Proficiency newProf) {
+        int idx = obvsList.indexOf(prof);
+        obvsList.set(idx, newProf);
+    }
+    
     
 }
