@@ -1,4 +1,4 @@
-package main.java.artificer.ui;
+package main.java.artificer.ui.elements;
 
 import java.util.ArrayList;
 import java.util.Iterator;

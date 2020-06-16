@@ -4,10 +4,11 @@ package main.java.artificer.ui;
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
+import main.java.artificer.ui.elements.MonsterCache;
 
-public class MonsterCard extends ListCell<MonsterCache> {
+public class MonsterCell extends ListCell<MonsterCache> {
     
-    public MonsterCard() {
+    public MonsterCell() {
         getStyleClass().add("cool-list-cell");
     }
 

@@ -24,8 +24,8 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
-import main.java.artificer.ui.ProfCell;
-import main.java.artificer.ui.ProfList;
+import main.java.artificer.ui.elements.ProfCell;
+import main.java.artificer.ui.elements.ProfList;
 
 public class MonsterDetail extends Detail {
     

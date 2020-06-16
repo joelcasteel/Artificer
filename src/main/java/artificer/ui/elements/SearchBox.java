@@ -1,16 +1,5 @@
-package main.java.artificer.ui;
+package main.java.artificer.ui.elements;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.net.http.HttpResponse.BodyHandlers;
-import java.nio.charset.Charset;
-import java.time.Duration;
 import java.util.ArrayList;
 
 
@@ -31,19 +20,23 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
+//import javafx.scene.input.ClipboardContent;
+//import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+//import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import main.java.artificer.ui.App;
+import main.java.artificer.ui.MonsterCell;
+import main.java.artificer.ui.SideRibbon;
 import main.java.artificer.ui.menu.SideMenu;
+import main.java.artificier.request.APIClient;
+import main.java.artificier.request.Request;
 
-public class SearchBox extends VBox {
+public class SearchBox extends VBox implements Request {
     
-    private String pre = "https://www.dnd5eapi.co/api/monsters/?name=";
     
     private ListView<MonsterCache> scroller = new ListView<MonsterCache>();
     private TextField searchField = new TextField();
@@ -110,7 +103,7 @@ public class SearchBox extends VBox {
         scroller.setCellFactory(new Callback<ListView<MonsterCache>, ListCell<MonsterCache>>(){
             @Override
             public ListCell<MonsterCache> call(ListView<MonsterCache> monsterListView) {
-                return new MonsterCard();
+                return new MonsterCell();
                 
             }
         });
@@ -120,29 +113,15 @@ public class SearchBox extends VBox {
         
     }
     
-    private void asynchURLRequest(String url) {
-        System.out.println("Making Request: " + url);
-        try {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(url))
-                .timeout(Duration.ofMinutes(1))
-                .build();
-       client.sendAsync(request, BodyHandlers.ofString())
-                .thenApply(HttpResponse::body)
-                .thenAccept(this::handleResponse)
-                .join();
-        } catch (Exception ex) {
-            System.out.println("Error making request: " + ex.getMessage());
-        }
-        
-    }
-    
-    private void handleResponse(String response) {
+    @Override
+    public void handleResponse(String response) {
         System.out.println(response);
+        
         JsonObject source = JsonParser.parseString(response).getAsJsonObject();
         JsonArray results = source.get("results").getAsJsonArray();
+        
         resultList = new ArrayList<>();
+        
         for(int i = 0; i < results.size(); i++) {
             resultList.add(new MonsterCache(results.get(i).getAsJsonObject(), this));
         }
@@ -157,47 +136,6 @@ public class SearchBox extends VBox {
         
     }
     
-    /**
-     * This method is unused, but I decided to keep it anyway.
-     * Not sure where it will be useful, but okay.
-     * @param aUrl
-     * @return
-     */
-    private String fetchURL(String aUrl) {
-        System.out.println("Making Request to: " + aUrl);
-        
-        StringBuilder stringBuilder = new StringBuilder();
-        URLConnection conn = null;
-        InputStreamReader inputStream = null;
-        try {
-            URL url = new URL(aUrl);
-            conn = url.openConnection();
-            if(conn != null) {
-                conn.setReadTimeout(20000);
-                if(conn != null && conn.getInputStream() != null){
-                    inputStream = new InputStreamReader(conn.getInputStream(), Charset.defaultCharset());
-                    BufferedReader bufferedReader = new BufferedReader(inputStream);
-                    if(bufferedReader != null){
-                        int nextChar;
-                        while((nextChar = bufferedReader.read()) != -1){
-                          stringBuilder.append((char)nextChar);
-                        }
-                        bufferedReader.close();
-                      }
-                    }
-                    inputStream.close(); 
-                
-            }
-            
-        } catch (Exception ex) {
-            System.out.println("Error Retrieving Search result: " + ex.getMessage());
-
-        }
-        
-        System.out.println("Finished Request");
-        
-        return stringBuilder.toString();
-    }
     
     private void filterResults(String filText) {
         filteredList = new ArrayList<>();
@@ -216,12 +154,17 @@ public class SearchBox extends VBox {
         
     }
     
+    public void search() {
+        APIClient.asynchURLRequest(
+                APIClient.createQuery(APIClient.MONSTER_SEARCH, searchField.getText()),
+                this, 30);
+    }
+    
     EventHandler<ActionEvent> searchHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
-            asynchURLRequest(pre + searchField.getText().replaceAll(" ", "%20"));
-            
+            search();
         }
         
     };
@@ -239,8 +182,8 @@ public class SearchBox extends VBox {
 
         @Override
         public void handle(MouseEvent event) {
-            Dragboard dragBoard = scroller.startDragAndDrop(TransferMode.MOVE);
-            ClipboardContent content = new ClipboardContent();
+           /* Dragboard dragBoard = scroller.startDragAndDrop(TransferMode.MOVE);
+            ClipboardContent content = new ClipboardContent();*/
             
             
         }

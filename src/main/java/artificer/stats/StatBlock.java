@@ -2,18 +2,32 @@ package main.java.artificer.stats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+/**
+ * A management class for all of a monsters Stats, and proficiencies.
+ * 
+ * Stats are kept in a Map according to their names while proficiencies are kept in an array-list.
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class StatBlock {
     
+    //Storage for Stats and profs.
     Map<String, Stat> stats;
     ArrayList<Proficiency> profs;
     
-    
+    /**
+     * Construct a new Statblock from a JSON Source.
+     * This automatically creates all the stats and proficiencies that go along with it.
+     * 
+     * @param source The JsonObject source
+     */
     public StatBlock(JsonObject source) {
         
         //De-Serializae the stats one by one.
@@ -37,7 +51,15 @@ public class StatBlock {
         
         
     }
-
+    
+    /**
+     * Get the stat under a certain name.
+     * Generally this is called by using the strings inside of stat.
+     * Ex: getStat(Stat.STR)
+     * 
+     * @param key The name of the stat.
+     * @return The stat under a key. Null if not found.
+     */
     public Stat getStat(String key) {
         if(stats.containsKey(key)) {
             return stats.get(key);
@@ -45,18 +67,53 @@ public class StatBlock {
         return null;
     }
     
+    /**
+     * Get all the stats as an Iterable List
+     * 
+     * @return Iterable of stats.
+     */
     public Iterable<Stat> getAllStats(){
         return stats.values();
     }
     
+    /**
+     * Get a specific Proficiency by listing the index.
+     * 
+     * @param i index to look under.
+     * @return Prof under index. Null if OOB.
+     */
     public Proficiency getProf(int i) {
-        return profs.get(i);
+        try {
+            return profs.get(i);
+        } catch (Exception ex) {
+            System.out.println("Error retrieving Proficiency." + ex.getMessage());
+            return null;
+        }
     }
     
+    /**
+     * Get all profs as an Iterable list.
+     * Since profs are kept in an arrayList, we just get the list.
+     * 
+     * This is probably Dangerous... Someone could fuck our statblock.
+     * @Todo Re-Evaluate the way proficiencies are stored/accessed.
+     * This will happen for our save, restore functionality.
+     * 
+     * @return Iterable of Proficiencies
+     */
     public Iterable<Proficiency> getAllProfs() {
         return profs;
     }
 
+    /**
+     * Change a score in the Statblock.
+     * This is used by the UI for editing a monster. It's pretty straightforward.
+     * I like it.
+     * 
+     * @param key The stat to change.
+     * @param score The score to assign it.
+     * @return True if changed. False if didn't exist.
+     */
     public boolean changeScore(String key, int score) {
         if(stats.containsKey(key)) {
             stats.remove(key);

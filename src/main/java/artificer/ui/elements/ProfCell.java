@@ -1,4 +1,4 @@
-package main.java.artificer.ui;
+package main.java.artificer.ui.elements;
 
 import org.apache.poi.util.SystemOutLogger;
 
