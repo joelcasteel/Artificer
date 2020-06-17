@@ -2,25 +2,24 @@ package main.java.artificer.ui;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import main.java.artificer.ui.detail.DetailWrapper;
 import main.java.artificer.ui.detail.MonsterDetail;
-import main.java.artificer.ui.menu.MenuWrapper;
 import main.java.artificer.ui.menu.SearchMenu;
 
+/**
+ * The interactive Side-Ribbon that allows menu selection
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class SideRibbon extends HBox {
     
     VBox sideRibbon;
@@ -43,7 +42,9 @@ public class SideRibbon extends HBox {
     
     DetailWrapper detailWrapper;
     
-    
+    /**
+     * Construct the SideRibbon
+     */
     public SideRibbon() {
       //SIDE RIBBON
         sideRibbon  = new VBox();
@@ -102,11 +103,17 @@ public class SideRibbon extends HBox {
         getChildren().addAll(sideRibbon, menuWrapper, detailWrapper);
     }
     
-    
+    /**
+     * 
+     * @return The detail wrapper in use
+     */
     public DetailWrapper getDetail() {
         return detailWrapper;
     }
     
+    /**
+     * Listener for Ribbon Button interactions.
+     */
     EventHandler<ActionEvent> ribbonButtonListener = new EventHandler<>() {
 
         @Override

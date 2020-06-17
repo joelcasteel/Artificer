@@ -1,65 +1,64 @@
 package main.java.artificer.ui.detail;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
+import main.java.artificer.ui.elements.ModNumberField;
 import main.java.artificer.ui.elements.ProfCell;
 import main.java.artificer.ui.elements.ProfList;
+import main.java.artificer.ui.elements.SkillTypeSelector;
+import main.java.artificer.ui.elements.StatTable;
 
+/**
+ * The Monster Detail module
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class MonsterDetail extends Detail {
     
     private StatTable statsTable;
+    
+    private Label statLabel = new Label("Stats");
     private GridPane detailGrid;
     
     private TextField name, size, type, alignment, hitPoints, armorClass;
     
+    private Label profLabel = new Label("Proficiencies");
     private ProfList profList = new ProfList();
     
     private GridPane grid = new GridPane();
     private TextField newProfName = new TextField();
     private ModNumberField stat = new ModNumberField();
     private Button addButton = new Button();
-    private ComboBox<String> typeBox = new ComboBox<String>();
+    private SkillTypeSelector typeBox = new SkillTypeSelector();
+    
+   
     
     
-    private Label saveIconLabel = new Label("Save");
-    private Label skillIconLabel = new Label("Skill");
-    private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
-    private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
-    
-    private ImageView saveIconButton = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
-    private ImageView skillIconButton = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
-    
-    
-    
-    
+    /**
+     * Construct a new Monster Detail Menu
+     */
     public MonsterDetail() {
         
         holder.setId("monster-detail");
         
         
         headerLabel.setText("Monster Details");
+        
+        statLabel.getStyleClass().add("cool-section-label");
         
         
         detailGrid = new GridPane();
@@ -73,6 +72,7 @@ public class MonsterDetail extends Detail {
         detailGrid.add(new Label("Alignment:"), 0, 3);
         detailGrid.add(new Label("Hit Points:"), 0, 4);
         detailGrid.add(new Label("Armor Class"), 0, 5);
+        
         
         name = new TextField();
         detailGrid.add(name, 1, 0);
@@ -119,72 +119,15 @@ public class MonsterDetail extends Detail {
         
         stat.getStyleClass().add("number-field");
         stat.setOnAction(profFieldHandler);
+        
+        profLabel.getStyleClass().add("cool-section-label");
+        
         newProfName.getStyleClass().add("blank-text-field");
         newProfName.setPromptText("New...");
         newProfName.setOnAction(profFieldHandler);
         
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         addButton.setPadding(new Insets(6));
-        
-        saveIconLabel.setGraphic(saveIcon);
-        skillIconLabel.setGraphic(skillIcon);
-        
-        
-        typeBox.setItems(FXCollections.observableArrayList("Skill", "Save"));
-        typeBox.getStyleClass().add("cool-combo-box");
-        
-        typeBox.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-
-            @Override public ListCell<String> call(ListView<String> p) {
-                return new ListCell<String>() {
-                    
-                    Label label;
-                    {
-                        getStyleClass().add("cool-combo-cell");
-                        label = new Label();
-                        
-                    }
-
-                    @Override protected void updateItem(String item, boolean empty) {
-                        super.updateItem(item, empty);
-
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            label.setText(item);
-                            if(item.contentEquals("Skill")) {
-                                label.setGraphic(skillIcon);
-                            } else if (item.contentEquals("Save")) {
-                                label.setGraphic(saveIcon);
-                            }
-                            setGraphic(label);
-                            
-                        }
-                   }
-              };
-          }
-        });
-        
-        class IconTextCellClass extends ListCell<String> {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (item != null) {
-                    if(item.contentEquals("Skill")) {
-                        setGraphic(skillIconButton);
-                    } else if (item.contentEquals("Save")) {
-                        setGraphic(saveIconButton);
-                    }
-                }
-            }
-        };
-
-        typeBox.setButtonCell(new IconTextCellClass());
-        
-        typeBox.getSelectionModel().selectFirst();
-        
-        
-        
         
         
         grid.add(typeBox, 0, 0);
@@ -193,12 +136,17 @@ public class MonsterDetail extends Detail {
         
         
         holder.getChildren().addAll(
-               detailGrid, split[0], statsTable, split[1],
-               profList.getProfList(), grid
+               detailGrid, statLabel, split[0], statsTable, split[1],
+               profLabel, profList.getProfList(), grid
                );
         
     }
     
+    /**
+     * 
+     * 
+     * @param source
+     */
     public void setContent(Monster source) {
         open();
         

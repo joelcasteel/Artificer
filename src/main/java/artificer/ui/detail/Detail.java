@@ -2,23 +2,25 @@ package main.java.artificer.ui.detail;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import main.java.artificer.ui.App;
 
+/**
+ * The Detail control class. 
+ * It is extended to create new Detail Menu Modules
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public abstract class Detail extends BorderPane {
     protected boolean open;
     protected ScrollPane layout;
@@ -27,6 +29,9 @@ public abstract class Detail extends BorderPane {
     protected Button backButton;
     protected VBox holder;
     
+    /**
+     * Construct a new Detail.
+     */
     public Detail() {
         setId("detail-menu");
         
@@ -62,60 +67,41 @@ public abstract class Detail extends BorderPane {
         setCenter(layout);
     }
     
+    /**
+     * 
+     * @return Is the detail menu open currently
+     */
     public boolean isOpen() {
         return open;
     }
     
+    /**
+     * Toggle whether the menu is open
+     */
     public void toggle() {
         open = !open;
         setVisible(open);
         setManaged(open);
     }
     
+    /**
+     * Close the menu
+     */
     public void close() {
         open = false;
         setVisible(open);
         setManaged(open);
     }
     
+    /**
+     * Open the menu
+     */
     public void open() {
         open = true;
         setVisible(open);
         setManaged(open);
     }
     
-    class DoubleEntry extends HBox {
-        TextField nameField;
-        TextField detailField;
-        
-        DoubleEntry(String entry) {
-            
-            String splits[] = entry.split(":");
-            
-            nameField = new TextField();
-            detailField = new TextField();
-        }
-    }
-    
-    class NamedField extends GridPane {
-        Label name;
-        Node value;
-        
-        NamedField(String pName) {
-            getColumnConstraints().add(new ColumnConstraints(80));
-            getColumnConstraints().add(new ColumnConstraints(120));
-            name = new Label(pName);
-            value = new TextField();
-            add(name, 0, 0);
-            add(value, 1, 0);
-        }
-        
-        Node getNode() {
-            return value;
-        }
-        
-        
-    }
     
     /**
      * Event Handler for the back button.

@@ -11,6 +11,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * A main panel that holds the majority of application content.
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class MainPane extends BorderPane {
     
     HBox workbox;
@@ -42,6 +49,9 @@ public class MainPane extends BorderPane {
     StackPane workspace;
     
     
+    /**
+     * Construct the new MainPane with all the substructures
+     */
     public MainPane() {
         
         workbox = new HBox();

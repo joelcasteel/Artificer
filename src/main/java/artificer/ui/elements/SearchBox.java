@@ -29,7 +29,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import main.java.artificer.ui.App;
-import main.java.artificer.ui.MonsterCell;
 import main.java.artificer.ui.SideRibbon;
 import main.java.artificer.ui.menu.SideMenu;
 import main.java.artificier.request.APIClient;

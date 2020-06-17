@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import javafx.application.*;
 import main.java.artificer.ui.App;
-import main.java.artificier.request.APIClient;
 
 
 /**

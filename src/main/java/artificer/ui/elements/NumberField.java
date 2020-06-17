@@ -1,4 +1,4 @@
-package main.java.artificer.ui.detail;
+package main.java.artificer.ui.elements;
 import javafx.scene.control.TextField;
 
 public class NumberField extends TextField {

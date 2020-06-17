@@ -1,12 +1,19 @@
-package main.java.artificer.ui.menu;
+package main.java.artificer.ui;
 
 import java.util.HashMap;
 
-import javafx.beans.Observable;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import main.java.artificer.ui.SideRibbon;
+import main.java.artificer.ui.menu.MonsterMenu;
+import main.java.artificer.ui.menu.SearchMenu;
+import main.java.artificer.ui.menu.SideMenu;
 
+/**
+ * The menu wrapper for handling different menu contexts
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class MenuWrapper extends StackPane {
     
     public static final String SEARCH_MENU = "Search";
@@ -19,7 +26,11 @@ public class MenuWrapper extends StackPane {
     String currentMenu = SEARCH_MENU;
     
     
-    
+    /**
+     * Construct a new Menu Wrapper
+     * 
+     * @param ribbon The ribbon that controls menus/details
+     */
     public MenuWrapper(SideRibbon ribbon) {
         menus.put(SEARCH_MENU, new SearchMenu(ribbon));
         menus.put(MONSTER_MENU, new MonsterMenu());
@@ -27,6 +38,11 @@ public class MenuWrapper extends StackPane {
         getChildren().addAll(menus.values());
     }
     
+    /**
+     * Change the current Menu Context
+     * 
+     * @param context
+     */
     public void SwitchContext(String context) {
         if(context.equals(currentMenu)) {
             menus.get(context).toggle();

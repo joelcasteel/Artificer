@@ -1,4 +1,4 @@
-package main.java.artificer.ui.detail;
+package main.java.artificer.ui.elements;
 
 public class ModNumberField extends NumberField {
     @Override

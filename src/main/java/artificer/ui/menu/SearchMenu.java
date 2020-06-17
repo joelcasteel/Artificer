@@ -1,7 +1,6 @@
 package main.java.artificer.ui.menu;
 
-import javafx.geometry.Insets;
-import javafx.scene.layout.VBox;
+
 import main.java.artificer.ui.SideRibbon;
 import main.java.artificer.ui.elements.SearchBox;
 

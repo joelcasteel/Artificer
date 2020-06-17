@@ -1,7 +1,6 @@
-package main.java.artificer.ui.detail;
+package main.java.artificer.ui.elements;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

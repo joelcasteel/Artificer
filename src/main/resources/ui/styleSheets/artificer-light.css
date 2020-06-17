@@ -179,6 +179,11 @@
 	-fx-text-fill: black;
 }
 
+.cool-section-label {
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-text-fill: black;
+}
+
 
 #detail-menu {
 	-fx-background-color: transparent;

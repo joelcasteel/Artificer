@@ -7,8 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * Start an FX application with the proper stylesheet.
+ * 
+ * @author Joel Casteel
+ * @version June 2020
+ *
+ */
 public class App extends Application {
     
+    //The actual main pane that holds application content
     MainPane main = new MainPane();
     
     public static String stylesheet = "/ui/stylesheets/artificer-light.css";

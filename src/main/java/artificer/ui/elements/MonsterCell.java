@@ -1,10 +1,9 @@
-package main.java.artificer.ui;
+package main.java.artificer.ui.elements;
 
 
 import javafx.event.EventHandler;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
-import main.java.artificer.ui.elements.MonsterCache;
 
 public class MonsterCell extends ListCell<MonsterCache> {
     
