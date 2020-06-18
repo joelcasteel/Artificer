@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import javafx.application.*;
+import main.java.artificer.filesystem.FileSystem;
 import main.java.artificer.ui.App;
 
 
@@ -27,26 +28,8 @@ public class Main {
     
 	public static void main(String[] args) {
 	    
-	    saveDir = System.getProperty("user.home") +  "\\.artificer\\";
-	    File file = new File(saveDir);
-	    
-	    if(!file.exists()) {
-	        file.mkdir();
-	    }
-	    System.out.println(saveDir);
-	    try {
-	        JsonObject src = new JsonObject();
-	        src.addProperty("Hello", "There");
-	        Gson gson = new Gson();
-	        String json = gson.toJson(src);
-	        FileWriter writer = new FileWriter(saveDir + "monsters.json");
-	        writer.write(json);
-	        writer.close();
-	        
-	    } catch (Exception ex) {
-	        ex.printStackTrace();
-	    }
-	    //END OF FILESYSTEM CODE
+	    FileSystem fileSystem = FileSystem.getInstance();
+	    fileSystem.writeMonster("{HEEEEyyy}");
 	    
 	    
 	    
