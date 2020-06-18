@@ -9,6 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
+/**
+ * Custom ComboBox for selecting Skill/Save type for proficiencies
+ * 
+ * @author Joel Castel
+ * @version June 2020
+ *
+ */
 public class SkillTypeSelector extends ComboBox<String> {
     
     private ImageView saveIcon 
@@ -17,7 +24,9 @@ public class SkillTypeSelector extends ComboBox<String> {
     private ImageView skillIcon 
         = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
     
-
+    /**
+     * Construct a new Skill Selector
+     */
     public SkillTypeSelector() {
         setItems(FXCollections.observableArrayList("Skill", "Save"));
         getStyleClass().add("cool-combo-box");
@@ -61,6 +70,11 @@ public class SkillTypeSelector extends ComboBox<String> {
         
     }
     
+    /**
+     * Custom ListCell for the "Button-like" element of the ComboBox
+     * @author joel
+     *
+     */
     class IconTextCellClass extends ListCell<String> {
         
         private ImageView saveIconButton 

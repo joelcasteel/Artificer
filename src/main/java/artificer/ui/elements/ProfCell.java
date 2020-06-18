@@ -14,6 +14,14 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import main.java.artificer.stats.Proficiency;
 
+/**
+ * Custom ListCell for a ListView of Proficiencies.
+ * Ended up being more complex than I thought.
+ * 
+ * @author Joel Castel
+ * @version June 2020
+ *
+ */
 public class ProfCell extends ListCell<Proficiency> {
 
     public static final int CELL_HEIGHT = 36;
@@ -32,6 +40,11 @@ public class ProfCell extends ListCell<Proficiency> {
     
     private ProfList profList;
     
+    /**
+     * Construct a new ProfCell
+     * 
+     * @param pProfList The parent ListView of this Cell.
+     */
     public ProfCell(ProfList pProfList) {
         profList = pProfList;
         
@@ -97,6 +110,11 @@ public class ProfCell extends ListCell<Proficiency> {
         }
     }
     
+    /**
+     * Chooses the Icon based on whether the proficiency is a skill or save.
+     * 
+     * @param skill T if Skill, F if Save
+     */
     public void chooseIcon(boolean skill) {
         if(skill) {
             imgButton.setGraphic(skillIcon);
@@ -106,12 +124,33 @@ public class ProfCell extends ListCell<Proficiency> {
         
     }
     
+    /**
+     * Toggles whether this cell is active and editable
+     * 
+     * @param on T if Editable, F if not
+     */
+    public void toggleActive(boolean on) {
+        nameField.setEditable(on);
+        nameField.setMouseTransparent(!on);
+        stat.setEditable(on);
+        stat.setMouseTransparent(!on);
+        deleteButton.setVisible(on);
+        imgButton.setMouseTransparent(!on);
+        imgButton.setDisable(!on);
+    }
     
+    /**
+     * Field handler for updating values
+     */
     EventHandler<ActionEvent> fieldHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
+            //Check whether this is a skill
             boolean isASkill = getItem().isSkill();
+            
+            //SKILL BUTTON
+            //Toglle skill/save
             if(event.getSource().equals(imgButton)) {
                 if(imgButton.getGraphic().equals(skillIcon)) {
                     isASkill = false;
@@ -122,13 +161,15 @@ public class ProfCell extends ListCell<Proficiency> {
                 
             }
             
+            //Required as a workaround... I could be doing something wrong.
             final boolean passSkill = isASkill;
-            System.out.println(nameField.getText());
-            Platform.runLater(new Thread() {
+            
+            //ALL FIELDS
+            //Update the Proficiency in the list with all the values from the cell.
+            Platform.runLater(new Runnable() {
                 public void run() {
                     profList.switchContent(getItem(), new Proficiency(nameField.getText(), stat.getNumericValue(), passSkill));
                     toggleActive(true);
-                    profList.updateContent();
                     
                 }
                 
@@ -139,6 +180,9 @@ public class ProfCell extends ListCell<Proficiency> {
         
     };
     
+    /**
+     * Event handler for the delete button
+     */
     EventHandler<ActionEvent> deleteHandler = new EventHandler<ActionEvent>() {
 
         @Override
@@ -150,7 +194,9 @@ public class ProfCell extends ListCell<Proficiency> {
         
     };
     
-    
+    /**
+     * Mouse handler for selecting the cell.
+     */
     EventHandler<MouseEvent> selectHandler = new EventHandler<MouseEvent>() {
 
         @Override
@@ -165,17 +211,6 @@ public class ProfCell extends ListCell<Proficiency> {
         }
         
     };
-    
-
-    public void toggleActive(boolean on) {
-        nameField.setEditable(on);
-        nameField.setMouseTransparent(!on);
-        stat.setEditable(on);
-        stat.setMouseTransparent(!on);
-        deleteButton.setVisible(on);
-        imgButton.setMouseTransparent(!on);
-        imgButton.setDisable(!on);
-    }
            
     
     

@@ -12,6 +12,13 @@ import javafx.scene.layout.GridPane;
 import main.java.artificer.stats.Stat;
 import main.java.artificer.stats.StatBlock;
 
+/**
+ * A custom GridPane for displaying a table of Stats
+ * 
+ * @author Joel Castel
+ * @version June 2020
+ *
+ */
 public class StatTable extends GridPane {
     StatBlock stats;
     
@@ -19,6 +26,9 @@ public class StatTable extends GridPane {
     TextField fields[] = new TextField[6];
     HashMap<String,StatRow> rows;
     
+    /**
+     * Construct the new Stat Table
+     */
     public StatTable() {
         setId("stat-table");
         rows = new HashMap<String, StatRow>();
@@ -31,6 +41,11 @@ public class StatTable extends GridPane {
         }
     }
     
+    /**
+     * Set the values of the Table
+     * 
+     * @param block The statblock of values
+     */
     public void setValues(StatBlock block) {
         stats = block;
         for(int i = 0; i < Stat.STATNAME.length; i++) {
@@ -39,12 +54,22 @@ public class StatTable extends GridPane {
         
     }
     
+    /**
+     * Update the values inside of the table
+     */
     public void updateValues() {
         for(int i = 0; i < Stat.STATNAME.length; i++) {
             rows.get(Stat.STATNAME[i]).setContent(stats.getStat(Stat.STATNAME[i]));
         }
     }
     
+    /**
+     * Custom Row for representing one Stat
+     * 
+     * @author Joel Castel
+     * @version June 2020
+     *
+     */
     class StatRow extends GridPane {
         private Label name;
         private Label mod;
@@ -74,15 +99,27 @@ public class StatTable extends GridPane {
             
         }
         
+        /**
+         * Set the content of the row
+         * @param stat
+         */
         public void setContent(Stat stat) {
             mod.setText(stat.getModString());
             score.setText(Integer.toString(stat.getScore()));
         }
         
+        /**
+         * 
+         * @return The value of the Stat
+         */
         public int getValue() {
             return Integer.parseInt(score.getText());
         }
         
+        /**
+         * 
+         * @return The textfield belonging to this row
+         */
         public TextField getField() {
             return score;
         }
@@ -91,6 +128,9 @@ public class StatTable extends GridPane {
         
     }
     
+    /**
+     * Event handler for the value field
+     */
     EventHandler<ActionEvent> fieldHandler = new EventHandler<ActionEvent>(){
 
         @Override

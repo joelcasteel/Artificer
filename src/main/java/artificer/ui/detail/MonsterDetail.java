@@ -185,7 +185,6 @@ public class MonsterDetail extends Detail {
             
             
             profList.addContent(prof);
-            profList.updateContent();
             
             
             

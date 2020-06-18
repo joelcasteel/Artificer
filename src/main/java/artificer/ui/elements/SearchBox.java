@@ -34,6 +34,13 @@ import main.java.artificer.ui.menu.SideMenu;
 import main.java.artificier.request.APIClient;
 import main.java.artificier.request.Request;
 
+/**
+ * SearchBox UI element for API search requests
+ * 
+ * @author Joel Castel
+ * @version June 2020
+ *
+ */
 public class SearchBox extends VBox implements Request {
     
     
@@ -51,7 +58,11 @@ public class SearchBox extends VBox implements Request {
     SideMenu sideMenuParent;
     SideRibbon parentRibbon;
     
-    
+    /**
+     * Construct a new SearchBox
+     * 
+     * @param parent The SideRibbon Parent this belongs to.
+     */
     public SearchBox(SideRibbon parent) {
         parentRibbon = parent;
         
@@ -135,7 +146,11 @@ public class SearchBox extends VBox implements Request {
         
     }
     
-    
+    /**
+     * Filters the results in the ListView
+     * 
+     * @param filText The Text to filter for
+     */
     private void filterResults(String filText) {
         filteredList = new ArrayList<>();
         if(resultList != null) {
@@ -148,17 +163,27 @@ public class SearchBox extends VBox implements Request {
         }
     }
     
+    /**
+     * 
+     * @return The SideRibbon parent
+     */
     public SideRibbon getParentRibbon() {
         return parentRibbon;
         
     }
     
+    /**
+     * Send the search request to the APIClient
+     */
     public void search() {
         APIClient.asynchURLRequest(
                 APIClient.createQuery(APIClient.MONSTER_SEARCH, searchField.getText()),
                 this, 30);
     }
     
+    /**
+     * Event Handler for Searching
+     */
     EventHandler<ActionEvent> searchHandler = new EventHandler<ActionEvent>() {
 
         @Override
@@ -168,6 +193,9 @@ public class SearchBox extends VBox implements Request {
         
     };
     
+    /**
+     * Change listener for the filter text
+     */
     ChangeListener<String> filterHandler = new ChangeListener<String>() {
 
         @Override
@@ -177,6 +205,9 @@ public class SearchBox extends VBox implements Request {
         }
     };
     
+    /**
+     * Event Handler for Drag and Drop (Unused)
+     */
     EventHandler<MouseEvent> dragHandler = new EventHandler<MouseEvent>() {
 
         @Override
