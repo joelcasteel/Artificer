@@ -74,6 +74,23 @@
 	-fx-border-radius: 0;
 }
 
+
+.cool-text-button {
+	-fx-background-color: rgba(0,0,0,0.1);
+	-fx-background-radius: 2;
+	-fx-padding: 6 12 6 12;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+}
+
+.cool-text-button:hover {
+	-fx-background-color: rgba(0,0,0,0.25);
+}
+
+.cool-text-button:pressed {
+	-fx-background-color: rgba(0,0,0,0.5);
+}
+
 .side-menu {
 	-fx-border-style: solid solid none none;
 	-fx-border-width: 0.5;

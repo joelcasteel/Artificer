@@ -52,6 +52,29 @@ public class StatBlock {
         
     }
     
+    private StatBlock() {
+        stats = new HashMap<>();
+        
+        profs = new ArrayList<>();
+    }
+    
+    public StatBlock copyStatBlock() {
+        StatBlock copy = new StatBlock();
+        copy.setStat(Stat.STR, stats.get(Stat.STR).copyStat());
+        copy.setStat(Stat.DEX, stats.get(Stat.DEX).copyStat());
+        copy.setStat(Stat.CON, stats.get(Stat.CON).copyStat());
+        copy.setStat(Stat.INT, stats.get(Stat.INT).copyStat());
+        copy.setStat(Stat.WIS, stats.get(Stat.WIS).copyStat());
+        copy.setStat(Stat.CHA, stats.get(Stat.CHA).copyStat());
+        
+        for(Proficiency p : profs) {
+            copy.addProf(p.copyProficiency());
+        }
+        
+        return copy;
+        
+    }
+    
     /**
      * Get the stat under a certain name.
      * Generally this is called by using the strings inside of stat.
@@ -104,6 +127,10 @@ public class StatBlock {
     public Iterable<Proficiency> getAllProfs() {
         return profs;
     }
+    
+    public void addProf(Proficiency prof) {
+        profs.add(prof);
+    }
 
     /**
      * Change a score in the Statblock.
@@ -118,10 +145,15 @@ public class StatBlock {
         if(stats.containsKey(key)) {
             stats.remove(key);
             stats.put(key, new Stat(score));
-            System.out.println(stats);
             return true;
         }
         return false;
+    }
+    
+    public void setStat(String key, Stat stat) {
+        if(!stats.containsKey(key)) {
+            stats.put(key, stat.copyStat());
+        }
     }
     
 

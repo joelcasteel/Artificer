@@ -39,6 +39,10 @@ public class Stat {
         score = pStat;
     }
     
+    public Stat copyStat() {
+        return new Stat(score);
+    }
+    
     /**
      * 
      * @return The modifier tied to a stat.

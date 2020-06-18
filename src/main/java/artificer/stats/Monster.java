@@ -47,6 +47,38 @@ public class Monster {
         stats = new StatBlock(source);
     }
     
+    public Monster() {
+        name = "";
+        size = "";
+        type = "";
+        alignment = "";
+        
+        AC = 0;
+        HP = 0;
+        
+        hitDice = null;
+        stats = null;
+    }
+    
+    public Monster copyMonster() {
+        Monster copy = new Monster();
+        copy.setName(name);
+        copy.setType(type);
+        copy.setSize(size);
+        copy.setAlignment(alignment);
+        
+        copy.setAC(AC);
+        copy.setHP(HP);
+        
+        copy.setStats(stats.copyStatBlock());
+        copy.setHitDice(hitDice.copyHitDice());
+        
+        
+        
+        return copy;
+        
+    }
+    
     /**
      * Returns the Statblock object belonging to a monster
      * 
@@ -59,6 +91,11 @@ public class Monster {
         return stats;
     }
     
+    public void setStats(StatBlock pStats) {
+        stats = pStats;
+    }
+    
+    
     /**
      * Returns the HitDice object belonging to a monster
      * @return
@@ -67,12 +104,21 @@ public class Monster {
         return hitDice;
     }
     
+    
+    public void setHitDice(HitDice pDice) {
+        hitDice = pDice;
+    }
+    
     /**
      * 
      * @return Name of Monster
      */
     public String getName() {
         return name;
+    }
+    
+    public void setName(String pName) {
+        name = pName;
     }
     
     /**
@@ -84,6 +130,10 @@ public class Monster {
         
     }
     
+    public void setSize(String pSize) {
+        size = pSize;
+    }
+    
     /**
      * 
      * @return Type of the Monster
@@ -92,6 +142,11 @@ public class Monster {
         return type;
         
     }
+    
+    public void setType(String pType) {
+        type = pType;
+    }
+    
     
     /**
      * 
@@ -102,6 +157,11 @@ public class Monster {
         
     }
     
+    public void setAlignment(String pAlign) {
+        alignment = pAlign;
+    }
+    
+    
     /**
      * 
      * @return Armor class of the Monster
@@ -110,6 +170,11 @@ public class Monster {
         return AC;
         
     }
+    
+    public void setAC(int pAC) {
+        AC = pAC;
+    }
+    
     
     /**
      * 
@@ -120,7 +185,9 @@ public class Monster {
         
     }
     
-    
+    public void setHP(int pHP) {
+        HP = pHP;
+    }
     
    
 }

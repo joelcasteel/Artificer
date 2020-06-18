@@ -25,6 +25,15 @@ public class HitDice {
         
     }
     
+    public HitDice(int pDice, int pNum) {
+        dice = pDice;
+        number = pNum;
+    }
+    
+    public HitDice copyHitDice() {
+        return new HitDice(dice, number);
+    }
+    
     /**
      * 
      * @return The type of Dice (d6, d8, d10, d12)

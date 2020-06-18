@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.ui.elements.ModNumberField;
@@ -29,6 +30,8 @@ import main.java.artificer.ui.elements.StatTable;
  */
 public class MonsterDetail extends Detail {
     
+    private Monster backupSource = null;
+    
     private StatTable statsTable;
     
     private Label statLabel = new Label("Stats");
@@ -44,6 +47,11 @@ public class MonsterDetail extends Detail {
     private ModNumberField stat = new ModNumberField();
     private Button addButton = new Button();
     private SkillTypeSelector typeBox = new SkillTypeSelector();
+    
+    private HBox bottomButtonBox = new HBox();
+    private Button saveButton = new Button("Save");
+    private Button restoreButton = new Button("Restore");
+    
     
    
     
@@ -123,7 +131,7 @@ public class MonsterDetail extends Detail {
         profLabel.getStyleClass().add("cool-section-label");
         
         newProfName.getStyleClass().add("blank-text-field");
-        newProfName.setPromptText("New...");
+        newProfName.setPromptText("Add New...");
         newProfName.setOnAction(profFieldHandler);
         
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
@@ -134,10 +142,22 @@ public class MonsterDetail extends Detail {
         grid.add(newProfName, 1, 0);
         grid.add(stat, 2, 0);
         
+        bottomButtonBox.setPadding(new Insets(12));
+        bottomButtonBox.setSpacing(12);
+        
+        saveButton.getStyleClass().add("cool-text-button");
+        saveButton.setOnAction(bottomButtonHandler);
+        
+        restoreButton.getStyleClass().add("cool-text-button");
+        restoreButton.setOnAction(bottomButtonHandler);
+        
+        bottomButtonBox.getChildren().addAll(saveButton, restoreButton);
+        
+        
         
         holder.getChildren().addAll(
                detailGrid, statLabel, split[0], statsTable, split[1],
-               profLabel, profList.getProfList(), grid
+               profLabel, profList.getProfList(), grid, bottomButtonBox
                );
         
     }
@@ -149,6 +169,8 @@ public class MonsterDetail extends Detail {
      */
     public void setContent(Monster source) {
         open();
+        
+        backupSource = source.copyMonster();
         
         name.setText(source.getName());
         size.setText(source.getSize());
@@ -192,5 +214,18 @@ public class MonsterDetail extends Detail {
         
     };
     
+    EventHandler<ActionEvent> bottomButtonHandler = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent event) {
+            if(event.getSource().equals(saveButton)) {
+                
+            } else if (event.getSource().equals(restoreButton)) {
+                setContent(backupSource);
+            }
+            
+        }
+        
+    };
     
 }
