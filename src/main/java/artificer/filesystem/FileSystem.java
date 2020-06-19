@@ -2,6 +2,7 @@ package main.java.artificer.filesystem;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.InputStream;
@@ -17,8 +18,6 @@ public class FileSystem {
     public static final String saveDir = System.getProperty("user.home") +  "\\.artificer\\";
     
     File monsterData;
-    FileWriter monsterWrite;
-    FileReader monsterRead;
     
     
     private FileSystem() {
@@ -60,9 +59,10 @@ public class FileSystem {
         }
     }
     
-    public JsonObject readMonster() {
-        return null;
+    public FileReader readMonster() throws FileNotFoundException {
+        return new FileReader(monsterData);
     }
+    
    
     
     

@@ -25,10 +25,12 @@ public class Main {
     //String for the saveDir.
     public static String saveDir;
     
+    public static FileSystem fileSystem;
+    
     
 	public static void main(String[] args) {
 	    
-	    FileSystem fileSystem = FileSystem.getInstance();
+	    fileSystem = FileSystem.getInstance();
 	    fileSystem.writeMonster("{HEEEEyyy}");
 	    
 	    
