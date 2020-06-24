@@ -21,6 +21,7 @@ public class HitDice {
      * @param hd String in the format "<int>d<int>"
      */
     public HitDice(String hd) {
+        
         String dn[] = hd.split("d");
         dice = Integer.parseInt(dn[1]);
         number = Integer.parseInt(dn[0]);

@@ -15,7 +15,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import main.java.artificer.Main;
 import main.java.artificer.stats.Monster;
+import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.stats.Proficiency;
+import main.java.artificer.stats.StatBlock;
 import main.java.artificer.ui.elements.ModNumberField;
 import main.java.artificer.ui.elements.ProfCell;
 import main.java.artificer.ui.elements.ProfList;
@@ -171,7 +173,7 @@ public class MonsterDetail extends Detail {
     public void setContent(Monster source) {
         open();
         
-        backupSource = source.copyMonster();
+        backupSource = source;
         
         name.setText(source.getName());
         size.setText(source.getSize());
@@ -220,8 +222,25 @@ public class MonsterDetail extends Detail {
         @Override
         public void handle(ActionEvent event) {
             if(event.getSource().equals(saveButton)) {
-                Main.library.add(backupSource);
-                Main.library.saveLibraryToFile();
+                Monster monster = new Monster();
+                monster.setName(name.getText());
+                monster.setSize(size.getText());
+                monster.setType(type.getText());
+                monster.setAlignment(alignment.getText());
+                
+                monster.setAC(Integer.parseInt(armorClass.getText()));
+                monster.setHP(Integer.parseInt(hitPoints.getText()));
+                
+                monster.setHitDice(backupSource.getHitDice());
+                
+                StatBlock block = statsTable.getStatBlock().copyStatBlock();
+                block.copyProfsFrom(profList.getCurrentContent());
+                monster.setStats(block);
+                
+                
+                MonsterLibrary mLib = MonsterLibrary.getInstance();
+                mLib.add(monster);
+                mLib.saveLibraryToFile();
             } else if (event.getSource().equals(restoreButton)) {
                 setContent(backupSource);
             }

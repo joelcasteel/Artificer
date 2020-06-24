@@ -66,7 +66,7 @@ public class ProfList {
         obvsList = FXCollections.observableArrayList();
         while(iter.hasNext()) {
             Proficiency aProf = iter.next();
-            obvsList.add(aProf);
+            obvsList.add(aProf.copyProficiency());
             
         }
         profList.setItems(obvsList);
@@ -79,6 +79,10 @@ public class ProfList {
      */
     public void removeContent(Proficiency prof) {
         obvsList.remove(prof);
+    }
+    
+    public Iterator<Proficiency> getCurrentContent() {
+        return obvsList.iterator();
     }
     
     /**

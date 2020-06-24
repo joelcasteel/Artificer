@@ -5,9 +5,6 @@ import java.util.Iterator;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-
-import main.java.artificer.Main;
 import main.java.artificer.filesystem.FileSystem;
 
 /**
@@ -19,14 +16,24 @@ import main.java.artificer.filesystem.FileSystem;
  */
 public class MonsterLibrary {
     
+    private static MonsterLibrary instance = null;
+    
     Hashtable<String, Monster> monsters;
     
     /**
      * Construct a new MonsterLibrary. Initiates the HashTable and reads library from file.
      */
-    public MonsterLibrary() {
+    private MonsterLibrary() {
         monsters = new Hashtable<>();
         readLibraryFromFile();
+    }
+    
+    public static MonsterLibrary getInstance() {
+        if (instance == null) {
+            instance = new MonsterLibrary();
+        }
+        
+        return instance;
     }
     
     
@@ -35,9 +42,13 @@ public class MonsterLibrary {
             String libString =
                     FileSystem.getInstance().readFileAsString(FileSystem.MONSTER_FILE); 
             
-            JsonObject source = JsonParser.parseString(libString).getAsJsonObject();
-            for(String key: source.keySet()) {
-                System.out.println(key);
+            if(!JsonParser.parseString(libString).isJsonNull()) {
+                JsonObject source = JsonParser.parseString(libString).getAsJsonObject();
+                for(String key: source.keySet()) {
+                    System.out.println("> " + key);
+                    System.out.println("> " + source.getAsJsonObject(key).toString());
+                    monsters.put(key, new Monster(source.getAsJsonObject(key)));
+                }
             }
             
             
@@ -48,6 +59,14 @@ public class MonsterLibrary {
     
     public void add(Monster m) {
         monsters.put(m.getName(), m);
+    }
+    
+    public Monster get(String name) {
+        return monsters.get(name);
+    }
+    
+    public void remove(String name) {
+        monsters.remove(name);
     }
     
     public void saveLibraryToFile() {

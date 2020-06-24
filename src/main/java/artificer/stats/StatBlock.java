@@ -2,10 +2,13 @@ package main.java.artificer.stats;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
+import main.java.artificer.Debugger;
 
 /**
  * A management class for all of a monsters Stats, and proficiencies.
@@ -32,7 +35,7 @@ public class StatBlock {
         
         //De-Serializae the stats one by one.
         stats = new HashMap<>();
-        
+        try {
         stats.put(Stat.STR, new Stat(source.get("strength").getAsInt()));
         stats.put(Stat.DEX, new Stat(source.get("dexterity").getAsInt()));
         stats.put(Stat.CON, new Stat(source.get("constitution").getAsInt()));
@@ -47,6 +50,9 @@ public class StatBlock {
         JsonArray profArr = source.get("proficiencies").getAsJsonArray();
         for(int i = 0; i < profArr.size(); i++) {
             profs.add(new Proficiency(profArr.get(i).getAsJsonObject()));
+        }
+        } catch (Exception ex) {
+            Debugger.debug("Error Deserializing StatBlock: " + ex.getMessage());
         }
         
         
@@ -130,6 +136,14 @@ public class StatBlock {
     
     public void addProf(Proficiency prof) {
         profs.add(prof);
+    }
+    
+    public void copyProfsFrom(Iterator<Proficiency> profics) {
+        profs = new ArrayList<>();
+        while(profics.hasNext()) {
+            Proficiency p = profics.next();
+            profs.add(p.copyProficiency());
+        }
     }
 
     /**

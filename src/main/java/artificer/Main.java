@@ -1,13 +1,6 @@
 package main.java.artificer;
 
-import java.io.File;
-import java.io.FileWriter;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import javafx.application.*;
-import main.java.artificer.filesystem.FileSystem;
-import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.App;
 
 
@@ -22,18 +15,8 @@ import main.java.artificer.ui.App;
  */
 public class Main {
     
-    //SAVE DIRECTORY CODE -- THIS WILL BE REPLACED BY A FILESYSTEM CLASS AND POTENTIALLY A PACKAGE
-    //String for the saveDir.
-    public static String saveDir;
-    
-    public static FileSystem fileSystem;
-    
-    public static MonsterLibrary library;
-    
     
 	public static void main(String[] args) {
-	    
-	    library = new MonsterLibrary();
 	    
 	    //I'm using this as a workaround because of fucking eclipse.
 	    //Launches the GUI Class.

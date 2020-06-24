@@ -1,6 +1,10 @@
 package main.java.artificer.stats;
 
+import java.util.ArrayList;
+
 import com.google.gson.JsonObject;
+
+import main.java.artificer.Debugger;
 
 /**
  * The main data class for Monsters.
@@ -35,6 +39,7 @@ public class Monster {
      * @param source The JsonObject this Monster will be constructed from
      */
     public Monster(JsonObject source) {
+        try {
         name = source.get("name").getAsString();
         size = source.get("size").getAsString();
         type = source.get("type").getAsString();
@@ -45,6 +50,11 @@ public class Monster {
         hitDice = new HitDice(source.get("hit_dice").getAsString());
         
         stats = new StatBlock(source);
+        
+        
+        } catch (Exception ex) {
+            Debugger.debug("Error Deserializing Monster: " + ex.getMessage());
+        }
     }
     
     public Monster() {
@@ -193,6 +203,7 @@ public class Monster {
         try {
         JsonObject monster = new JsonObject();
         monster.addProperty("name", name);
+        monster.addProperty("size", size);
         monster.addProperty("type", type);
         monster.addProperty("alignment", alignment);
         monster.addProperty("armor_class", AC);

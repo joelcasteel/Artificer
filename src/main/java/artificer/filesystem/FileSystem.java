@@ -37,6 +37,7 @@ public class FileSystem {
         try {
             if(!files.get(MONSTER_FILE).exists()) {
                 files.get(MONSTER_FILE).createNewFile();
+                System.out.println("Hello");
                 writeToSaveFile(MONSTER_FILE, "{}");
             }
             
