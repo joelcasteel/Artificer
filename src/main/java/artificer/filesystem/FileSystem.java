@@ -5,7 +5,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Hashtable;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -17,7 +21,9 @@ public class FileSystem {
     
     public static final String saveDir = System.getProperty("user.home") +  "\\.artificer\\";
     
-    File monsterData;
+    public static final String MONSTER_FILE = "Monster";
+    
+    public Hashtable<String, File> files = new Hashtable<>();
     
     
     private FileSystem() {
@@ -26,9 +32,13 @@ public class FileSystem {
             file.mkdir();
         }
         
-        monsterData = new File(saveDir + "monster.json");
+        files.put(MONSTER_FILE,  new File(saveDir + "monster.json"));
+        
         try {
-            monsterData.createNewFile();
+            if(!files.get(MONSTER_FILE).exists()) {
+                files.get(MONSTER_FILE).createNewFile();
+                writeToSaveFile(MONSTER_FILE, "{}");
+            }
             
         } catch(Exception ex) {
             System.out.println("Error creating monster.json" + ex.getMessage());
@@ -46,21 +56,28 @@ public class FileSystem {
         return instance;
     }
     
-    public boolean writeMonster(String output) {
+    public boolean writeToSaveFile(String fileName,String output) {
         try {
-            FileWriter writer = new FileWriter(monsterData);
+            FileWriter writer = new FileWriter(files.get(fileName));
             writer.write(output);
             writer.flush();
             writer.close();
             return true;
         } catch (Exception ex) {
-            System.out.println("Error writing to monster.json: "+ ex.getMessage());
+            System.out.println("Error writing to files: "+ ex.getMessage());
             return false;
         }
     }
     
-    public FileReader readMonster() throws FileNotFoundException {
-        return new FileReader(monsterData);
+    public FileReader getFileReader(String fileName) throws FileNotFoundException {
+        return new FileReader(files.get(fileName));
+    }
+    
+    public String readFileAsString(String fileName) throws FileNotFoundException, IOException {
+        byte[]  encoded = Files.readAllBytes(
+                files.get(MONSTER_FILE).toPath());
+        
+        return new String(encoded, StandardCharsets.UTF_8);
     }
     
    

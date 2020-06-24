@@ -95,6 +95,22 @@ public class Proficiency {
         return isSkill;
     }
     
+    public JsonObject toJson() {
+        JsonObject p = new JsonObject();
+        
+        
+        if(isSkill) {
+            p.addProperty("name", "Skill: " + name);
+        } else {
+            p.addProperty("name", "Saving Throw: " + name);
+        }
+        p.addProperty("value", value);
+        p.addProperty("url", url);
+        
+        
+        return p;
+    }
+    
     
     
 }

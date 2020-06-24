@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import javafx.application.*;
 import main.java.artificer.filesystem.FileSystem;
+import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.App;
 
 
@@ -27,13 +28,12 @@ public class Main {
     
     public static FileSystem fileSystem;
     
+    public static MonsterLibrary library;
+    
     
 	public static void main(String[] args) {
 	    
-	    fileSystem = FileSystem.getInstance();
-	    fileSystem.writeMonster("{HEEEEyyy}");
-	    
-	    
+	    library = new MonsterLibrary();
 	    
 	    //I'm using this as a workaround because of fucking eclipse.
 	    //Launches the GUI Class.

@@ -189,5 +189,29 @@ public class Monster {
         HP = pHP;
     }
     
+    public JsonObject toJson() {
+        try {
+        JsonObject monster = new JsonObject();
+        monster.addProperty("name", name);
+        monster.addProperty("type", type);
+        monster.addProperty("alignment", alignment);
+        monster.addProperty("armor_class", AC);
+        monster.addProperty("hit_points", HP);
+        monster.addProperty("hit_dice", hitDice.toString());
+        
+        for(String s: Stat.STATNAME) {
+            monster.addProperty(s, stats.getStat(s).getScore());
+        }
+        
+        monster.add("proficiencies", stats.getProfJson());
+        
+        return monster;
+                
+        } catch (Exception ex) {
+            System.out.println("Error Serializing Monster: " + ex.getMessage());
+            return null;
+        }
+        
+    }
    
 }

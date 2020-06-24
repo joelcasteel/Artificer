@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import main.java.artificer.Main;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.ui.elements.ModNumberField;
@@ -219,7 +220,8 @@ public class MonsterDetail extends Detail {
         @Override
         public void handle(ActionEvent event) {
             if(event.getSource().equals(saveButton)) {
-                
+                Main.library.add(backupSource);
+                Main.library.saveLibraryToFile();
             } else if (event.getSource().equals(restoreButton)) {
                 setContent(backupSource);
             }

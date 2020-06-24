@@ -1,5 +1,7 @@
 package main.java.artificer.stats;
 
+import com.google.gson.JsonObject;
+
 /**
  * Hold the data required for HD in this class.
  * 
@@ -59,5 +61,6 @@ public class HitDice {
     public String toString() {
         return number + "d" + dice;
     }
+    
 
 }

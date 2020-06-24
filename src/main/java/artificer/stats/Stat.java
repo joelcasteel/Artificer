@@ -14,12 +14,12 @@ public class Stat {
     //Now, why'd I put them here instead of in Statblock?
     //A) It's prettier to say Stat.STR that StatBlock.STR.
     //B) It makes more logical sense to me too.
-    public static final String STR = "Strength";
-    public static final String DEX = "Dexterity";
-    public static final String CON = "Constitution";
-    public static final String INT = "Intelligence";
-    public static final String WIS = "Wisdom";
-    public static final String CHA = "Charisma";
+    public static final String STR = "strength";
+    public static final String DEX = "dexterity";
+    public static final String CON = "constitution";
+    public static final String INT = "intelligence";
+    public static final String WIS = "wisdom";
+    public static final String CHA = "charisma";
     
     //This array contains the names of the Stats in order.
     public static final String STATNAME[] = {

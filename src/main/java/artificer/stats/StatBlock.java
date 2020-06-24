@@ -156,5 +156,15 @@ public class StatBlock {
         }
     }
     
+    public JsonArray getProfJson() {
+        JsonArray jsonProfs = new JsonArray();
+        for(Proficiency p:profs) {
+            jsonProfs.add(p.toJson());
+        }
+        return jsonProfs;
+    }
+    
+   
+    
 
 }
