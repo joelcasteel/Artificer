@@ -23,7 +23,6 @@ public class StatBlock {
     
     //Storage for Stats and profs.
     Map<String, Stat> stats;
-    ArrayList<Proficiency> profs;
     
     /**
      * Construct a new Statblock from a JSON Source.
@@ -43,14 +42,6 @@ public class StatBlock {
         stats.put(Stat.WIS, new Stat(source.get("wisdom").getAsInt()));
         stats.put(Stat.CHA, new Stat(source.get("charisma").getAsInt()));
         
-        
-        //De-Serialize the Proficiencies one by one.
-        profs = new ArrayList<>();
-        
-        JsonArray profArr = source.get("proficiencies").getAsJsonArray();
-        for(int i = 0; i < profArr.size(); i++) {
-            profs.add(new Proficiency(profArr.get(i).getAsJsonObject()));
-        }
         } catch (Exception ex) {
             Debugger.debug("Error Deserializing StatBlock: " + ex.getMessage());
         }
@@ -61,10 +52,9 @@ public class StatBlock {
     private StatBlock() {
         stats = new HashMap<>();
         
-        profs = new ArrayList<>();
     }
     
-    public StatBlock copyStatBlock() {
+    public StatBlock deepCopy() {
         StatBlock copy = new StatBlock();
         copy.setStat(Stat.STR, stats.get(Stat.STR).copyStat());
         copy.setStat(Stat.DEX, stats.get(Stat.DEX).copyStat());
@@ -73,9 +63,6 @@ public class StatBlock {
         copy.setStat(Stat.WIS, stats.get(Stat.WIS).copyStat());
         copy.setStat(Stat.CHA, stats.get(Stat.CHA).copyStat());
         
-        for(Proficiency p : profs) {
-            copy.addProf(p.copyProficiency());
-        }
         
         return copy;
         
@@ -104,47 +91,8 @@ public class StatBlock {
     public Iterable<Stat> getAllStats(){
         return stats.values();
     }
+
     
-    /**
-     * Get a specific Proficiency by listing the index.
-     * 
-     * @param i index to look under.
-     * @return Prof under index. Null if OOB.
-     */
-    public Proficiency getProf(int i) {
-        try {
-            return profs.get(i);
-        } catch (Exception ex) {
-            System.out.println("Error retrieving Proficiency." + ex.getMessage());
-            return null;
-        }
-    }
-    
-    /**
-     * Get all profs as an Iterable list.
-     * Since profs are kept in an arrayList, we just get the list.
-     * 
-     * This is probably Dangerous... Someone could fuck our statblock.
-     * @Todo Re-Evaluate the way proficiencies are stored/accessed.
-     * This will happen for our save, restore functionality.
-     * 
-     * @return Iterable of Proficiencies
-     */
-    public Iterable<Proficiency> getAllProfs() {
-        return profs;
-    }
-    
-    public void addProf(Proficiency prof) {
-        profs.add(prof);
-    }
-    
-    public void copyProfsFrom(Iterator<Proficiency> profics) {
-        profs = new ArrayList<>();
-        while(profics.hasNext()) {
-            Proficiency p = profics.next();
-            profs.add(p.copyProficiency());
-        }
-    }
 
     /**
      * Change a score in the Statblock.
@@ -169,14 +117,7 @@ public class StatBlock {
             stats.put(key, stat.copyStat());
         }
     }
-    
-    public JsonArray getProfJson() {
-        JsonArray jsonProfs = new JsonArray();
-        for(Proficiency p:profs) {
-            jsonProfs.add(p.toJson());
-        }
-        return jsonProfs;
-    }
+
     
    
     

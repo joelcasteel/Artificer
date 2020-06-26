@@ -3,11 +3,18 @@ package main.java.artificer.ui.elements;
 import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
+import main.java.artificer.stats.ProficiencyList;
 
 /**
  * Custom ListView for Holding Proficiencies via ProfCells
@@ -16,13 +23,19 @@ import main.java.artificer.stats.Proficiency;
  * @version June 2020
  *
  */
-public class ProfList {
+public class ProfList extends VBox {
+    
+    private GridPane profEditor = new GridPane();
+    private TextField newProfName = new TextField();
+    private ModNumberField stat = new ModNumberField();
+    private Button addButton = new Button();
+    private SkillTypeSelector typeBox = new SkillTypeSelector();
+    
     //We have the ListView
     private ListView<Proficiency> profList = new ListView<Proficiency>();
     
     //We also have an observable list to manage.
     private ObservableList<Proficiency> obvsList =  FXCollections.observableArrayList();
-    
     
     /**
      * Construct a new ProfList.s
@@ -60,14 +73,13 @@ public class ProfList {
      * 
      * @param source The Monster to take profs from
      */
-    public void setContent(Monster source) {
-        Iterator<Proficiency> iter = source.getStats().getAllProfs().iterator();
+    public void setContent(ProficiencyList source) {
+        
+        Iterable<Proficiency> iters = source.getAll();
         //mainList = new ArrayList<>();
         obvsList = FXCollections.observableArrayList();
-        while(iter.hasNext()) {
-            Proficiency aProf = iter.next();
-            obvsList.add(aProf.copyProficiency());
-            
+        for(Proficiency p: iters) {
+            obvsList.add(p);
         }
         profList.setItems(obvsList);
         
@@ -79,6 +91,7 @@ public class ProfList {
      */
     public void removeContent(Proficiency prof) {
         obvsList.remove(prof);
+        
     }
     
     public Iterator<Proficiency> getCurrentContent() {
@@ -91,6 +104,11 @@ public class ProfList {
      */
     public void addContent(Proficiency prof) {
         obvsList.add(prof);
+        
+    }
+    
+    public ProficiencyList getContent() {
+        return null;
     }
     
     
@@ -105,6 +123,7 @@ public class ProfList {
         int idx = obvsList.indexOf(prof);
         obvsList.set(idx, newProf);
     }
+    
     
     
 }

@@ -2,6 +2,7 @@ package main.java.artificer.ui.elements;
 
 
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -48,6 +49,8 @@ public class ProfCell extends ListCell<Proficiency> {
     public ProfCell(ProfList pProfList) {
         profList = pProfList;
         
+        
+        
         getStyleClass().add("cool-list-cell");
         setMaxHeight(CELL_HEIGHT);
         setPrefHeight(CELL_HEIGHT);
@@ -92,6 +95,8 @@ public class ProfCell extends ListCell<Proficiency> {
         
         
         setOnMouseClicked(selectHandler);
+ 
+        
     }
     
     @Override
@@ -146,37 +151,23 @@ public class ProfCell extends ListCell<Proficiency> {
 
         @Override
         public void handle(ActionEvent event) {
-            //Check whether this is a skill
-            boolean isASkill = getItem().isSkill();
             
-            //SKILL BUTTON
-            //Toglle skill/save
+            Proficiency prof = getItem();
+            
             if(event.getSource().equals(imgButton)) {
-                if(imgButton.getGraphic().equals(skillIcon)) {
-                    isASkill = false;
-                    
-                } else {
-                    isASkill = true;
-                }
+                prof.setSkill(!prof.isSkill());
+                
+            } else if (event.getSource().equals(nameField)) {
+                prof.setName(nameField.getText());
+                
+            } else if (event.getSource().equals(stat)) {
+                prof.setValue(stat.getNumericValue());
                 
             }
             
-            //Required as a workaround... I could be doing something wrong.
-            final boolean passSkill = isASkill;
-            
-            //ALL FIELDS
-            //Update the Proficiency in the list with all the values from the cell.
-            Platform.runLater(new Runnable() {
-                public void run() {
-                    profList.switchContent(getItem(), new Proficiency(nameField.getText(), stat.getNumericValue(), passSkill));
-                    toggleActive(true);
-                    
-                }
-                
-            });
-            
             
         }
+            
         
     };
     
@@ -211,6 +202,8 @@ public class ProfCell extends ListCell<Proficiency> {
         }
         
     };
+    
+    
            
     
     

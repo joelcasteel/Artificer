@@ -47,7 +47,7 @@ public class StatTable extends GridPane {
      * @param block The statblock of values
      */
     public void setValues(StatBlock block) {
-        stats = block.copyStatBlock();
+        stats = block.deepCopy();
         for(int i = 0; i < Stat.STATNAME.length; i++) {
             rows.get(Stat.STATNAME[i]).setContent(block.getStat(Stat.STATNAME[i]));
         }

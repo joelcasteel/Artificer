@@ -1,9 +1,7 @@
 package main.java.artificer.stats;
 
-import java.util.ArrayList;
 
 import com.google.gson.JsonObject;
-
 import main.java.artificer.Debugger;
 
 /**
@@ -32,6 +30,8 @@ public class Monster {
     //A statblock Object
     private StatBlock stats;
     
+    private ProficiencyList profs;
+    
     /**
      * We have to deserialize the object manually due to the many custom objects within.
      * Pretty straight-forward, just kind of labor intensive.
@@ -50,6 +50,8 @@ public class Monster {
         hitDice = new HitDice(source.get("hit_dice").getAsString());
         
         stats = new StatBlock(source);
+        
+        profs = new ProficiencyList(source.get("proficiencies").getAsJsonArray());
         
         
         } catch (Exception ex) {
@@ -70,7 +72,7 @@ public class Monster {
         stats = null;
     }
     
-    public Monster copyMonster() {
+    public Monster deepCopy() {
         Monster copy = new Monster();
         copy.setName(name);
         copy.setType(type);
@@ -80,7 +82,8 @@ public class Monster {
         copy.setAC(AC);
         copy.setHP(HP);
         
-        copy.setStats(stats.copyStatBlock());
+        copy.setStats(stats.deepCopy());
+        copy.setProfs(profs.deepCopy());
         copy.setHitDice(hitDice.copyHitDice());
         
         
@@ -105,6 +108,13 @@ public class Monster {
         stats = pStats;
     }
     
+    public ProficiencyList getProfs() {
+        return profs;
+    }   
+    
+    public void setProfs(ProficiencyList pList) {
+        profs = pList;
+    }
     
     /**
      * Returns the HitDice object belonging to a monster
@@ -214,7 +224,7 @@ public class Monster {
             monster.addProperty(s, stats.getStat(s).getScore());
         }
         
-        monster.add("proficiencies", stats.getProfJson());
+        monster.add("proficiencies", profs.getAsJson());
         
         return monster;
                 

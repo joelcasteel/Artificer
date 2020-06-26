@@ -71,6 +71,10 @@ public class Proficiency {
         return name;
     }
     
+    public void setName(String pName) {
+        name = pName;
+    }
+    
     /**
      * 
      * @return URL of Prof in API
@@ -87,12 +91,20 @@ public class Proficiency {
         return value;
     }
     
+    public void setValue(int pVal) {
+        value = pVal;
+    }
+    
     /**
      *
      * @return T = Skill, F = Save
      */
     public boolean isSkill() {
         return isSkill;
+    }
+    
+    public void setSkill(boolean pSkill) {
+        isSkill = pSkill;
     }
     
     public JsonObject toJson() {

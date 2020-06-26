@@ -35,6 +35,10 @@ public class MonsterDetail extends Detail {
     
     private Monster backupSource = null;
     
+    private Monster currentSource = null;
+    
+    
+    
     private StatTable statsTable;
     
     private Label statLabel = new Label("Stats");
@@ -173,7 +177,10 @@ public class MonsterDetail extends Detail {
     public void setContent(Monster source) {
         open();
         
-        backupSource = source;
+        backupSource = source.deepCopy();
+        
+        currentSource = source;
+        
         
         name.setText(source.getName());
         size.setText(source.getSize());
@@ -186,9 +193,7 @@ public class MonsterDetail extends Detail {
         
         statsTable.setValues(source.getStats());
         
-
-        
-        profList.setContent(source);
+        profList.setContent(source.getProfs());
    
         
     }
@@ -222,24 +227,20 @@ public class MonsterDetail extends Detail {
         @Override
         public void handle(ActionEvent event) {
             if(event.getSource().equals(saveButton)) {
-                Monster monster = new Monster();
-                monster.setName(name.getText());
-                monster.setSize(size.getText());
-                monster.setType(type.getText());
-                monster.setAlignment(alignment.getText());
                 
-                monster.setAC(Integer.parseInt(armorClass.getText()));
-                monster.setHP(Integer.parseInt(hitPoints.getText()));
+                currentSource.setName(name.getText());
+                currentSource.setType(type.getText());
+                currentSource.setSize(name.getText());
+                currentSource.setAlignment(alignment.getText());
                 
-                monster.setHitDice(backupSource.getHitDice());
+                currentSource.setAC(Integer.parseInt(armorClass.getText()));
+                currentSource.setHP(Integer.parseInt(hitPoints.getText()));
                 
-                StatBlock block = statsTable.getStatBlock().copyStatBlock();
-                block.copyProfsFrom(profList.getCurrentContent());
-                monster.setStats(block);
+                
                 
                 
                 MonsterLibrary mLib = MonsterLibrary.getInstance();
-                mLib.add(monster);
+                mLib.add(currentSource);
                 mLib.saveLibraryToFile();
             } else if (event.getSource().equals(restoreButton)) {
                 setContent(backupSource);
