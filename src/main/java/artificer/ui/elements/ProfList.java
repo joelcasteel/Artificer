@@ -32,11 +32,7 @@ import main.java.artificer.stats.ProficiencyList;
  */
 public class ProfList extends VBox {
     
-    private GridPane profEditor = new GridPane();
-    private TextField newProfName = new TextField();
-    private ModNumberField stat = new ModNumberField();
-    private Button addButton = new Button();
-    private SkillTypeSelector typeBox = new SkillTypeSelector();
+    private ProfEditor profEditor = new ProfEditor(this);
     
     private Proficiency currentProf = null;
     
@@ -71,40 +67,11 @@ public class ProfList extends VBox {
             @Override
             public void changed(ObservableValue<? extends Proficiency> observable, Proficiency oldValue,
                     Proficiency newValue) {
-                setEditContext(newValue);
+                profEditor.setEditContext(newValue);
                 
             }
             
         });
-        
-        profEditor.setMaxHeight(ProfCell.CELL_HEIGHT);
-        profEditor.setPrefHeight(ProfCell.CELL_HEIGHT);
-        
-        profEditor.setPrefWidth(300);
-        profEditor.getStyleClass().add("create-box");
-        
-        profEditor.setHgap(12);
-        profEditor.getColumnConstraints().addAll(
-                new ColumnConstraints(48),
-                new ColumnConstraints(120),
-                new ColumnConstraints(48)
-                );
-        
-        
-        stat.getStyleClass().add("number-field");
-        stat.setOnAction(profFieldHandler);
-        
-        newProfName.getStyleClass().add("blank-text-field");
-        newProfName.setPromptText("Add New...");
-        newProfName.setOnAction(profFieldHandler);
-        
-        addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
-        addButton.setPadding(new Insets(6));
-        
-        
-        profEditor.add(typeBox, 0, 0);
-        profEditor.add(newProfName, 1, 0);
-        profEditor.add(stat, 2, 0);
         
         
         
@@ -164,12 +131,6 @@ public class ProfList extends VBox {
     }
     
     
-    private void setEditContext(Proficiency p) {
-        currentProf = p;
-        newProfName.setText(p.getName());
-        stat.setText(Integer.toString(p.getValue()));
-    }
-    
     /**
      * Replace a prof with a new one.
      * Useful for editing profs while maintaining our list.
@@ -182,29 +143,6 @@ public class ProfList extends VBox {
         obvsList.set(idx, newProf);
     }
     
-    
-    
-    EventHandler<ActionEvent> profFieldHandler = new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            int mod;
-            
-            try {
-                mod = Integer.parseInt(stat.getText());
-            } catch (Exception ex) {
-                mod = 0;
-            }
-            
-            currentProf.setName(newProfName.getText());
-            currentProf.setSkill(typeBox.getSelectionModel().getSelectedItem().contentEquals("Skill"));
-            currentProf.setValue(mod);
-            
-            profList.refresh();
-            
-        }
-        
-    };
     
     
 }
