@@ -69,6 +69,7 @@ public class ProfCell extends ListCell<Proficiency> {
         
         
         
+        
         nameField.getStyleClass().add("cool-label");
         stat.getStyleClass().add("cool-label");        
         grid.add(nameField, 1, 0);

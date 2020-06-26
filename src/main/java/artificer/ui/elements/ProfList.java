@@ -12,16 +12,22 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.stats.ProficiencyList;
+import main.java.artificer.ui.App;
+
 
 /**
  * Custom ListView for Holding Proficiencies via ProfCells
@@ -34,7 +40,8 @@ public class ProfList extends VBox {
     
     private ProfEditor profEditor = new ProfEditor(this);
     
-    private Proficiency currentProf = null;
+    private Popup profPopup = new Popup();
+    private ProfEditor editPopup = new ProfEditor(this);
     
     //We have the ListView
     private ListView<Proficiency> profList = new ListView<Proficiency>();
@@ -50,6 +57,9 @@ public class ProfList extends VBox {
         //This is so we can pass this object to the listCellFactory
         ProfList holder = this;
         
+        
+        profPopup.getContent().add(editPopup);
+        
         profList.getStyleClass().add("prof-list");
         profList.setPrefSize(300, 180);
         profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
@@ -59,6 +69,8 @@ public class ProfList extends VBox {
                 
             }
         });
+        
+       
         
         profList.setItems(obvsList);
         
