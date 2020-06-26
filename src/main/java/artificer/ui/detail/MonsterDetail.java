@@ -49,12 +49,6 @@ public class MonsterDetail extends Detail {
     private Label profLabel = new Label("Proficiencies");
     private ProfList profList = new ProfList();
     
-    private GridPane grid = new GridPane();
-    private TextField newProfName = new TextField();
-    private ModNumberField stat = new ModNumberField();
-    private Button addButton = new Button();
-    private SkillTypeSelector typeBox = new SkillTypeSelector();
-    
     private HBox bottomButtonBox = new HBox();
     private Button saveButton = new Button("Save");
     private Button restoreButton = new Button("Restore");
@@ -77,7 +71,7 @@ public class MonsterDetail extends Detail {
         
         
         detailGrid = new GridPane();
-        detailGrid.setId("detail-grid");
+        detailGrid.setId("detail-profEditor");
         detailGrid.getColumnConstraints().add(new ColumnConstraints(100));
         detailGrid.getColumnConstraints().add(new ColumnConstraints(200));
         
@@ -118,36 +112,9 @@ public class MonsterDetail extends Detail {
         split[1].setHalignment(HPos.CENTER);
         
         
-        grid.setMaxHeight(ProfCell.CELL_HEIGHT);
-        grid.setPrefHeight(ProfCell.CELL_HEIGHT);
         
-        grid.setPrefWidth(300);
-        grid.getStyleClass().add("create-box");
-        
-        grid.setHgap(12);
-        grid.getColumnConstraints().addAll(
-                new ColumnConstraints(48),
-                new ColumnConstraints(120),
-                new ColumnConstraints(48)
-                );
-        
-        
-        stat.getStyleClass().add("number-field");
-        stat.setOnAction(profFieldHandler);
         
         profLabel.getStyleClass().add("cool-section-label");
-        
-        newProfName.getStyleClass().add("blank-text-field");
-        newProfName.setPromptText("Add New...");
-        newProfName.setOnAction(profFieldHandler);
-        
-        addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
-        addButton.setPadding(new Insets(6));
-        
-        
-        grid.add(typeBox, 0, 0);
-        grid.add(newProfName, 1, 0);
-        grid.add(stat, 2, 0);
         
         bottomButtonBox.setPadding(new Insets(12));
         bottomButtonBox.setSpacing(12);
@@ -164,7 +131,7 @@ public class MonsterDetail extends Detail {
         
         holder.getChildren().addAll(
                detailGrid, statLabel, split[0], statsTable, split[1],
-               profLabel, profList.getProfList(), grid, bottomButtonBox
+               profLabel, profList, bottomButtonBox
                );
         
     }
@@ -198,29 +165,6 @@ public class MonsterDetail extends Detail {
         
     }
     
-    EventHandler<ActionEvent> profFieldHandler = new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            int mod;
-            
-            try {
-                mod = Integer.parseInt(stat.getText());
-            } catch (Exception ex) {
-                mod = 0;
-            }
-            
-            Proficiency prof = new Proficiency(newProfName.getText(), mod,
-                    typeBox.getSelectionModel().getSelectedItem().contentEquals("Skill"));
-            
-            
-            profList.addContent(prof);
-            
-            
-            
-        }
-        
-    };
     
     EventHandler<ActionEvent> bottomButtonHandler = new EventHandler<ActionEvent>() {
 

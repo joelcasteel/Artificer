@@ -91,6 +91,13 @@
 	-fx-background-color: rgba(0,0,0,0.5);
 }
 
+.cool-label {
+	-fx-background-color: transparent;
+	-fx-border-width: 0;
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-padding: 6 12 6 12;
+}
+
 .side-menu {
 	-fx-border-style: solid solid none none;
 	-fx-border-width: 0.5;

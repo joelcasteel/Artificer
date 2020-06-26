@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,14 +31,14 @@ public class ProfCell extends ListCell<Proficiency> {
     public static ProfCell currentCell = null;
     
     private GridPane grid = new GridPane();
-    private TextField nameField = new TextField();
-    private Button deleteButton = new Button();
+    private Label nameField = new Label();
     
-    private ModNumberField stat = new ModNumberField();
+    private ModNumberLabel stat = new ModNumberLabel();
     private ImageView saveIcon = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
     private ImageView skillIcon = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
     private ImageView deleteIcon = new ImageView(new Image(getClass().getResource("/ui/icons/exit.png").toString()));
     private Button imgButton = new Button();
+    private Label imgLabel = new Label();
     
     private ProfList profList;
     
@@ -66,35 +67,16 @@ public class ProfCell extends ListCell<Proficiency> {
                 
                 );
         
-        nameField.getStyleClass().add("blank-text-field");
-        stat.getStyleClass().add("number-field");
-        deleteButton.getStyleClass().add("cool-button");
-        deleteButton.setOnAction(deleteHandler);
-        
-        deleteButton.setGraphic(deleteIcon);
-        
-        nameField.setEditable(false);
-        nameField.setMouseTransparent(true);
-        stat.setEditable(false);
-        stat.setMouseTransparent(true);
-        deleteButton.setVisible(false);
-        imgButton.setMouseTransparent(true);
-        imgButton.setDisable(true);
         
         
-        stat.setOnAction(fieldHandler);
-        nameField.setOnAction(fieldHandler);
-        
+        nameField.getStyleClass().add("cool-label");
+        stat.getStyleClass().add("cool-label");        
         grid.add(nameField, 1, 0);
         grid.add(stat, 2, 0);
-        grid.add(deleteButton, 3, 0);
 
-        imgButton.getStyleClass().add("cool-button");
-        imgButton.setOnAction(fieldHandler);
-        grid.add(imgButton, 0, 0);
+        imgLabel.getStyleClass().add("cool-label");
+        grid.add(imgLabel, 0, 0);
         
-        
-        setOnMouseClicked(selectHandler);
  
         
     }
@@ -110,7 +92,7 @@ public class ProfCell extends ListCell<Proficiency> {
             nameField.setText(prof.getName());
             stat.setNumericValue(prof.getValue());
             setGraphic(grid);
-            toggleActive(false);
+            
             
         }
     }
@@ -122,86 +104,12 @@ public class ProfCell extends ListCell<Proficiency> {
      */
     public void chooseIcon(boolean skill) {
         if(skill) {
-            imgButton.setGraphic(skillIcon);
+            imgLabel.setGraphic(skillIcon);
         } else {
-            imgButton.setGraphic(saveIcon);
+            imgLabel.setGraphic(saveIcon);
         }
         
     }
-    
-    /**
-     * Toggles whether this cell is active and editable
-     * 
-     * @param on T if Editable, F if not
-     */
-    public void toggleActive(boolean on) {
-        nameField.setEditable(on);
-        nameField.setMouseTransparent(!on);
-        stat.setEditable(on);
-        stat.setMouseTransparent(!on);
-        deleteButton.setVisible(on);
-        imgButton.setMouseTransparent(!on);
-        imgButton.setDisable(!on);
-    }
-    
-    /**
-     * Field handler for updating values
-     */
-    EventHandler<ActionEvent> fieldHandler = new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            
-            Proficiency prof = getItem();
-            
-            if(event.getSource().equals(imgButton)) {
-                prof.setSkill(!prof.isSkill());
-                
-            } else if (event.getSource().equals(nameField)) {
-                prof.setName(nameField.getText());
-                
-            } else if (event.getSource().equals(stat)) {
-                prof.setValue(stat.getNumericValue());
-                
-            }
-            
-            
-        }
-            
-        
-    };
-    
-    /**
-     * Event handler for the delete button
-     */
-    EventHandler<ActionEvent> deleteHandler = new EventHandler<ActionEvent>() {
-
-        @Override
-        public void handle(ActionEvent event) {
-            profList.removeContent(getItem());
-            profList.getProfList().requestFocus();
-            
-        }
-        
-    };
-    
-    /**
-     * Mouse handler for selecting the cell.
-     */
-    EventHandler<MouseEvent> selectHandler = new EventHandler<MouseEvent>() {
-
-        @Override
-        public void handle(MouseEvent event) {
-            if(currentCell != null) {
-                currentCell.toggleActive(false);
-            }
-            toggleActive(true);
-            currentCell = (ProfCell)event.getSource();
-            
-            
-        }
-        
-    };
     
     
            
