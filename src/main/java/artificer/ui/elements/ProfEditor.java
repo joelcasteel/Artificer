@@ -34,19 +34,18 @@ public class ProfEditor extends GridPane {
         getColumnConstraints().addAll(
                 new ColumnConstraints(48),
                 new ColumnConstraints(120),
-                new ColumnConstraints(48)
+                new ColumnConstraints(36)
                 );
         
         
         stat.getStyleClass().add("number-field");
         stat.setOnAction(profFieldHandler);
         
-        newProfName.getStyleClass().add("blank-text-field");
+        newProfName.getStyleClass().add("clean-text-field");
         newProfName.setPromptText("Add New...");
         newProfName.setOnAction(profFieldHandler);
         
         typeBox.setOnAction(profFieldHandler);
-        
         
         addButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/add_circle.png").toString())));
         addButton.setPadding(new Insets(6));

@@ -40,8 +40,6 @@ public class ProfList extends VBox {
     
     private ProfEditor profEditor = new ProfEditor(this);
     
-    private Popup profPopup = new Popup();
-    private ProfEditor editPopup = new ProfEditor(this);
     
     //We have the ListView
     private ListView<Proficiency> profList = new ListView<Proficiency>();
@@ -58,7 +56,6 @@ public class ProfList extends VBox {
         ProfList holder = this;
         
         
-        profPopup.getContent().add(editPopup);
         
         profList.getStyleClass().add("prof-list");
         profList.setPrefSize(300, 180);

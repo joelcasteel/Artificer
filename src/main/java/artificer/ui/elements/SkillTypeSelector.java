@@ -79,6 +79,7 @@ public class SkillTypeSelector extends ComboBox<String> {
         
         private ImageView saveIconButton 
             = new ImageView(new Image(getClass().getResource("/ui/icons/save.png").toString()));
+        
         private ImageView skillIconButton 
             = new ImageView(new Image(getClass().getResource("/ui/icons/skill.png").toString()));
         
