@@ -208,6 +208,17 @@
 	-fx-text-fill: black;
 }
 
+#menu-wrapper {
+}
+
+#menu-header {
+	-fx-padding: 6 12 6 12;
+}
+
+#menu-holder {
+	-fx-padding: 6 12 6 12;
+}
+
 
 #detail-menu {
 	-fx-background-color: transparent;

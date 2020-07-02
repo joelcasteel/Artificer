@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import javafx.scene.layout.StackPane;
 import main.java.artificer.ui.menu.MonsterMenu;
-import main.java.artificer.ui.menu.SearchMenu;
 import main.java.artificer.ui.menu.SideMenu;
 
 /**
@@ -14,7 +13,7 @@ import main.java.artificer.ui.menu.SideMenu;
  * @version June 2020
  *
  */
-public class MenuWrapper extends StackPane {
+public class OldMenuWrapper extends StackPane {
     
     public static final String SEARCH_MENU = "Search";
     public static final String ENCOUNTER_MENU = "Encounter";
@@ -31,8 +30,7 @@ public class MenuWrapper extends StackPane {
      * 
      * @param ribbon The ribbon that controls menus/details
      */
-    public MenuWrapper(SideRibbon ribbon) {
-        menus.put(SEARCH_MENU, new SearchMenu(ribbon));
+    public OldMenuWrapper(SideRibbon ribbon) {
         menus.put(MONSTER_MENU, new MonsterMenu());
         
         getChildren().addAll(menus.values());

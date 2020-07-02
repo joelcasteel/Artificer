@@ -1,4 +1,4 @@
-package main.java.artificer.ui.detail;
+package main.java.artificer.ui.menu;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,30 +8,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import main.java.artificer.Main;
+import javafx.scene.layout.VBox;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.MonsterLibrary;
-import main.java.artificer.stats.Proficiency;
-import main.java.artificer.stats.StatBlock;
-import main.java.artificer.ui.elements.ModNumberField;
-import main.java.artificer.ui.elements.ProfCell;
 import main.java.artificer.ui.elements.ProfList;
-import main.java.artificer.ui.elements.SkillTypeSelector;
+import main.java.artificer.ui.elements.SearchBox;
 import main.java.artificer.ui.elements.StatTable;
 
-/**
- * The Monster Detail module
- * 
- * @author Joel Casteel
- * @version June 2020
- *
- */
-public class MonsterDetail extends Detail {
+public class MonsterDetailMenu extends VBox implements Collapsible {
     
     private Monster backupSource = null;
     
@@ -52,21 +39,13 @@ public class MonsterDetail extends Detail {
     private HBox bottomButtonBox = new HBox();
     private Button saveButton = new Button("Save");
     private Button restoreButton = new Button("Restore");
-    
-    
-   
-    
-    
-    /**
-     * Construct a new Monster Detail Menu
-     */
-    public MonsterDetail() {
+
+    public MonsterDetailMenu() {
         
-        holder.setId("monster-detail");
+        setId("monster-detail");
         
         
-        headerLabel.setText("Monster Details");
-        
+
         statLabel.getStyleClass().add("cool-section-label");
         
         
@@ -129,10 +108,14 @@ public class MonsterDetail extends Detail {
         
         
         
-        holder.getChildren().addAll(
+        getChildren().addAll(
                detailGrid, statLabel, split[0], statsTable, split[1],
                profLabel, profList, bottomButtonBox
                );
+        
+        
+        
+        
         
     }
     
@@ -142,7 +125,7 @@ public class MonsterDetail extends Detail {
      * @param source
      */
     public void setContent(Monster source) {
-        open();
+        expand();
         
         backupSource = source.deepCopy();
         
@@ -193,5 +176,34 @@ public class MonsterDetail extends Detail {
         }
         
     };
-    
+
+    @Override
+    public void collapse() {
+        setManaged(false);
+        setVisible(false);
+        
+    }
+
+    @Override
+    public void expand() {
+        setManaged(true);
+        setVisible(true);
+        
+    }
+
+    @Override
+    public void toggle() {
+        if (isManaged() && isVisible()) {
+            collapse();
+        } else {
+            expand();
+        }
+        
+    }
+
+    @Override
+    public String getTitle() {
+        return "Monster Details";
+    }
+
 }

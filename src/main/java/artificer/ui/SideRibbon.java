@@ -10,8 +10,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import main.java.artificer.ui.detail.MonsterDetail;
-import main.java.artificer.ui.menu.SearchMenu;
+import main.java.artificer.ui.detail.OldMonsterDetail;
+import main.java.artificer.ui.menu.MenuWrapper;
 
 /**
  * The interactive Side-Ribbon that allows menu selection
@@ -34,11 +34,11 @@ public class SideRibbon extends HBox {
     Button settings;
     
     StackPane menuPane;
-    MenuWrapper menuWrapper;
-    SearchMenu searchMenu;
+    OldMenuWrapper oldMenuWrapper;
+    //OldSearchMenu oldSearchMenu;
     
     StackPane detailPane;
-    MonsterDetail monsterDetail;
+    OldMonsterDetail oldMonsterDetail;
     
     DetailWrapper detailWrapper;
     
@@ -89,18 +89,18 @@ public class SideRibbon extends HBox {
         sideRibbon.getChildren().add(add);
         
         
-        menuWrapper = new MenuWrapper(this);
+        oldMenuWrapper = new OldMenuWrapper(this);
         
         detailWrapper = new DetailWrapper(this);
         
         
         detailPane = new StackPane();
-        monsterDetail = new MonsterDetail();
-        detailPane.getChildren().addAll(monsterDetail);
+        oldMonsterDetail = new OldMonsterDetail();
+        detailPane.getChildren().addAll(oldMonsterDetail);
         
         
         
-        getChildren().addAll(sideRibbon, menuWrapper, detailWrapper);
+        getChildren().addAll(sideRibbon, oldMenuWrapper, detailWrapper);
     }
     
     /**
@@ -119,9 +119,10 @@ public class SideRibbon extends HBox {
         @Override
         public void handle(ActionEvent event) {
             if(event.getSource().equals(search)) {
-                menuWrapper.SwitchContext(MenuWrapper.SEARCH_MENU);
+                MenuWrapper.getInstance().changeContext("Search Monsters");
+                
             } else if (event.getSource().equals(monsters)) {
-                menuWrapper.SwitchContext(MenuWrapper.MONSTER_MENU);
+                oldMenuWrapper.SwitchContext(OldMenuWrapper.MONSTER_MENU);
             }
             
         }

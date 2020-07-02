@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import javafx.application.Platform;
 import main.java.artificer.stats.MonsterFactory;
+import main.java.artificer.ui.menu.MenuWrapper;
 import main.java.artificier.request.APIClient;
 import main.java.artificier.request.Request;
 
@@ -48,11 +49,13 @@ public class MonsterCache implements Request {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                parentSearch.getParentRibbon()
+            /*    parentSearch.getParentRibbon()
                 .getDetail()
                 .getMonsterDetail()
                 .setContent(
-                        MonsterFactory.createMonster(response));
+                        MonsterFactory.createMonster(response));*/
+                
+                MenuWrapper.getInstance().changeContext("Monster Details");
             }
             
         });

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import javafx.scene.layout.StackPane;
 import main.java.artificer.ui.detail.Detail;
-import main.java.artificer.ui.detail.MonsterDetail;
+import main.java.artificer.ui.detail.OldMonsterDetail;
 
 /**
  * The wrapper for switching detail contexts.
@@ -32,7 +32,7 @@ public class DetailWrapper extends StackPane {
     public DetailWrapper(SideRibbon ribbon) {
         getStylesheets().add(getClass().getResource(App.stylesheet).toString());
         parentRibbon = ribbon;
-        details.put(MONSTER_DETAIL, new MonsterDetail());
+        details.put(MONSTER_DETAIL, new OldMonsterDetail());
         
         getChildren().addAll(details.values());
     }
@@ -41,7 +41,7 @@ public class DetailWrapper extends StackPane {
      * 
      * @return The Monster Detail View used in this wrapper.
      */
-    public MonsterDetail getMonsterDetail() {
-        return (MonsterDetail) details.get(MONSTER_DETAIL);
+    public OldMonsterDetail getMonsterDetail() {
+        return (OldMonsterDetail) details.get(MONSTER_DETAIL);
     }
 }

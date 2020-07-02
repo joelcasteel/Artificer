@@ -56,15 +56,13 @@ public class SearchBox extends VBox implements Request {
     private ArrayList<MonsterCache> filteredList;
     
     SideMenu sideMenuParent;
-    SideRibbon parentRibbon;
     
     /**
      * Construct a new SearchBox
      * 
      * @param parent The SideRibbon Parent this belongs to.
      */
-    public SearchBox(SideRibbon parent) {
-        parentRibbon = parent;
+    public SearchBox() {
         
         
         getStylesheets().add(getClass().getResource(App.stylesheet).toString());
@@ -163,14 +161,6 @@ public class SearchBox extends VBox implements Request {
         }
     }
     
-    /**
-     * 
-     * @return The SideRibbon parent
-     */
-    public SideRibbon getParentRibbon() {
-        return parentRibbon;
-        
-    }
     
     /**
      * Send the search request to the APIClient
