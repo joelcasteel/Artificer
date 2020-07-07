@@ -53,6 +53,80 @@
 	-fx-border-radius: 0;
 }
 
+#menu-wrapper {
+}
+
+#menu-header {
+	-fx-padding: 0;
+	-fx-alignment: center;
+	-fx-border-color: black;
+	-fx-border-width: 0;
+	
+	
+}
+
+#menu-header-label {
+	-fx-background-radius: 0;
+	-fx-background-color: transparent;
+	-fx-alighment: center;
+	
+	
+	-fx-border-style: solid;
+	-fx-border-width: 1 1 1 1;
+	-fx-border-color: black;
+	-fx-border-insets: -1 -1 -1 -1;
+	
+	-fx-background-color: transparent;
+	
+	-fx-font-family: "Open Sans Bold";
+	
+}
+
+#menu-header-back-button {
+	-fx-background-color: goldenrod;
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-size: 10pt;
+	-fx-text-fill: black;
+}
+
+#menu-header-exit-button {
+	-fx-background-color: tomato;
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-size: 10pt;
+	-fx-text-fill: black;
+}
+
+#menu-holder {
+	-fx-padding: 6 12 6 12;
+}
+
+
+.brutal-button {
+	-fx-background-radius: 0;
+	-fx-background-color: transparent;
+	-fx-background-insets: 0;
+	
+	-fx-border-radius: 0;
+	-fx-border-style: solid;
+	-fx-border-color: black;
+	-fx-border-width: 1;
+	-fx-alignment: center;
+}
+
+.brutal-button:hover {
+	
+}
+
+.brutal-button:pressed {
+	-fx-background-color: rgba(0,0,0,0.5);
+}
+
+
+.brutal-label {
+	-fx-border-style: none;
+	
+}
+
 
 .cool-button {
 	-fx-background-color: transparent;
@@ -206,17 +280,6 @@
 .cool-section-label {
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-text-fill: black;
-}
-
-#menu-wrapper {
-}
-
-#menu-header {
-	-fx-padding: 6 12 6 12;
-}
-
-#menu-holder {
-	-fx-padding: 6 12 6 12;
 }
 
 

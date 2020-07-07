@@ -122,7 +122,8 @@ public class SideRibbon extends HBox {
                 MenuWrapper.getInstance().changeContext("Search Monsters");
                 
             } else if (event.getSource().equals(monsters)) {
-                oldMenuWrapper.SwitchContext(OldMenuWrapper.MONSTER_MENU);
+                //oldMenuWrapper.SwitchContext(OldMenuWrapper.MONSTER_MENU);
+                MenuWrapper.getInstance().changeContext("Monster Details");
             }
             
         }
