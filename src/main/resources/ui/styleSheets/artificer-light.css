@@ -27,8 +27,13 @@
 
 #side-ribbon {
 	-fx-background-color: #e8bb46;
-	-fx-border-width: 0;
+	
+	-fx-border-style: solid;
+	-fx-border-width: 0 1 0 0;
 	-fx-border-radius: 0;
+	-fx-border-color:black;
+	
+	
 	-fx-padding: 12 6 120 6;
 	-fx-alignment: top-center;
 	-fx-spacing: 12;
@@ -54,6 +59,13 @@
 }
 
 #menu-wrapper {
+	
+	-fx-background-color: transparent;
+	
+	-fx-border-style: solid;
+	-fx-border-width: 0 1 0 0;
+	-fx-border-color: black;
+	
 }
 
 #menu-header {
@@ -87,6 +99,7 @@
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
+	-fx-border-width: 1 1 1 0;
 }
 
 #menu-header-exit-button {
@@ -94,10 +107,54 @@
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
+	
+	-fx-border-width: 1 1 1 1;
 }
 
 #menu-holder {
-	-fx-padding: 6 12 6 12;
+	-fx-background-color: white;
+	-fx-padding: 0;
+}
+
+#menu-scroller {
+	-fx-background-color: transparent;
+}
+
+
+#monster-detail-menu {
+	-fx-background-color: transparent;	
+	-fx-padding: 12 0 24 0;
+	-fx-spacing: 12;
+}
+
+#monster-detail-menu > #detail-grid {
+	-fx-background-color: white;	
+	-fx-hgap: 12;
+}
+
+#monster-detail-menu > #detail-grid > .label {
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-font-size: 10pt;
+}
+
+#monster-detail-menu > #detail-grid > .text-field {
+	-fx-background-color: transparent;
+	-fx-border-width: 2;
+	-fx-border-radius: 4;
+	-fx-border-color: transparent;
+	-fx-padding: 3 6 3 6;
+	-fx-font-family: "Open Sans";
+	-fx-font-size: 10pt;
+}
+
+#monster-detail-menu > #detail-grid > .text-field:hover {
+	-fx-background-color: rgba(0,0,0,0.1);
+}
+
+
+#monster-detail-menu > #detail-grid > .text-field:focused {
+	-fx-border-color: #70a3bb;
+	-fx-background-color: transparent;
 }
 
 
@@ -335,41 +392,6 @@
 	-fx-background-color: transparent;
 }
 
-#monster-detail {
-	-fx-background-color: transparent;	
-	-fx-padding: 12 0 24 0;
-	-fx-spacing: 12;
-}
-
-#monster-detail > #detail-grid {
-	-fx-background-color: white;	
-	-fx-hgap: 12;
-}
-
-#monster-detail > #detail-grid > .label {
-	-fx-font-family: "Open Sans SemiBold";
-	-fx-font-size: 10pt;
-}
-
-#monster-detail > #detail-grid > .text-field {
-	-fx-background-color: transparent;
-	-fx-border-width: 2;
-	-fx-border-radius: 4;
-	-fx-border-color: transparent;
-	-fx-padding: 3 6 3 6;
-	-fx-font-family: "Open Sans";
-	-fx-font-size: 10pt;
-}
-
-#monster-detail > #detail-grid > .text-field:hover {
-	-fx-background-color: rgba(0,0,0,0.1);
-}
-
-
-#monster-detail > #detail-grid > .text-field:focused {
-	-fx-border-color: #70a3bb;
-	-fx-background-color: transparent;
-}
 
 #stat-table {
 	

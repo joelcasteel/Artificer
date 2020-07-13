@@ -12,6 +12,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import main.java.artificer.ui.detail.OldMonsterDetail;
 import main.java.artificer.ui.menu.MenuWrapper;
+import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 
 /**
  * The interactive Side-Ribbon that allows menu selection
@@ -118,12 +119,24 @@ public class SideRibbon extends HBox {
 
         @Override
         public void handle(ActionEvent event) {
+            MenuWrapper wrapper = MenuWrapper.getInstance();
+            MenuTitle selection = MenuTitle.Search;
+            
             if(event.getSource().equals(search)) {
-                MenuWrapper.getInstance().changeContext("Search Monsters");
+                selection = MenuTitle.Search;
                 
             } else if (event.getSource().equals(monsters)) {
-                //oldMenuWrapper.SwitchContext(OldMenuWrapper.MONSTER_MENU);
-                MenuWrapper.getInstance().changeContext("Monster Details");
+                selection = MenuTitle.Details;
+            }
+            
+            if(wrapper.isOpen()) {
+                if(wrapper.getContext().equals(selection)) {
+                    wrapper.collapse();
+                } else {
+                    wrapper.changeContext(selection);
+                }
+            } else {
+                wrapper.changeContext(selection);
             }
             
         }

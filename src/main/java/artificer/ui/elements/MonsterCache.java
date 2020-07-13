@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import javafx.application.Platform;
 import main.java.artificer.stats.MonsterFactory;
 import main.java.artificer.ui.menu.MenuWrapper;
+import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 import main.java.artificier.request.APIClient;
 import main.java.artificier.request.Request;
 
@@ -22,7 +23,6 @@ public class MonsterCache implements Request {
     String url = "";
     String pre = "https://www.dnd5eapi.co";
     
-    SearchBox parentSearch;
     
     /**
      * Construct a new Monster Cache
@@ -30,12 +30,11 @@ public class MonsterCache implements Request {
      * @param source The JSON search result
      * @param parent The Parent (Search-Box) this belong to.
      */
-    public MonsterCache(JsonObject source, SearchBox parent) {
+    public MonsterCache(JsonObject source) {
 
         name = source.get("name").getAsString();
         index = source.get("index").getAsString();
         url = source.get("url").getAsString();
-        parentSearch = parent;
 
     }
     
@@ -54,8 +53,10 @@ public class MonsterCache implements Request {
                 .getMonsterDetail()
                 .setContent(
                         MonsterFactory.createMonster(response));*/
+                MenuWrapper wrapper = MenuWrapper.getInstance();
+                wrapper.openContent(MonsterFactory.createMonster(response));
+                wrapper.changeContext(MenuTitle.Details);
                 
-                MenuWrapper.getInstance().changeContext("Monster Details");
             }
             
         });

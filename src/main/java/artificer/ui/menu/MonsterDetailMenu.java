@@ -1,13 +1,17 @@
 package main.java.artificer.ui.menu;
 
+import com.sun.prism.paint.Color;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -17,6 +21,7 @@ import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.elements.ProfList;
 import main.java.artificer.ui.elements.SearchBox;
 import main.java.artificer.ui.elements.StatTable;
+import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 
 public class MonsterDetailMenu extends VBox implements Collapsible {
     
@@ -24,6 +29,7 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
     
     private Monster currentSource = null;
     
+    //private VBox holder = new VBox();
     
     
     private StatTable statsTable;
@@ -42,7 +48,11 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
 
     public MonsterDetailMenu() {
         
-        setId("monster-detail");
+       
+        
+        
+        setId("monster-detail-menu");
+        setPrefWidth(MenuWrapper.MENU_WIDTH-20);
         
         
 
@@ -112,6 +122,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
                detailGrid, statLabel, split[0], statsTable, split[1],
                profLabel, profList, bottomButtonBox
                );
+        
+      
         
         
         
@@ -202,8 +214,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
     }
 
     @Override
-    public String getTitle() {
-        return "Monster Details";
+    public MenuTitle getTitle() {
+        return MenuTitle.Details;
     }
 
 }

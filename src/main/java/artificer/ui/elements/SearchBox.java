@@ -131,7 +131,7 @@ public class SearchBox extends VBox implements Request {
         resultList = new ArrayList<>();
         
         for(int i = 0; i < results.size(); i++) {
-            resultList.add(new MonsterCache(results.get(i).getAsJsonObject(), this));
+            resultList.add(new MonsterCache(results.get(i).getAsJsonObject()));
         }
         Platform.runLater(new Runnable() {
 

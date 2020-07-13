@@ -13,16 +13,20 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import main.java.artificer.stats.Monster;
 import main.java.artificer.ui.SideRibbon;
 
 public class MenuWrapper extends BorderPane implements Collapsible {
     
     private StackPane holder = new StackPane();
+    private ScrollPane scroller = new ScrollPane(holder);
+    
     
     private SearchMenu searchMenu;
     private MonsterDetailMenu monsterMenu;
@@ -36,7 +40,7 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     
     private Stack<Collapsible> chain;
     
-    private HashMap<String, Collapsible> menus = new HashMap<>();
+    private HashMap<MenuTitle, Collapsible> menus = new HashMap<>();
     
     private Collapsible current = null;
     
@@ -45,8 +49,14 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     private static boolean visible = false;
     
     
-    private static final int MENU_WIDTH = 420;
-    private static final int HEADER_HEIGHT = 30;
+    public static final int MENU_WIDTH = 420;
+    public static final int HEADER_HEIGHT = 30;
+    
+    public enum MenuTitle {
+        Search,
+        Details,
+        Wrapper
+    }
     
     public static MenuWrapper getInstance() {
         if(instance == null) {
@@ -102,18 +112,19 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         monsterMenu.collapse();
         menus.put(monsterMenu.getTitle(), monsterMenu);
         
-        
+        scroller.setId("menu-scroller");
         
         holder.setId("menu-holder");
         holder.getChildren().add(searchMenu);
-        this.setCenter(holder);
+        holder.getChildren().add(monsterMenu);
+        this.setCenter(scroller);
         
         setVisible(false);
         setManaged(false);
         
     }
     
-    public void changeContext(String title) {
+    public void changeContext(MenuTitle title) {
         if(current != null) {
             current.collapse();
         }
@@ -121,11 +132,23 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         if(menus.containsKey(title)) {
             current = menus.get(title);
             expand();
-            titleLabel.setText(title.toUpperCase());
+            titleLabel.setText(title.toString().toUpperCase());
             current.expand();
         }
     }
     
+    public MenuTitle getContext() {
+        return current.getTitle();
+    }
+    
+    public boolean isOpen() {
+        return visible;
+        
+    }
+    
+    public void openContent(Monster content) {
+        monsterMenu.setContent(content);
+    }
     
     EventHandler<ActionEvent> backHandler = new EventHandler<ActionEvent>() {
         @Override
@@ -139,15 +162,16 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     public void collapse() {
         setVisible(false);
         setManaged(false);
+        visible = false;
         
     }
 
 
     @Override
     public void expand() {
-        // TODO Auto-generated method stub
         setVisible(true);
         setManaged(true);
+        visible = true;
         
     }
 
@@ -164,8 +188,8 @@ public class MenuWrapper extends BorderPane implements Collapsible {
 
 
     @Override
-    public String getTitle() {
-        return "Wrapper";
+    public MenuTitle getTitle() {
+        return MenuTitle.Wrapper;
     }
     
     
