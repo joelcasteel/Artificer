@@ -1,25 +1,24 @@
 package main.java.artificer.ui.menu;
 
-import com.sun.prism.paint.Color;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.elements.ProfList;
-import main.java.artificer.ui.elements.SearchBox;
 import main.java.artificer.ui.elements.StatTable;
 import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 
@@ -34,10 +33,15 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
     
     private StatTable statsTable;
     
-    private Label statLabel = new Label("Stats");
+    private Label statLabel = new Label("STATS");
+    private Label detailLabel = new Label("DETAILS");
     private GridPane detailGrid;
     
-    private TextField name, size, type, alignment, hitPoints, armorClass;
+    private Label nameLabel, sizeLabel, typeLabel, alignmentLabel,
+        hitPointsLabel, armorClassLabel;
+    
+    private TextField nameField, sizeField, typeField, alignmentField,
+        hitPointsField, armorClassField;
     
     private Label profLabel = new Label("Proficiencies");
     private ProfList profList = new ProfList();
@@ -52,43 +56,88 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         setId("monster-detail-menu");
-        setPrefWidth(MenuWrapper.MENU_WIDTH-20);
+        setPrefWidth(MenuWrapper.MENU_WIDTH);
         
         
 
-        statLabel.getStyleClass().add("cool-section-label");
+        StackPane statHolder = new StackPane(statLabel);
+        statHolder.getStyleClass().add("section-label");
+        //statLabel.setPrefWidth(MenuWrapper.MENU_WIDTH);
+        
+        StackPane detailHolder = new StackPane(detailLabel);
+        detailHolder.getStyleClass().add("section-label");
+        
         
         
         detailGrid = new GridPane();
-        detailGrid.setId("detail-profEditor");
-        detailGrid.getColumnConstraints().add(new ColumnConstraints(100));
-        detailGrid.getColumnConstraints().add(new ColumnConstraints(200));
+        detailGrid.setId("detail-grid");
+        //int labelWidth = 120;
+        //detailGrid.getColumnConstraints().add(new ColumnConstraints(labelWidth));
+        int fieldWidth = 396;
+        detailGrid.getColumnConstraints().add(new ColumnConstraints(fieldWidth));
         
-        detailGrid.add(new Label("Name:"), 0, 0);
-        detailGrid.add(new Label("Size:"), 0, 1);
-        detailGrid.add(new Label("Type:"), 0, 2);
-        detailGrid.add(new Label("Alignment:"), 0, 3);
-        detailGrid.add(new Label("Hit Points:"), 0, 4);
-        detailGrid.add(new Label("Armor Class"), 0, 5);
+        /*nameLabel = new Label("NAME");
+        nameLabel.getStyleClass().add("brutal-label");
+        nameLabel.setAlignment(Pos.CENTER_RIGHT);
+        nameLabel.setPrefWidth(labelWidth);
+        detailGrid.add(nameLabel, 0, 0);
+        
+        sizeLabel = new Label("SIZE");
+        sizeLabel.getStyleClass().add("brutal-label");
+        sizeLabel.setAlignment(Pos.CENTER_RIGHT);
+        sizeLabel.setPrefWidth(labelWidth);
+        detailGrid.add(sizeLabel, 0, 1);
+        
+        typeLabel = new Label("TYPE");
+        typeLabel.getStyleClass().add("brutal-label");
+        typeLabel.setAlignment(Pos.CENTER_RIGHT);
+        typeLabel.setPrefWidth(labelWidth);
+        detailGrid.add(typeLabel, 0, 2);
+        
+        alignmentLabel = new Label("ALIGNMENT");
+        alignmentLabel.getStyleClass().add("brutal-label");
+        alignmentLabel.setAlignment(Pos.CENTER_RIGHT);
+        alignmentLabel.setPrefWidth(labelWidth);
+        detailGrid.add(alignmentLabel, 0, 3);
+        
+        hitPointsLabel = new Label("HIT POINTS");
+        hitPointsLabel.getStyleClass().add("brutal-label");
+        hitPointsLabel.setAlignment(Pos.CENTER_RIGHT);
+        hitPointsLabel.setPrefWidth(labelWidth);
+        detailGrid.add(hitPointsLabel, 0, 4);
+        
+        armorClassLabel = new Label("ARMOR CLASS");
+        armorClassLabel.getStyleClass().add("brutal-label");
+        armorClassLabel.setAlignment(Pos.CENTER_RIGHT);
+        armorClassLabel.setPrefWidth(labelWidth);
+        detailGrid.add(armorClassLabel, 0, 5);*/
         
         
-        name = new TextField();
-        detailGrid.add(name, 1, 0);
+        nameField = new TextField();
+        nameField.setPromptText("Name");
+        nameField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(nameField, 0, 0);
         
-        size = new TextField();
-        detailGrid.add(size, 1, 1);
+        sizeField = new TextField();
+        sizeField.setPromptText("Size");
+        sizeField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(sizeField, 0, 1);
         
-        type = new TextField();
-        detailGrid.add(type, 1, 2);
+        typeField = new TextField();
+        typeField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(typeField, 0, 2);
         
-        alignment = new TextField();
-        detailGrid.add(alignment, 1, 3);
+        alignmentField = new TextField();
+        alignmentField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(alignmentField, 0, 3);
         
-        hitPoints = new TextField();
-        detailGrid.add(hitPoints, 1, 4);
+        hitPointsField = new TextField();
+        hitPointsField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(hitPointsField, 0, 4);
         
-        armorClass = new TextField();
-        detailGrid.add(armorClass, 1, 5);
+        armorClassField = new TextField();
+        armorClassField.getStyleClass().add("brutal-text-field");
+        detailGrid.add(armorClassField, 0, 5);
         
         
         
@@ -119,7 +168,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         getChildren().addAll(
-               detailGrid, statLabel, split[0], statsTable, split[1],
+               detailHolder,
+               detailGrid, statHolder, split[0], statsTable, split[1],
                profLabel, profList, bottomButtonBox
                );
         
@@ -144,14 +194,14 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         currentSource = source;
         
         
-        name.setText(source.getName());
-        size.setText(source.getSize());
-        type.setText(source.getType());
+        nameField.setText(source.getName());
+        sizeField.setText(source.getSize());
+        typeField.setText(source.getType());
         
-        alignment.setText(source.getAlignment());
+        alignmentField.setText(source.getAlignment());
         
-        hitPoints.setText(Integer.toString(source.getHP()));
-        armorClass.setText(Integer.toString(source.getAC()));
+        hitPointsField.setText(Integer.toString(source.getHP()));
+        armorClassField.setText(Integer.toString(source.getAC()));
         
         statsTable.setValues(source.getStats());
         
@@ -167,13 +217,13 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         public void handle(ActionEvent event) {
             if(event.getSource().equals(saveButton)) {
                 
-                currentSource.setName(name.getText());
-                currentSource.setType(type.getText());
-                currentSource.setSize(name.getText());
-                currentSource.setAlignment(alignment.getText());
+                currentSource.setName(nameField.getText());
+                currentSource.setType(typeField.getText());
+                currentSource.setSize(nameField.getText());
+                currentSource.setAlignment(alignmentField.getText());
                 
-                currentSource.setAC(Integer.parseInt(armorClass.getText()));
-                currentSource.setHP(Integer.parseInt(hitPoints.getText()));
+                currentSource.setAC(Integer.parseInt(armorClassField.getText()));
+                currentSource.setHP(Integer.parseInt(hitPointsField.getText()));
                 
                 
                 

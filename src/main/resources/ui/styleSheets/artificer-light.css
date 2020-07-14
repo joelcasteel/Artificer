@@ -60,7 +60,9 @@
 
 #menu-wrapper {
 	
-	-fx-background-color: transparent;
+	-fx-background-color: blue;
+	
+	-fx-padding: 0;
 	
 	-fx-border-style: solid;
 	-fx-border-width: 0 1 0 0;
@@ -70,11 +72,30 @@
 
 #menu-header {
 	-fx-padding: 0;
-	-fx-alignment: center;
+	-fx-alignment: center-right;
+	-fx-border-style: solid;
 	-fx-border-color: black;
-	-fx-border-width: 0;
+	-fx-border-width: 1 0 1 0;
+	
+	-fx-background-color: white;
 	
 	
+}
+
+.test-pane {
+	-fx-background-color:green;
+	
+	-fx-border-radius: 0;
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+	-fx-border-color:red;
+}
+
+.test {
+	-fx-border-radius: 0;
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+	-fx-border-color: red;
 }
 
 #menu-header-label {
@@ -84,9 +105,8 @@
 	
 	
 	-fx-border-style: solid;
-	-fx-border-width: 1 1 1 1;
+	-fx-border-width: 0;
 	-fx-border-color: black;
-	-fx-border-insets: -1 -1 -1 -1;
 	
 	-fx-background-color: transparent;
 	
@@ -99,7 +119,7 @@
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
-	-fx-border-width: 1 1 1 0;
+	-fx-border-width: 0 1 0 0;
 }
 
 #menu-header-exit-button {
@@ -108,54 +128,84 @@
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
 	
-	-fx-border-width: 1 1 1 1;
+	-fx-border-style: solid;
+	-fx-border-color: black;	
+	-fx-border-width: 0 0 0 1;
 }
 
 #menu-holder {
 	-fx-background-color: white;
 	-fx-padding: 0;
+	-fx-border-width: 0;
+	
 }
 
 #menu-scroller {
 	-fx-background-color: transparent;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
+#menu-scroller:focused {
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
+#menu-scroller .corner {
+	-fx-background-insets: 0;
+	-fx-padding: 0;
 }
 
 
+#menu-scroller >.viewport {
+	-fx-background-color: green;
+	-fx-border-color: black;
+	-fx-border-width: 0;
+}
+
+#menu-scroller .scroll-bar:vertical {
+    -fx-unit-increment: 10 ;
+    -fx-block-increment: 50 ;
+}
+
+#menu-scroller .scroll-bar:horizontal {
+    -fx-unit-increment: 5 ;
+    -fx-block-increment: 20 ;
+}
+
 #monster-detail-menu {
-	-fx-background-color: transparent;	
-	-fx-padding: 12 0 24 0;
-	-fx-spacing: 12;
+	-fx-background-color: black;	
+	-fx-padding: 0;
+	-fx-spacing: 1;
+	-fx-border-width: 0;
 }
 
 #monster-detail-menu > #detail-grid {
 	-fx-background-color: white;	
-	-fx-hgap: 12;
+	-fx-vgap: 6;
+	-fx-hgap: 0;
+	-fx-border-style: solid;
+	-fx-border-width: 0 0 0 0;
+	-fx-border-color: black;
+	-fx-grid-lines-visible: false;
+	-fx-padding: 12;
+	
 }
 
-#monster-detail-menu > #detail-grid > .label {
-	-fx-font-family: "Open Sans SemiBold";
-	-fx-font-size: 10pt;
+#detail-grid > .brutal-label {
+	-fx-border-width: 0 1 0 1;	
 }
 
-#monster-detail-menu > #detail-grid > .text-field {
-	-fx-background-color: transparent;
-	-fx-border-width: 2;
-	-fx-border-radius: 4;
-	-fx-border-color: transparent;
-	-fx-padding: 3 6 3 6;
-	-fx-font-family: "Open Sans";
-	-fx-font-size: 10pt;
+.section-label {
+	-fx-background-color:white;
+	-fx-alignment: center-left;
+	-fx-padding: 12;
 }
 
-#monster-detail-menu > #detail-grid > .text-field:hover {
-	-fx-background-color: rgba(0,0,0,0.1);
+.section-label > .label {
+	-fx-font-family: "Open Sans Bold";
 }
 
-
-#monster-detail-menu > #detail-grid > .text-field:focused {
-	-fx-border-color: #70a3bb;
-	-fx-background-color: transparent;
-}
 
 
 .brutal-button {
@@ -180,9 +230,25 @@
 
 
 .brutal-label {
+	-fx-background-color: white;
 	-fx-border-style: none;
+	-fx-font-family: "Open Sans SemiBold";
 	
 }
+
+.brutal-text-field {
+	-fx-background-color: white;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: solid;
+	-fx-border-width: 1;
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	
+	-fx-font-family: "Open Sans SemiBold"
+}
+
+
 
 
 .cool-button {

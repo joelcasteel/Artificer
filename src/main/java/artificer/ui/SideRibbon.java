@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import main.java.artificer.ui.detail.OldMonsterDetail;
 import main.java.artificer.ui.menu.MenuWrapper;
 import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 
@@ -35,13 +34,8 @@ public class SideRibbon extends HBox {
     Button settings;
     
     StackPane menuPane;
-    OldMenuWrapper oldMenuWrapper;
     //OldSearchMenu oldSearchMenu;
     
-    StackPane detailPane;
-    OldMonsterDetail oldMonsterDetail;
-    
-    DetailWrapper detailWrapper;
     
     /**
      * Construct the SideRibbon
@@ -73,6 +67,7 @@ public class SideRibbon extends HBox {
         
         encounters = new Button();
         encounters.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/create.png").toString())));
+        encounters.setOnAction(ribbonButtonListener);
         sideRibbon.getChildren().add(encounters);
         
         monsters = new Button();
@@ -90,27 +85,14 @@ public class SideRibbon extends HBox {
         sideRibbon.getChildren().add(add);
         
         
-        oldMenuWrapper = new OldMenuWrapper(this);
-        
-        detailWrapper = new DetailWrapper(this);
-        
-        
-        detailPane = new StackPane();
-        oldMonsterDetail = new OldMonsterDetail();
-        detailPane.getChildren().addAll(oldMonsterDetail);
         
         
         
-        getChildren().addAll(sideRibbon, oldMenuWrapper, detailWrapper);
+        
+        getChildren().addAll(sideRibbon);
     }
     
-    /**
-     * 
-     * @return The detail wrapper in use
-     */
-    public DetailWrapper getDetail() {
-        return detailWrapper;
-    }
+
     
     /**
      * Listener for Ribbon Button interactions.
@@ -127,6 +109,8 @@ public class SideRibbon extends HBox {
                 
             } else if (event.getSource().equals(monsters)) {
                 selection = MenuTitle.Details;
+            } else if(event.getSource().equals(encounters)) {
+                selection = MenuTitle.Test;
             }
             
             if(wrapper.isOpen()) {

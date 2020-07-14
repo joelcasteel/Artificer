@@ -10,14 +10,19 @@ import java.util.Stack;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.ui.SideRibbon;
@@ -30,8 +35,10 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     
     private SearchMenu searchMenu;
     private MonsterDetailMenu monsterMenu;
+    private TestMenu testMenu;
     
     private HBox header = new HBox();
+    private GridPane headerGrid = new GridPane();
     private Button backButton = new Button("BACK");
     private Button exitButton = new Button("EXIT");
     private Label titleLabel = new Label("SIDE MENU");
@@ -55,7 +62,8 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     public enum MenuTitle {
         Search,
         Details,
-        Wrapper
+        Wrapper,
+        Test
     }
     
     public static MenuWrapper getInstance() {
@@ -73,13 +81,13 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         setPrefWidth(MENU_WIDTH);
         
         header.setPrefHeight(HEADER_HEIGHT);
+        headerGrid.setPrefHeight(HEADER_HEIGHT);
+        
         
         titleLabel.getStyleClass().add("brutal-label");
         titleLabel.setId("menu-header-label");
-        titleLabel.setPrefWidth(MENU_WIDTH - 120);
-        titleLabel.setPrefHeight(HEADER_HEIGHT);
-        titleLabel.setMinHeight(HEADER_HEIGHT);
-        titleLabel.setAlignment(Pos.CENTER);
+        
+        
         
         
         backButton.getStyleClass().add("brutal-button");
@@ -90,18 +98,34 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         
         exitButton.getStyleClass().add("brutal-button");
         exitButton.setId("menu-header-exit-button");
-        exitButton.setPrefWidth(60);
         exitButton.setPrefHeight(HEADER_HEIGHT);
+        exitButton.setPrefWidth(60);
         
         
         backButton.setOnAction(backHandler);
         
-        header.setId("menu-header");
-        header.getChildren().addAll(
+        headerGrid.setId("menu-header");
+        headerGrid.setAlignment(Pos.CENTER);
+        /*header.getChildren().addAll(
                 backButton, titleLabel, exitButton
+                );*/
+        
+        headerGrid.getColumnConstraints().addAll(
+                new ColumnConstraints(60, 60, 60, Priority.ALWAYS, HPos.CENTER, true),
+                new ColumnConstraints(MENU_WIDTH-120, MENU_WIDTH-120, MENU_WIDTH-120, Priority.ALWAYS, HPos.CENTER, true),
+                new ColumnConstraints(60, 60, 60, Priority.ALWAYS, HPos.CENTER, true)
                 );
         
-        this.setTop(header);
+        
+        headerGrid.add(backButton, 0, 0);
+        headerGrid.add(titleLabel, 1, 0);
+        headerGrid.add(exitButton, 2, 0);
+        
+        
+        HBox test = new HBox();
+        test.getStyleClass().add("test");
+        test.setPrefHeight(100);
+        this.setTop(headerGrid);
         
         
         searchMenu = new SearchMenu();
@@ -112,11 +136,24 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         monsterMenu.collapse();
         menus.put(monsterMenu.getTitle(), monsterMenu);
         
+        testMenu = new TestMenu();
+        testMenu.collapse();
+        menus.put(testMenu.getTitle(), testMenu);
+        
+        
         scroller.setId("menu-scroller");
+        scroller.setFitToHeight(true);
+        scroller.setFitToWidth(true);
+        scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
+        scroller.setVbarPolicy(ScrollBarPolicy.NEVER);
+        
+        
+        
         
         holder.setId("menu-holder");
         holder.getChildren().add(searchMenu);
         holder.getChildren().add(monsterMenu);
+        holder.getChildren().add(testMenu);
         this.setCenter(scroller);
         
         setVisible(false);
@@ -132,8 +169,18 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         if(menus.containsKey(title)) {
             current = menus.get(title);
             expand();
-            titleLabel.setText(title.toString().toUpperCase());
+            setTitle(title);
             current.expand();
+        }
+    }
+    
+    public void setTitle(MenuTitle title) {
+        if(title.equals(MenuTitle.Search)) {
+            titleLabel.setText("SEARCH MONSTERS");
+        } else if(title.equals(MenuTitle.Details)) {
+            titleLabel.setText("MONSTER DETAILS");
+        } else {
+            titleLabel.setText("Where are we?");
         }
     }
     
