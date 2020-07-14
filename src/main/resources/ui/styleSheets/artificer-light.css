@@ -60,7 +60,7 @@
 
 #menu-wrapper {
 	
-	-fx-background-color: blue;
+	-fx-background-color: white;
 	
 	-fx-padding: 0;
 	
@@ -158,7 +158,7 @@
 
 
 #menu-scroller >.viewport {
-	-fx-background-color: green;
+	-fx-background-color: white;
 	-fx-border-color: black;
 	-fx-border-width: 0;
 }
@@ -245,7 +245,100 @@
 	-fx-border-color: black;
 	-fx-border-radius: 0;
 	
-	-fx-font-family: "Open Sans SemiBold"
+	-fx-font-family: "Open Sans Bold";
+	-fx-padding: 6;
+}
+
+.brutal-text-field:hover {
+	-fx-background-color: F0F0F0;
+}
+
+.brutal-text-field:focused {
+	-fx-background-color: D0D0D0;
+}
+
+
+.brutal-combo-box {
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	
+	-fx-background-color: white;
+	-fx-background-radius: 0;
+	
+	-fx-padding: 3;
+	
+	-fx-font-family: "Open Sans Bold";
+}
+
+
+.brutal-combo-box > .arrow-button {
+	-fx-background-color: transparent;
+	-fx-padding: 6;
+}
+
+.brutal-combo-box:hover {
+	-fx-background-color: F0F0F0;
+}
+
+.brutal-combo-box:pressed {
+	-fx-background-color: D0D0D0;
+}
+
+.brutal-combo-box > .list-cell {
+	-fx-background-color: transparent;
+}
+
+.brutal-combo-cell:even, .brutal-combo-cell:odd {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+.brutal-combo-cell:filled:selected,
+.brutal-combo-cell:filled:selected:focused {
+	-fx-background-color: D0D0D0;
+	-fx-text-fill: black;
+}
+
+.brutal-combo-cell:filled:hover,
+.brutal-combo-cell:filled:selected:hover {
+	-fx-background-color: F0F0F0;
+	-fx-text-fill: black;
+}
+
+.brutal-combo-cell > .label {
+	-fx-text-fill: black;
+}
+
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+	-fx-background-color: transparent;
+	
+	-fx-border-style:solid;
+	-fx-border-color:black;
+	-fx-border-width: 0 0 0 0;
+}
+
+.increment-button, .decrement-button {
+	-fx-background-color: transparent;
+	-fx-border-width: 0;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: transparent;
+    -fx-background-radius: 0;
+    
+    -fx-border-style: solid;
+    -fx-border-width: 1;
+    -fx-border-color:black;
+    -fx-border-insets: 2;
 }
 
 

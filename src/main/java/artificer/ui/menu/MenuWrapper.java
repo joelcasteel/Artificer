@@ -56,7 +56,7 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     private static boolean visible = false;
     
     
-    public static final int MENU_WIDTH = 420;
+    public static final int MENU_WIDTH = 432;
     public static final int HEADER_HEIGHT = 30;
     
     public enum MenuTitle {
@@ -145,7 +145,7 @@ public class MenuWrapper extends BorderPane implements Collapsible {
         scroller.setFitToHeight(true);
         scroller.setFitToWidth(true);
         scroller.setHbarPolicy(ScrollBarPolicy.NEVER);
-        scroller.setVbarPolicy(ScrollBarPolicy.NEVER);
+        scroller.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
         
         
         

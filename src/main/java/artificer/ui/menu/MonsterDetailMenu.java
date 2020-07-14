@@ -1,13 +1,17 @@
 package main.java.artificer.ui.menu;
 
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -16,6 +20,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.elements.ProfList;
@@ -39,6 +44,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
     
     private Label nameLabel, sizeLabel, typeLabel, alignmentLabel,
         hitPointsLabel, armorClassLabel;
+    
+    private ComboBox<String> sizeSelect, typeSelect, alignmentSelect;
     
     private TextField nameField, sizeField, typeField, alignmentField,
         hitPointsField, armorClassField;
@@ -114,29 +121,64 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         nameField = new TextField();
-        nameField.setPromptText("Name");
+        nameField.setPromptText("NAME");
         nameField.getStyleClass().add("brutal-text-field");
         detailGrid.add(nameField, 0, 0);
         
+        
+        sizeSelect = new ComboBox<>();
+        sizeSelect.getStyleClass().add("brutal-combo-box");
+        sizeSelect.setItems(FXCollections.observableArrayList(
+                "Tiny", "Small", "Medium", "Large", "Huge", "Gargantuan"
+                ));
+        sizeSelect.setCellFactory(cellFactory);   
+        sizeSelect.setMaxWidth(Double.MAX_VALUE);
+        sizeSelect.setPromptText("SIZE");
+        
         sizeField = new TextField();
-        sizeField.setPromptText("Size");
+        sizeField.setPromptText("SIZE");
         sizeField.getStyleClass().add("brutal-text-field");
-        detailGrid.add(sizeField, 0, 1);
+        detailGrid.add(sizeSelect, 0, 1);
+        
+        
+        typeSelect = new ComboBox<>();
+        typeSelect.getStyleClass().add("brutal-combo-box");
+        typeSelect.setItems(FXCollections.observableArrayList(
+                "Aberration", "Beast", "Celestial", "Constructs", "Dragon",
+                "Elemental", "Fey", "Fiend", "Giant", "Humanoid", "Monstrosity",
+                "Ooze", "Plant", "Undead"
+                ));
+        typeSelect.setCellFactory(cellFactory);   
+        typeSelect.setMaxWidth(Double.MAX_VALUE);
+        typeSelect.setPromptText("TYPE");
         
         typeField = new TextField();
         typeField.getStyleClass().add("brutal-text-field");
-        detailGrid.add(typeField, 0, 2);
+        detailGrid.add(typeSelect, 0, 2);
+        
+        alignmentSelect = new ComboBox<>();
+        alignmentSelect.getStyleClass().add("brutal-combo-box");
+        alignmentSelect.setItems(FXCollections.observableArrayList(
+                "Chaotic Good", "Neutral Good", "Lawful Good",
+                "Chaotic Neutral", "Neutral", "Lawful Neutral",
+                "Chaotic Evil", "Neutral Evil", "Lawful Evil"
+                ));
+        alignmentSelect.setCellFactory(cellFactory);   
+        alignmentSelect.setMaxWidth(Double.MAX_VALUE);
+        alignmentSelect.setPromptText("ALIGNMENT");
         
         alignmentField = new TextField();
         alignmentField.getStyleClass().add("brutal-text-field");
-        detailGrid.add(alignmentField, 0, 3);
+        detailGrid.add(alignmentSelect, 0, 3);
         
         hitPointsField = new TextField();
         hitPointsField.getStyleClass().add("brutal-text-field");
+        hitPointsField.setPromptText("HIT POINTS");
         detailGrid.add(hitPointsField, 0, 4);
         
         armorClassField = new TextField();
         armorClassField.getStyleClass().add("brutal-text-field");
+        armorClassField.setPromptText("ARMOR CLASS");
         detailGrid.add(armorClassField, 0, 5);
         
         
@@ -169,7 +211,7 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         getChildren().addAll(
                detailHolder,
-               detailGrid, statHolder, split[0], statsTable, split[1],
+               detailGrid, statHolder, statsTable, split[1],
                profLabel, profList, bottomButtonBox
                );
         
@@ -209,6 +251,33 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
    
         
     }
+    
+    Callback<ListView<String>, ListCell<String>> cellFactory = new Callback<ListView<String>, ListCell<String>>() {
+
+        @Override public ListCell<String> call(ListView<String> p) {
+            return new ListCell<String>() {
+                
+                Label label;
+                {
+                    getStyleClass().add("brutal-combo-cell");
+                    label = new Label();
+                    
+                }
+
+                @Override protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        label.setText(item);
+                        setGraphic(label);
+                        
+                    }
+               }
+          };
+      }
+    };
     
     
     EventHandler<ActionEvent> bottomButtonHandler = new EventHandler<ActionEvent>() {
