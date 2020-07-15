@@ -21,9 +21,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
+import main.java.artificer.Debugger;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.MonsterLibrary;
 import main.java.artificer.ui.elements.ProfList;
+import main.java.artificer.ui.elements.StatGrid;
 import main.java.artificer.ui.elements.StatTable;
 import main.java.artificer.ui.menu.MenuWrapper.MenuTitle;
 
@@ -41,6 +43,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
     private Label statLabel = new Label("STATS");
     private Label detailLabel = new Label("DETAILS");
     private GridPane detailGrid;
+    
+    private StatGrid statGrid = new StatGrid();
     
     private Label nameLabel, sizeLabel, typeLabel, alignmentLabel,
         hitPointsLabel, armorClassLabel;
@@ -184,6 +188,8 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         statsTable = new StatTable();
+        StackPane statGridHolder = new StackPane(statGrid);
+        statGridHolder.getStyleClass().add("section-label");
         
         Separator split[] = new Separator[2];
         split[0] = new Separator();
@@ -211,7 +217,7 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         getChildren().addAll(
                detailHolder,
-               detailGrid, statHolder, statsTable, split[1],
+               detailGrid, statHolder, statGridHolder, split[1],
                profLabel, profList, bottomButtonBox
                );
         
@@ -237,15 +243,18 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         nameField.setText(source.getName());
-        sizeField.setText(source.getSize());
-        typeField.setText(source.getType());
-        
-        alignmentField.setText(source.getAlignment());
+        try {
+            sizeSelect.getSelectionModel().select(source.getSize());
+            typeSelect.getSelectionModel().select(source.getType());
+            alignmentSelect.getSelectionModel().select(source.getAlignment());
+        } catch(Exception ex) {
+            Debugger.debug("Incorrect Selection Box: " + ex.getMessage());
+        }
         
         hitPointsField.setText(Integer.toString(source.getHP()));
         armorClassField.setText(Integer.toString(source.getAC()));
         
-        statsTable.setValues(source.getStats());
+        statGrid.setValues(source.getStats());
         
         profList.setContent(source.getProfs());
    

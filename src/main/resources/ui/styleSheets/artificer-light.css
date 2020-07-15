@@ -341,6 +341,31 @@
     -fx-border-insets: 2;
 }
 
+#stat-grid {
+	-fx-vgap: 1;
+	-fx-hgap: 1;
+	-fx-padding: 1;
+	-fx-background-color:black;
+}
+
+#stat-grid > .holder-pane {
+	-fx-background-color: white;
+	-fx-alignment: center;
+}
+
+#stat-grid > .holder-pane > .label {
+	-fx-padding: 3;
+	-fx-font-size: 10pt;
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-alignment: center
+}
+
+#stat-grid > .brutal-text-field {
+	-fx-border-width: 0;
+	-fx-alignment: center;
+}
+
+
 
 
 
