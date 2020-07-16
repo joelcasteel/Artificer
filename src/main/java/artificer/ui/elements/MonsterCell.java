@@ -1,8 +1,10 @@
 package main.java.artificer.ui.elements;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 
 /**
  * Custom Cell for a ListView of MonsterCache
@@ -13,11 +15,15 @@ import javafx.scene.input.MouseEvent;
  */
 public class MonsterCell extends ListCell<MonsterCache> {
     
+    private Label label = new Label();
+    private StackPane holder = new StackPane();
     /**
      * Construct a new MonsterCell
      */
     public MonsterCell() {
-        getStyleClass().add("cool-list-cell");
+        getStyleClass().add("brutal-list-cell");
+        holder.getStyleClass().add("brutal-cell-holder");
+        holder.getChildren().add(label);
     }
 
     
@@ -27,9 +33,11 @@ public class MonsterCell extends ListCell<MonsterCache> {
         
         if(empty) {
             setText(null);
+            setGraphic(null);
             
         } else {
-            setText(cache.getName());
+            label.setText(cache.getName());
+            setGraphic(holder);
             setOnMouseClicked(mouseHandler);
             
         }

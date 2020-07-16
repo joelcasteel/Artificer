@@ -20,6 +20,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -36,9 +38,16 @@ import main.java.artificier.request.Request;
 public class SearchMenu extends VBox implements Collapsible, Request {
     
     private ListView<MonsterCache> scroller = new ListView<MonsterCache>();
+    private StackPane listHolder = new StackPane();
+    
+    
     private TextField searchField = new TextField();
     private Button searchButton = new Button();
+    private GridPane searchGrid = new GridPane();
+    private StackPane searchHolder = new StackPane();
+    
     private HBox searchBox = new HBox();
+    private StackPane filterHolder = new StackPane();
     private TextField filterField = new TextField();
     private ImageView filterIcon = new ImageView(new Image(getClass().getResource("/ui/icons/filter.png").toString()));
     private HBox filterBox = new HBox();
@@ -61,44 +70,51 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         setId("search-menu");
        
         
-        setPrefSize(240, 540);
-        setSpacing(12);
-        
-        searchButton.setGraphic(new ImageView(new Image(getClass().getResource("/ui/icons/search.png").toString())));
+        searchButton.setText("SEARCH");
         searchButton.setOnAction(searchHandler);
+        searchButton.setId("search-button");
+        searchButton.getStyleClass().add("brutal-button");
+        searchButton.setPrefWidth(60);
+        
         searchField.setOnAction(searchHandler);
         searchField.setPromptText("Search...");
-        searchField.setPrefWidth(200);
+        searchField.getStyleClass().add("brutal-blank-text-field");
+        searchField.setPrefWidth(396-60);
         
-        searchBox.getStyleClass().add("search-box");
-        searchBox.setPrefHeight(18);
-        searchBox.setSpacing(6);
-        searchBox.getChildren().add(searchField);
-        searchBox.getChildren().add(searchButton);
-        getChildren().add(searchBox);
+        int fieldWidth = 432-24;
+        searchGrid.getColumnConstraints().addAll(
+                new ColumnConstraints(fieldWidth - 60),
+                new ColumnConstraints(60)
+                );
+        searchGrid.getStyleClass().add("brutal-grid");
+        searchGrid.add(searchField, 0, 0);
+        searchGrid.add(searchButton, 1, 0);
+        searchHolder.getStyleClass().add("brutal-holder");
+        searchHolder.getChildren().add(searchGrid);
+        getChildren().add(searchHolder);
         
-        StackPane filterImg = new StackPane();
+        /*StackPane filterImg = new StackPane();
         filterImg.setPadding(new Insets(6));
-        filterImg.getChildren().add(filterIcon);
-        filterField.setPrefWidth(200);
-        filterField.setPromptText("Filter...");
-        filterField.textProperty().addListener(filterHandler);
+        filterImg.getChildren().add(filterIcon);*/
+        //filterField.setPrefWidth(200);
+        
         //filterField.setId("filter-field");
         
-        filterField.setPrefHeight(18);
+        //filterField.setPrefHeight(18);
         
-        filterBox.getStyleClass().add("search-box");
+        filterField.setPromptText("Filter Results");
+        filterField.textProperty().addListener(filterHandler);
+        filterField.getStyleClass().add("brutal-text-field");
         
-        filterBox.setSpacing(6);
-        filterBox.getChildren().addAll(
-                filterField, filterImg
-                );
+        filterHolder.getStyleClass().add("brutal-holder");
+        filterHolder.getChildren().add(filterField);
         
         
-        getChildren().add(filterBox);
+        
+        getChildren().add(filterHolder);
         
         scroller.setPrefSize(240, 600 );
-        scroller.getStyleClass().add("cool-list-view");
+        scroller.getStyleClass().add("brutal-list-view");
         scroller.setCellFactory(new Callback<ListView<MonsterCache>, ListCell<MonsterCache>>(){
             @Override
             public ListCell<MonsterCache> call(ListView<MonsterCache> monsterListView) {
@@ -107,7 +123,10 @@ public class SearchMenu extends VBox implements Collapsible, Request {
             }
         });
         
-        getChildren().add(scroller);
+        listHolder.getStyleClass().add("brutal-holder");
+        listHolder.getChildren().add(scroller);
+        
+        getChildren().add(listHolder);
         
         
     }

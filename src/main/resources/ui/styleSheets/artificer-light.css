@@ -115,15 +115,23 @@
 }
 
 #menu-header-back-button {
-	-fx-background-color: goldenrod;
+	-fx-background-color: E6CA2E;
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
 	-fx-border-width: 0 1 0 0;
 }
 
+#menu-header-back-button:hover {
+	-fx-background-color: CCB429;
+}
+
+#menu-header-back-button:pressed {
+	-fx-background-color: B39E24;
+}
+
 #menu-header-exit-button {
-	-fx-background-color: tomato;
+	-fx-background-color: FF6347;
 	-fx-font-family: "Open Sans SemiBold";
 	-fx-font-size: 10pt;
 	-fx-text-fill: black;
@@ -131,6 +139,14 @@
 	-fx-border-style: solid;
 	-fx-border-color: black;	
 	-fx-border-width: 0 0 0 1;
+}
+
+#menu-header-exit-button:hover {
+	-fx-background-color: E65940;
+}
+
+#menu-header-exit-button:pressed {
+	-fx-background-color: CC4F39;
 }
 
 #menu-holder {
@@ -218,6 +234,8 @@
 	-fx-border-color: black;
 	-fx-border-width: 1;
 	-fx-alignment: center;
+	
+	-fx-padding: 6;
 }
 
 .brutal-button:hover {
@@ -249,11 +267,26 @@
 	-fx-padding: 6;
 }
 
-.brutal-text-field:hover {
+.brutal-blank-text-field {
+	-fx-background-color: white;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	
+	-fx-font-family: "Open Sans Bold";
+	-fx-padding: 6;
+}
+
+.brutal-text-field:hover,
+.brutal-blank-text-field:hover {
 	-fx-background-color: F0F0F0;
 }
 
-.brutal-text-field:focused {
+.brutal-text-field:focused,
+.brutal-blank-text-field:focused {
 	-fx-background-color: D0D0D0;
 }
 
@@ -365,8 +398,113 @@
 	-fx-alignment: center;
 }
 
+.brutal-grid {
+	-fx-background-color: black;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	
+	-fx-vgap: 1;
+	-fx-hgap: 1;
+	-fx-padding: 1;
+}
+
+.brutal-holder {
+	-fx-padding: 6 12 6 12;
+	-fx-background-color: white;
+}
+
+.brutal-list-view {
+	-fx-background-color: F0F0F0;
+	
+	-fx-cell-size: 24;
+	-fx-border-width: 1;
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	-fx-font-size: 10pt;
+	
+	-fx-padding: 6 0 6 0;
+	
+}
+
+.brutal-list-cell:even, .brutal-list-cell:odd {
+	-fx-background-color: F0F0F0, black;
+	-fx-background-insets: 1, 3;
+	-fx-padding:4;
+}
+
+.brutal-cell-holder {
+	-fx-background-color: white;
+	-fx-alignment: center-left;
+	-fx-padding: 3;
+}
+
+.brutal-cell-holder > .label {
+	-fx-font-family: "Open Sans SemiBold";
+	-fx-text-fill: black;
+	
+}
+
+.brutal-list-cell:empty {
+	-fx-background-color: transparent;
+}
 
 
+.brutal-list-cell:filled:selected,
+.brutal-list-cell:filled:selected:focused {
+	-fx-background-color: transparent, black;
+	-fx-background-insets: 1, 3;
+	-fx-text-fill: black;
+}
+
+.brutal-list-cell:filled:selected > .brutal-cell-holder,
+.brutal-list-cell:filled:selected:focused > .brutal-cell-holder {
+	-fx-background-color: #96C7f0;
+	-fx-text-fill: black;
+}
+
+.brutal-list-cell:filled:hover,
+.brutal-list-cell:filled:selected:hover {
+	-fx-background-color: transparent, black;
+	-fx-background-insets: 1, 3;
+	-fx-text-fill:black;
+}
+
+.brutal-list-cell:filled:hover > .brutal-cell-holder,
+.brutal-list-cell:filled:selected:hover > .brutal-cell-holder{
+	-fx-background-color: D0D0D0;
+	-fx-text-fill:black;
+}
+
+
+#search-menu {
+	-fx-background-color: black;	
+	-fx-padding: 0;
+	-fx-spacing: 0;
+	-fx-border-width: 0;
+}
+
+
+#search-button {
+	-fx-background-color: #3B5FCC;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	
+	-fx-font-family: "Open Sans Bold";
+	-fx-text-fill: white;
+}
+
+#search-button:hover {
+	-fx-background-color: #3454B3;
+}
+
+#search-button:pressed {
+	-fx-background-color: #2C4799;
+}
 
 
 .cool-button {
@@ -422,7 +560,7 @@
 }
 
 
-#search-menu {
+/*#search-menu {
 	-fx-background-color: white;
 	-fx-border-width: 0;
 	-fx-border-radius: 0;
@@ -437,11 +575,11 @@
 }
 
 #search-menu > .search-box {
-	-fx-background-color: transparent; /*rgba(0,0,0,0.2);*/
+	-fx-background-color: transparent; /*rgba(0,0,0,0.2);
 	-fx-border-width: 0;
 	
 	-fx-alignment: center-left;
-}
+})
 
 #search-menu > .search-box > .text-field {
 	-fx-background-color: rgba(0,0,0,0.1);
@@ -485,7 +623,7 @@
 
 #search-menu > .search-box > .button:pressed {
 	-fx-background-color: rgba(0,0,0,0.5);
-}
+}*/
 
 .cool-list-view {
 	-fx-cell-size: 24;
