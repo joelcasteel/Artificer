@@ -248,7 +248,7 @@
 
 
 .brutal-label {
-	-fx-background-color: white;
+	-fx-background-color: transparent;
 	-fx-border-style: none;
 	-fx-font-family: "Open Sans SemiBold";
 	
@@ -411,6 +411,19 @@
 	-fx-padding: 1;
 }
 
+.brutal-prof-cell-grid {
+	-fx-background-color: black;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	
+	-fx-vgap: 1;
+	-fx-hgap: 1;
+	-fx-padding: 0;
+}
+
 .brutal-holder {
 	-fx-padding: 6 12 6 12;
 	-fx-background-color: white;
@@ -460,8 +473,15 @@
 }
 
 .brutal-list-cell:filled:selected > .brutal-cell-holder,
-.brutal-list-cell:filled:selected:focused > .brutal-cell-holder {
+.brutal-list-cell:filled:selected:focused > .brutal-cell-holder,
+.brutal-list-cell:filled:selected > .brutal-prof-cell-grid > .brutal-holder,
+.brutal-list-cell:filled:selected:focused > .brutal-prof-cell-grid > .brutal-holder {
 	-fx-background-color: #96C7f0;
+	-fx-text-fill: black;
+}
+
+.brutal-list-cell:filled:selected > .brutal-prof-cell-grid > .brutal-holder > .brutal-label,
+.brutal-list-cell:filled:selected:focused > .brutal-prof-cell-grid > .brutal-holder > .brutal-label {
 	-fx-text-fill: black;
 }
 
@@ -473,7 +493,9 @@
 }
 
 .brutal-list-cell:filled:hover > .brutal-cell-holder,
-.brutal-list-cell:filled:selected:hover > .brutal-cell-holder{
+.brutal-list-cell:filled:selected:hover > .brutal-cell-holder,
+.brutal-list-cell:filled:hover > .brutal-prof-cell-grid > .brutal-holder,
+.brutal-list-cell:filled:selected:hover > .brutal-prof-cell-grid > .brutal-holder {
 	-fx-background-color: D0D0D0;
 	-fx-text-fill:black;
 }

@@ -23,10 +23,12 @@ import javafx.stage.Popup;
 import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import main.java.artificer.Debugger;
 import main.java.artificer.stats.Monster;
 import main.java.artificer.stats.Proficiency;
 import main.java.artificer.stats.ProficiencyList;
 import main.java.artificer.ui.App;
+import main.java.artificer.ui.menu.MenuWrapper;
 
 
 /**
@@ -36,7 +38,7 @@ import main.java.artificer.ui.App;
  * @version June 2020
  *
  */
-public class ProfList extends VBox {
+public class ProfList extends GridPane {
     
     private ProfEditor profEditor = new ProfEditor(this);
     
@@ -55,10 +57,10 @@ public class ProfList extends VBox {
         //This is so we can pass this object to the listCellFactory
         ProfList holder = this;
         
+        setMinHeight(300);
         
-        
-        profList.getStyleClass().add("prof-list");
-        profList.setPrefSize(300, 180);
+        profList.getStyleClass().add("brutal-list-view");
+        profList.setPrefSize(MenuWrapper.MENU_WIDTH-24, 300);
         profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
             @Override
             public ListCell<Proficiency> call(ListView<Proficiency> monsterListView) {
@@ -69,7 +71,7 @@ public class ProfList extends VBox {
         
        
         
-        profList.setItems(obvsList);
+        //profList.setItems(obvsList);
         
         profList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Proficiency>() {
 
@@ -84,7 +86,8 @@ public class ProfList extends VBox {
         
         
         
-        getChildren().addAll(profList, profEditor);
+        add(profList, 0, 0);
+        add(profEditor, 0, 1);
         
     }
     
@@ -105,9 +108,11 @@ public class ProfList extends VBox {
         
         Iterable<Proficiency> iters = source.getAll();
         //mainList = new ArrayList<>();
+       
         obvsList = FXCollections.observableArrayList();
         for(Proficiency p: iters) {
             obvsList.add(p);
+            Debugger.debug(p.getName());
         }
         profList.setItems(obvsList);
         

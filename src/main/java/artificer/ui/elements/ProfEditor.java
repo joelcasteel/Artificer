@@ -28,9 +28,9 @@ public class ProfEditor extends GridPane {
         setPrefHeight(ProfCell.CELL_HEIGHT);
         
         setPrefWidth(300);
-        getStyleClass().add("create-box");
+        getStyleClass().add("brutal-prof-cell-grid");
         
-        setHgap(12);
+        
         getColumnConstraints().addAll(
                 new ColumnConstraints(48),
                 new ColumnConstraints(120),

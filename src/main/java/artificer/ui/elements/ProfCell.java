@@ -14,7 +14,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import main.java.artificer.Debugger;
 import main.java.artificer.stats.Proficiency;
+import main.java.artificer.ui.menu.MenuWrapper;
 
 /**
  * Custom ListCell for a ListView of Proficiencies.
@@ -39,6 +42,7 @@ public class ProfCell extends ListCell<Proficiency> {
     private ImageView deleteIcon = new ImageView(new Image(getClass().getResource("/ui/icons/exit.png").toString()));
     private Button imgButton = new Button();
     private Label imgLabel = new Label();
+    StackPane holder;
     
     private ProfList profList;
     
@@ -52,31 +56,40 @@ public class ProfCell extends ListCell<Proficiency> {
         
         
         
-        getStyleClass().add("cool-list-cell");
-        setMaxHeight(CELL_HEIGHT);
-        setPrefHeight(CELL_HEIGHT);
+        getStyleClass().add("brutal-list-cell");
+        //setMaxHeight(CELL_HEIGHT);
+        //setPrefHeight(CELL_HEIGHT);
         
-        
-        
-        grid.setHgap(12);
+        int fullwidth = MenuWrapper.MENU_WIDTH-36;
+        grid.getStyleClass().add("brutal-prof-cell-grid");
         grid.getColumnConstraints().addAll(
-                new ColumnConstraints(48),
-                new ColumnConstraints(102),
-                new ColumnConstraints(48),
-                new ColumnConstraints(36)
+                new ColumnConstraints(72),
+                new ColumnConstraints(fullwidth - 72*2 - 24),
+                new ColumnConstraints(72)
                 
                 );
         
         
         
         
-        nameField.getStyleClass().add("cool-label");
-        stat.getStyleClass().add("cool-label");        
-        grid.add(nameField, 1, 0);
-        grid.add(stat, 2, 0);
+        nameField.getStyleClass().add("brutal-label");
+        StackPane nameHolder = new StackPane(nameField);
+        nameHolder.getStyleClass().add("brutal-holder");
+        grid.add(nameHolder, 1, 0);
+        
+        
+        stat.getStyleClass().add("brutal-label");  
+        StackPane statHolder = new StackPane(stat);
+        statHolder.getStyleClass().add("brutal-holder");
+        grid.add(statHolder, 2, 0);
 
-        imgLabel.getStyleClass().add("cool-label");
-        grid.add(imgLabel, 0, 0);
+        imgLabel.getStyleClass().add("brutal-label");
+        StackPane imgHolder = new StackPane(imgLabel);
+        imgHolder.getStyleClass().add("brutal-holder");
+        grid.add(imgHolder, 0, 0);
+        
+        holder = new StackPane();
+        holder.getStyleClass().add("brutal-cell-holder");
         
  
         
@@ -93,6 +106,7 @@ public class ProfCell extends ListCell<Proficiency> {
             nameField.setText(prof.getName());
             stat.setNumericValue(prof.getValue());
             setGraphic(grid);
+            Debugger.debug("Update:" + prof.getName());
             
             
         }

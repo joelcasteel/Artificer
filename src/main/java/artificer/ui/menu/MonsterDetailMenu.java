@@ -82,46 +82,9 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         detailGrid = new GridPane();
         detailGrid.setId("detail-grid");
-        //int labelWidth = 120;
-        //detailGrid.getColumnConstraints().add(new ColumnConstraints(labelWidth));
         int fieldWidth = 396;
         detailGrid.getColumnConstraints().add(new ColumnConstraints(fieldWidth));
         
-        /*nameLabel = new Label("NAME");
-        nameLabel.getStyleClass().add("brutal-label");
-        nameLabel.setAlignment(Pos.CENTER_RIGHT);
-        nameLabel.setPrefWidth(labelWidth);
-        detailGrid.add(nameLabel, 0, 0);
-        
-        sizeLabel = new Label("SIZE");
-        sizeLabel.getStyleClass().add("brutal-label");
-        sizeLabel.setAlignment(Pos.CENTER_RIGHT);
-        sizeLabel.setPrefWidth(labelWidth);
-        detailGrid.add(sizeLabel, 0, 1);
-        
-        typeLabel = new Label("TYPE");
-        typeLabel.getStyleClass().add("brutal-label");
-        typeLabel.setAlignment(Pos.CENTER_RIGHT);
-        typeLabel.setPrefWidth(labelWidth);
-        detailGrid.add(typeLabel, 0, 2);
-        
-        alignmentLabel = new Label("ALIGNMENT");
-        alignmentLabel.getStyleClass().add("brutal-label");
-        alignmentLabel.setAlignment(Pos.CENTER_RIGHT);
-        alignmentLabel.setPrefWidth(labelWidth);
-        detailGrid.add(alignmentLabel, 0, 3);
-        
-        hitPointsLabel = new Label("HIT POINTS");
-        hitPointsLabel.getStyleClass().add("brutal-label");
-        hitPointsLabel.setAlignment(Pos.CENTER_RIGHT);
-        hitPointsLabel.setPrefWidth(labelWidth);
-        detailGrid.add(hitPointsLabel, 0, 4);
-        
-        armorClassLabel = new Label("ARMOR CLASS");
-        armorClassLabel.getStyleClass().add("brutal-label");
-        armorClassLabel.setAlignment(Pos.CENTER_RIGHT);
-        armorClassLabel.setPrefWidth(labelWidth);
-        detailGrid.add(armorClassLabel, 0, 5);*/
         
         
         nameField = new TextField();
@@ -214,11 +177,16 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         bottomButtonBox.getChildren().addAll(saveButton, restoreButton);
         
         
+        StackPane profLabelHolder = new StackPane(profLabel);
+        profLabelHolder.getStyleClass().add("section-label");
+        
+        StackPane profListHolder = new StackPane(profList);
+        profListHolder.getStyleClass().add("brutal-holder");
         
         getChildren().addAll(
                detailHolder,
-               detailGrid, statHolder, statGridHolder, split[1],
-               profLabel, profList, bottomButtonBox
+               detailGrid, statHolder, statGridHolder,
+               profLabelHolder, profListHolder, bottomButtonBox
                );
         
       
@@ -238,7 +206,6 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         expand();
         
         backupSource = source.deepCopy();
-        
         currentSource = source;
         
         
