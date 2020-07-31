@@ -67,7 +67,6 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         setId("monster-detail-menu");
-        setPrefWidth(MenuWrapper.MENU_WIDTH);
         
         
 
@@ -82,8 +81,7 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         detailGrid = new GridPane();
         detailGrid.setId("detail-grid");
-        int fieldWidth = 396;
-        detailGrid.getColumnConstraints().add(new ColumnConstraints(fieldWidth));
+        detailGrid.getColumnConstraints().add(new ColumnConstraints(MenuWrapper.MENU_ITEM_WIDTH));
         
         
         
@@ -151,7 +149,9 @@ public class MonsterDetailMenu extends VBox implements Collapsible {
         
         
         statsTable = new StatTable();
+        statsTable.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         StackPane statGridHolder = new StackPane(statGrid);
+        statGridHolder.setPrefWidth(MenuWrapper.MENU_ITEM_WIDTH);
         statGridHolder.getStyleClass().add("section-label");
         
         Separator split[] = new Separator[2];

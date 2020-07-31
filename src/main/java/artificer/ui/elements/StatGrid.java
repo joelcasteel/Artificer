@@ -8,140 +8,107 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import main.java.artificer.stats.Stat;
 import main.java.artificer.stats.StatBlock;
+import main.java.artificer.ui.menu.MenuWrapper;
 
 public class StatGrid extends GridPane{
     private Label strLabel, dexLabel, conLabel, intLabel, wisLabel, chaLabel;
+    private Label names[] = new Label[6];
     private Label strMod, dexMod, conMod, intMod, wisMod, chaMod;
+    private Label modLabels[] = new Label[6];
     private TextField strField, dexField, conField, intField, wisField, chaField;
+    private TextField statFields[] = new TextField[6];
     
     private Hashtable<String, Label> mods = new Hashtable<>();
     private Hashtable<String, TextField> fields = new Hashtable<>();
     
     private StatBlock stats;
     
-    private static final int WIDTH = 396;
+    private static final int WIDTH = MenuWrapper.MENU_ITEM_WIDTH;
+    private static final int NAME_WIDTH = 72;
+    private static final int MOD_WIDTH = 108;
+    private static final int FIELD_WIDTH = WIDTH - NAME_WIDTH - MOD_WIDTH;
     
     
     public StatGrid() {
         setId("stat-grid");
+        setMaxWidth(WIDTH);
+        
+        
         
         getColumnConstraints().addAll(
-                new ColumnConstraints(72),
-                new ColumnConstraints(108),
+                new ColumnConstraints(NAME_WIDTH),
+                new ColumnConstraints(MOD_WIDTH),
                 new ColumnConstraints(WIDTH-180)
                 );
         
         StackPane holder[] = new StackPane[6];
         
-        strLabel = new Label("STR");
-        strLabel.getStyleClass().add("brutal-label");
-        holder[0] = new StackPane(strLabel);
-        
-        dexLabel = new Label("DEX");
-        dexLabel.getStyleClass().add("brutal-label");
-        holder[1] = new StackPane(dexLabel);
-        
-        conLabel = new Label("CON");
-        conLabel.getStyleClass().add("brutal-label");
-        holder[2] = new StackPane(conLabel);
-        
-        intLabel = new Label("INT");
-        intLabel.getStyleClass().add("brutal-label");
-        holder[3] = new StackPane(intLabel);
-        
-        wisLabel = new Label("WIS");
-        wisLabel.getStyleClass().add("brutal-label");
-        holder[4] = new StackPane(wisLabel);
-        
-        chaLabel = new Label("CHA");
-        chaLabel.getStyleClass().add("brutal-label");
-        holder[5] = new StackPane(chaLabel);
-        
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < names.length; i++) {
+            names[i] = new Label();
+            names[i].getStyleClass().add("brutal-label");
+            names[i].setPrefWidth(NAME_WIDTH);
+            holder[i] = new StackPane(names[i]);
             holder[i].getStyleClass().add("holder-pane");
             add(holder[i], 0, i);
         }
         
+        names[0] = new Label("STR");
+        names[1] = new Label("DEX"); 
+        names[2] = new Label("CON");
+        names[3] = new Label("INT");
+        names[4] = new Label("WIS");
+        names[5] = new Label("CHA");
+        
+        
         StackPane modHolder[] = new StackPane[6];
         
-        strMod = new Label();
-        strMod.getStyleClass().add("brutal-label");
-        modHolder[0] = new StackPane(strMod);
-        mods.put(Stat.STR, strMod);
-        
-        dexMod = new Label();
-        dexMod.getStyleClass().add("brutal-label");
-        modHolder[1] = new StackPane(dexMod);
-        mods.put(Stat.DEX, dexMod);
-        
-        conMod = new Label();
-        conMod.getStyleClass().add("brutal-label");
-        modHolder[2] = new StackPane(conMod);
-        mods.put(Stat.CON, conMod);
-        
-        intMod = new Label();
-        intMod.getStyleClass().add("brutal-label");
-        modHolder[3] = new StackPane(intMod);
-        mods.put(Stat.INT, intMod);
-        
-        wisMod = new Label();
-        wisMod.getStyleClass().add("brutal-label");
-        modHolder[4] = new StackPane(wisMod);
-        mods.put(Stat.WIS, wisMod);
-        
-        chaMod = new Label();
-        chaMod.getStyleClass().add("brutal-label");
-        modHolder[5] = new StackPane(chaMod);
-        mods.put(Stat.CHA, chaMod);
-        
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < modLabels.length; i++) {
+            modLabels[i] = new Label();
+            modLabels[i].getStyleClass().add("brutal-label");
+            modLabels[i].setPrefWidth(MOD_WIDTH);
+            modHolder[i] = new StackPane(modLabels[i]);
             modHolder[i].getStyleClass().add("holder-pane");
             add(modHolder[i], 1, i);
         }
         
+        mods.put(Stat.STR, modLabels[0]); 
+        mods.put(Stat.DEX, modLabels[1]);
+        mods.put(Stat.CON, modLabels[2]);
+        mods.put(Stat.INT, modLabels[3]);
+        mods.put(Stat.WIS, modLabels[4]);
+        mods.put(Stat.CHA, modLabels[5]);
         
-        strField = new TextField();
-        strField.setOnAction(fieldHandler);
-        strField.getStyleClass().add("brutal-text-field");
-        add(strField, 2, 0);
-        fields.put(Stat.STR, strField);
+        HBox boxes[] = new HBox[6];
         
-        dexField = new TextField();
-        dexField.setOnAction(fieldHandler);
-        dexField.getStyleClass().add("brutal-text-field");
-        add(dexField, 2, 1);
-        fields.put(Stat.DEX, dexField);
-        
-        conField = new TextField();
-        conField.setOnAction(fieldHandler);
-        conField.getStyleClass().add("brutal-text-field");
-        add(conField, 2, 2);
-        fields.put(Stat.CON, conField);
-        
-        intField = new TextField();
-        intField.setOnAction(fieldHandler);
-        intField.getStyleClass().add("brutal-text-field");
-        add(intField, 2, 3);
-        fields.put(Stat.INT, intField);
-        
-        wisField = new TextField();
-        wisField.setOnAction(fieldHandler);
-        wisField.getStyleClass().add("brutal-text-field");
-        add(wisField, 2, 4);
-        fields.put(Stat.WIS, wisField);
-        
-        chaField = new TextField();
-        chaField.setOnAction(fieldHandler);
-        chaField.getStyleClass().add("brutal-text-field");
-        add(chaField, 2, 5);
-        fields.put(Stat.CHA, chaField);
-        
-        for(String stat : fields.keySet()) {
-            fields.get(stat).setOnAction(fieldHandler);
+        for(int i = 0; i < statFields.length; i++) {
+            statFields[i] = new TextField();
+            statFields[i].setOnAction(fieldHandler);
+            statFields[i].getStyleClass().add("brutal-blank-text-field");
+            boxes[i] = new HBox(statFields[i]);
+            boxes[i].setPrefWidth(FIELD_WIDTH);
+            HBox.setHgrow(statFields[i], Priority.ALWAYS);
+            add(boxes[i], 2, i);
+            
         }
+        
+
+        fields.put(Stat.STR, statFields[0]);
+       
+        fields.put(Stat.DEX, statFields[1]);
+        
+        fields.put(Stat.CON, statFields[2]);
+
+        fields.put(Stat.INT, statFields[3]);
+
+        fields.put(Stat.WIS, statFields[4]);
+
+        fields.put(Stat.CHA, statFields[5]);
+        
         
         
     }

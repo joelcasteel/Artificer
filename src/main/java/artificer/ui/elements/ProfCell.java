@@ -46,6 +46,12 @@ public class ProfCell extends ListCell<Proficiency> {
     
     private ProfList profList;
     
+    private static final int TYPE_WIDTH = 84;
+    private static final int SCORE_WIDTH = 84;
+    private static final int CELL_PADDING = 6;
+    private static final int MOD_WIDTH = MenuWrapper.MENU_ITEM_WIDTH 
+            - CELL_PADDING*3 - TYPE_WIDTH - SCORE_WIDTH - 2;
+    
     /**
      * Construct a new ProfCell
      * 
@@ -57,15 +63,13 @@ public class ProfCell extends ListCell<Proficiency> {
         
         
         getStyleClass().add("brutal-list-cell");
-        //setMaxHeight(CELL_HEIGHT);
-        //setPrefHeight(CELL_HEIGHT);
         
-        int fullwidth = MenuWrapper.MENU_WIDTH-36;
+        int fullwidth = MenuWrapper.MENU_ITEM_WIDTH;
         grid.getStyleClass().add("brutal-prof-cell-grid");
         grid.getColumnConstraints().addAll(
-                new ColumnConstraints(72),
-                new ColumnConstraints(fullwidth - 72*2 - 24),
-                new ColumnConstraints(72)
+                new ColumnConstraints(TYPE_WIDTH),
+                new ColumnConstraints(MOD_WIDTH),
+                new ColumnConstraints(SCORE_WIDTH)
                 
                 );
         
@@ -119,9 +123,9 @@ public class ProfCell extends ListCell<Proficiency> {
      */
     public void chooseIcon(boolean skill) {
         if(skill) {
-            imgLabel.setGraphic(skillIcon);
+            imgLabel.setText("SKILL");
         } else {
-            imgLabel.setGraphic(saveIcon);
+            imgLabel.setText("SAVE");
         }
         
     }

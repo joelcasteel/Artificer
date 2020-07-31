@@ -182,6 +182,8 @@
 #menu-scroller .scroll-bar:vertical {
     -fx-unit-increment: 10 ;
     -fx-block-increment: 50 ;
+    
+    
 }
 
 #menu-scroller .scroll-bar:horizontal {
@@ -236,6 +238,8 @@
 	-fx-alignment: center;
 	
 	-fx-padding: 6;
+	
+	-fx-font-family: "Open Sans SemiBold";
 }
 
 .brutal-button:hover {
@@ -303,21 +307,41 @@
 	-fx-font-family: "Open Sans Bold";
 }
 
+.brutal-prof-combo-box {
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	-fx-border-style: none;
+	-fx-border-width:0;
+	
+	-fx-background-color: white;
+	-fx-background-radius: 0;
+	-fx-background-insets: 0;
+	
+	-fx-padding: 0;
+	
+	-fx-font-family: "Open Sans Bold";
+	-fx-font-size: 10;
+}
 
-.brutal-combo-box > .arrow-button {
+
+.brutal-combo-box > .arrow-button,
+.brutal-prof-combo-box > .arrow-button {
 	-fx-background-color: transparent;
 	-fx-padding: 6;
 }
 
-.brutal-combo-box:hover {
+.brutal-combo-box:hover,
+.brutal-prof-combo-box: hover {
 	-fx-background-color: F0F0F0;
 }
 
-.brutal-combo-box:pressed {
+.brutal-combo-box:pressed,
+.brutal-prof-combo-box:pressed {
 	-fx-background-color: D0D0D0;
 }
 
-.brutal-combo-box > .list-cell {
+.brutal-combo-box > .list-cell,
+.brutal-prof-combo-box > .list-cell {
 	-fx-background-color: transparent;
 }
 
@@ -346,7 +370,7 @@
 .scroll-bar:horizontal {
 	-fx-background-color: transparent;
 	
-	-fx-border-style:solid;
+	-fx-border-style:none;
 	-fx-border-color:black;
 	-fx-border-width: 0 0 0 0;
 }
@@ -419,7 +443,23 @@
 	-fx-border-width: 0;
 	-fx-border-radius: 0;
 	
+	-fx-alignment: center-left;
+	
 	-fx-vgap: 1;
+	-fx-hgap: 1;
+	-fx-padding: 0;
+}
+
+.brutal-prof-editor-grid {
+	-fx-background-color: black;
+	-fx-background-radius: 0;
+	
+	-fx-border-style: none;
+	-fx-border-width: 0;
+	-fx-border-radius: 0;
+	
+	-fx-alignment: center;
+	
 	-fx-hgap: 1;
 	-fx-padding: 0;
 }
@@ -427,6 +467,16 @@
 .brutal-holder {
 	-fx-padding: 6 12 6 12;
 	-fx-background-color: white;
+}
+
+.brutal-blank-holder {
+	-fx-background-color: white;
+	-fx-alignment: center;
+}
+
+#prof-list {
+	-fx-border-style:none;
+	-fx-border-width: 0;
 }
 
 .brutal-list-view {
@@ -442,10 +492,30 @@
 	
 }
 
+
+.brutal-list-view {
+	-fx-background-color: F0F0F0;
+	
+	-fx-cell-size: 24;
+	-fx-border-width: 1;
+	-fx-border-color: black;
+	-fx-border-radius: 0;
+	-fx-font-size: 10pt;
+	
+	-fx-padding: 6 0 6 0;
+	
+}
+
+.brutal-list-view:focused {
+	-fx-background-insets: 0;
+	
+}
+
+
 .brutal-list-cell:even, .brutal-list-cell:odd {
 	-fx-background-color: F0F0F0, black;
-	-fx-background-insets: 1, 3;
-	-fx-padding:4;
+	-fx-background-insets: 1, 2;
+	-fx-padding:3;
 }
 
 .brutal-cell-holder {
@@ -468,7 +538,7 @@
 .brutal-list-cell:filled:selected,
 .brutal-list-cell:filled:selected:focused {
 	-fx-background-color: transparent, black;
-	-fx-background-insets: 1, 3;
+	-fx-background-insets: 1, 2;
 	-fx-text-fill: black;
 }
 
@@ -488,7 +558,7 @@
 .brutal-list-cell:filled:hover,
 .brutal-list-cell:filled:selected:hover {
 	-fx-background-color: transparent, black;
-	-fx-background-insets: 1, 3;
+	-fx-background-insets: 1, 2;
 	-fx-text-fill:black;
 }
 
@@ -506,6 +576,8 @@
 	-fx-padding: 0;
 	-fx-spacing: 0;
 	-fx-border-width: 0;
+	
+	-fx-alignment: top-left;
 }
 
 
@@ -527,6 +599,18 @@
 #search-button:pressed {
 	-fx-background-color: #2C4799;
 }
+
+#save-prof-button {
+	-fx-background-color:lightgreen;
+	-fx-border-width: 0;
+	
+}
+
+#clear-prof-button {
+	-fx-background-color: tomato;
+	-fx-border-width: 0;
+}
+
 
 
 .cool-button {

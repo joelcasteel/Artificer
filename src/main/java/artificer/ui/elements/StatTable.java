@@ -11,6 +11,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import main.java.artificer.stats.Stat;
 import main.java.artificer.stats.StatBlock;
+import main.java.artificer.ui.menu.MenuWrapper;
 
 /**
  * A custom GridPane for displaying a table of Stats
@@ -90,8 +91,9 @@ public class StatTable extends GridPane {
         public StatRow(String pName) {
             getStyleClass().add("stat-row");
             setAlignment(Pos.CENTER_LEFT);
+            setPrefWidth(MenuWrapper.MENU_ITEM_WIDTH);
             getColumnConstraints().addAll(
-                new ColumnConstraints(100),
+                new ColumnConstraints(300),
                 new ColumnConstraints(100),
                 new ColumnConstraints(100)
                 );

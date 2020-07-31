@@ -28,42 +28,31 @@ public class SkillTypeSelector extends ComboBox<String> {
      * Construct a new Skill Selector
      */
     public SkillTypeSelector() {
-        setItems(FXCollections.observableArrayList("Skill", "Save"));
-        getStyleClass().add("cool-combo-box");
+        setItems(FXCollections.observableArrayList("SKILL", "SAVE"));
+        getStyleClass().add("brutal-prof-combo-box");
+        
         
         setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 
             @Override public ListCell<String> call(ListView<String> p) {
                 return new ListCell<String>() {
                     
-                    Label label;
-                    {
-                        getStyleClass().add("cool-combo-cell");
-                        label = new Label();
-                        
-                    }
 
                     @Override protected void updateItem(String item, boolean empty) {
                         super.updateItem(item, empty);
-
-                        if (item == null || empty) {
-                            setGraphic(null);
-                        } else {
-                            label.setText(item);
-                            if(item.contentEquals("Skill")) {
-                                label.setGraphic(skillIcon);
-                            } else if (item.contentEquals("Save")) {
-                                label.setGraphic(saveIcon);
-                            }
-                            setGraphic(label);
-                            
+                        if(item != null) {
+                            setText(item);
                         }
+                        
+                        getStyleClass().add("brutal-combo-cell");
+
+                        
                    }
               };
           }
         });
         
-        setButtonCell(new IconTextCellClass());
+        //setButtonCell(new IconTextCellClass());
         
         getSelectionModel().selectFirst();
         

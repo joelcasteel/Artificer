@@ -2,6 +2,8 @@ package main.java.artificer.ui.menu;
 
 import java.util.ArrayList;
 
+import javax.swing.GroupLayout.Alignment;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -23,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -57,6 +60,8 @@ public class SearchMenu extends VBox implements Collapsible, Request {
     
     SideMenu sideMenuParent;
     
+    private static final int BUTTON_WIDTH = 60;
+    
     /**
      * Construct a new SearchBox
      * 
@@ -68,43 +73,40 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         getStylesheets().add(getClass().getResource(App.stylesheet).toString());
         getStyleClass().add("root");
         setId("search-menu");
+        setMaxWidth(MenuWrapper.MENU_WIDTH);
+        
        
         
         searchButton.setText("SEARCH");
         searchButton.setOnAction(searchHandler);
         searchButton.setId("search-button");
         searchButton.getStyleClass().add("brutal-button");
-        searchButton.setPrefWidth(60);
+        searchButton.setPrefWidth(BUTTON_WIDTH);
         
         searchField.setOnAction(searchHandler);
         searchField.setPromptText("Search...");
         searchField.getStyleClass().add("brutal-blank-text-field");
-        searchField.setPrefWidth(396-60);
         
-        int fieldWidth = 432-24;
+        HBox searchBox = new HBox(searchField);
+        HBox.setHgrow(searchField, Priority.ALWAYS);
+        
         searchGrid.getColumnConstraints().addAll(
-                new ColumnConstraints(fieldWidth - 60),
-                new ColumnConstraints(60)
+                new ColumnConstraints(MenuWrapper.MENU_ITEM_WIDTH - BUTTON_WIDTH),
+                new ColumnConstraints(BUTTON_WIDTH)
                 );
         searchGrid.getStyleClass().add("brutal-grid");
-        searchGrid.add(searchField, 0, 0);
+        searchGrid.add(searchBox, 0, 0);
         searchGrid.add(searchButton, 1, 0);
         searchHolder.getStyleClass().add("brutal-holder");
         searchHolder.getChildren().add(searchGrid);
         getChildren().add(searchHolder);
+        searchGrid.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         
-        /*StackPane filterImg = new StackPane();
-        filterImg.setPadding(new Insets(6));
-        filterImg.getChildren().add(filterIcon);*/
-        //filterField.setPrefWidth(200);
-        
-        //filterField.setId("filter-field");
-        
-        //filterField.setPrefHeight(18);
         
         filterField.setPromptText("Filter Results");
         filterField.textProperty().addListener(filterHandler);
         filterField.getStyleClass().add("brutal-text-field");
+        filterField.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         
         filterHolder.getStyleClass().add("brutal-holder");
         filterHolder.getChildren().add(filterField);
@@ -113,7 +115,8 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         
         getChildren().add(filterHolder);
         
-        scroller.setPrefSize(240, 600 );
+        scroller.setPrefSize(MenuWrapper.MENU_ITEM_WIDTH , 600 );
+        scroller.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         scroller.getStyleClass().add("brutal-list-view");
         scroller.setCellFactory(new Callback<ListView<MonsterCache>, ListCell<MonsterCache>>(){
             @Override
@@ -179,6 +182,7 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         APIClient.asynchURLRequest(
                 APIClient.createQuery(APIClient.MONSTER_SEARCH, searchField.getText()),
                 this, 30);
+        
     }
     
     /**

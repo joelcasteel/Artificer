@@ -56,7 +56,9 @@ public class MenuWrapper extends BorderPane implements Collapsible {
     private static boolean visible = false;
     
     
-    public static final int MENU_WIDTH = 432;
+    public static final int MENU_WIDTH = 480;
+    public static final int MENU_PADDING = 24;
+    public static final int MENU_ITEM_WIDTH = MENU_WIDTH - (2*MENU_PADDING);
     public static final int HEADER_HEIGHT = 30;
     
     public enum MenuTitle {

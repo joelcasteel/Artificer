@@ -58,9 +58,13 @@ public class ProfList extends GridPane {
         ProfList holder = this;
         
         setMinHeight(300);
+        getStyleClass().add("brutal-grid");
+        setPrefWidth(MenuWrapper.MENU_ITEM_WIDTH);
+        setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         
         profList.getStyleClass().add("brutal-list-view");
-        profList.setPrefSize(MenuWrapper.MENU_WIDTH-24, 300);
+        profList.setId("prof-list");
+        profList.setPrefSize(MenuWrapper.MENU_ITEM_WIDTH, 300);
         profList.setCellFactory(new Callback<ListView<Proficiency>, ListCell<Proficiency>>(){
             @Override
             public ListCell<Proficiency> call(ListView<Proficiency> monsterListView) {
