@@ -91,13 +91,13 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         HBox.setHgrow(searchField, Priority.ALWAYS);
         
         searchGrid.getColumnConstraints().addAll(
-                new ColumnConstraints(MenuWrapper.MENU_ITEM_WIDTH - BUTTON_WIDTH),
+                new ColumnConstraints(MenuWrapper.MENU_ITEM_WIDTH - BUTTON_WIDTH-3),
                 new ColumnConstraints(BUTTON_WIDTH)
                 );
         searchGrid.getStyleClass().add("brutal-grid");
         searchGrid.add(searchBox, 0, 0);
         searchGrid.add(searchButton, 1, 0);
-        searchHolder.getStyleClass().add("brutal-holder");
+        searchHolder.getStyleClass().add("brutal-blank-left-holder");
         searchHolder.getChildren().add(searchGrid);
         getChildren().add(searchHolder);
         searchGrid.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
@@ -108,7 +108,7 @@ public class SearchMenu extends VBox implements Collapsible, Request {
         filterField.getStyleClass().add("brutal-text-field");
         filterField.setMaxWidth(MenuWrapper.MENU_ITEM_WIDTH);
         
-        filterHolder.getStyleClass().add("brutal-holder");
+        filterHolder.getStyleClass().add("brutal-blank-left-holder");
         filterHolder.getChildren().add(filterField);
         
         
@@ -126,7 +126,7 @@ public class SearchMenu extends VBox implements Collapsible, Request {
             }
         });
         
-        listHolder.getStyleClass().add("brutal-holder");
+        listHolder.getStyleClass().add("brutal-blank-left-holder");
         listHolder.getChildren().add(scroller);
         
         getChildren().add(listHolder);

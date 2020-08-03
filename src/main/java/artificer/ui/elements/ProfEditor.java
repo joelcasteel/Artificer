@@ -21,16 +21,19 @@ public class ProfEditor extends GridPane {
     
     private Button saveButton = new Button("SAVE");
     private Button clearButton = new Button("CLEAR");
+    private Button deleteButton = new Button("DELETE");
     
     private Proficiency prof = null;
     private ProfList profList = null;
     
+    private Proficiency currentProf = null;
+    
     private static int height = 36;
-    private static int BOX_WIDTH = 84;
+    private static int BOX_WIDTH = 72;
     private static int MOD_WIDTH = 60;
     private static int BUTTON_WIDTH = 60;
     private static int NAME_WIDTH = MenuWrapper.MENU_ITEM_WIDTH
-            - BOX_WIDTH - MOD_WIDTH - 2*BUTTON_WIDTH;
+            - BOX_WIDTH - MOD_WIDTH - 3*BUTTON_WIDTH;
     
     public ProfEditor(ProfList parentList) {
         
@@ -52,6 +55,7 @@ public class ProfEditor extends GridPane {
                 new ColumnConstraints(NAME_WIDTH),
                 new ColumnConstraints(MOD_WIDTH),
                 new ColumnConstraints(BUTTON_WIDTH),
+                new ColumnConstraints(BUTTON_WIDTH),
                 new ColumnConstraints(BUTTON_WIDTH)
                 );
         
@@ -71,6 +75,7 @@ public class ProfEditor extends GridPane {
         add(profNameHolder, 1, 0);
         
         stat.getStyleClass().add("brutal-blank-text-field");
+        stat.setPromptText("(+/-)##");
         stat.setOnAction(profFieldHandler);
         stat.setPrefHeight(height);
         StackPane statHolder = new StackPane(stat);
@@ -80,12 +85,20 @@ public class ProfEditor extends GridPane {
         saveButton.setPrefSize(60,height);
         saveButton.getStyleClass().add("brutal-button");
         saveButton.setId("save-prof-button");
+        saveButton.setOnAction(editHandler);
         add(saveButton, 3, 0);
         
         clearButton.setPrefSize(60, height);
         clearButton.setId("clear-prof-button");
         clearButton.getStyleClass().add("brutal-button");
-        add(clearButton, 4, 0);
+        clearButton.setOnAction(editHandler);
+        add(clearButton, 5, 0);
+        
+        deleteButton.setPrefSize(60, height);
+        deleteButton.setId("clear-prof-button");
+        deleteButton.getStyleClass().add("brutal-button");
+        deleteButton.setOnAction(editHandler);
+        add(deleteButton, 4, 0);
         
     }
     
@@ -103,28 +116,53 @@ public class ProfEditor extends GridPane {
         
     }
     
+    private int getMod() {
+        
+        try {
+            return Integer.parseInt(stat.getText());
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+    
+    private void reset() {
+        newProfName.setText("");
+        typeBox.getSelectionModel().selectFirst();
+        stat.setText("");
+        currentProf = null;
+    }
+    
     EventHandler<ActionEvent> profFieldHandler = new EventHandler<ActionEvent>() {
 
         @Override
         public void handle(ActionEvent event) {
-            int mod;
-            
-            try {
-                mod = Integer.parseInt(stat.getText());
-            } catch (Exception ex) {
-                mod = 0;
-            }
-            
-            if(prof != null) {
-                prof.setName(newProfName.getText());
-                prof.setSkill(typeBox.getSelectionModel().getSelectedItem().contentEquals("Skill"));
-                prof.setValue(mod);
-            }
-            
-            profList.getProfList().refresh();
+
             
         }
         
+    };
+    
+    
+    EventHandler<ActionEvent> editHandler = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            if(event.getSource().equals(saveButton)) {
+                if(currentProf == null) {
+                    currentProf = new Proficiency();
+                    currentProf.setName(newProfName.getText());
+                    currentProf.setSkill(typeBox.getSelectionModel().getSelectedItem().contentEquals("Skill"));
+                    currentProf.setValue(getMod());
+                    profList.addContent(currentProf);
+                    
+                    profList.getProfList().refresh();
+                    
+                    reset();
+                }
+                
+            } else if(event.getSource().equals(clearButton)) {
+                reset();
+            }
+        }
     };
     
     

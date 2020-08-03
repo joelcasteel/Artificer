@@ -4,6 +4,7 @@ import java.util.Hashtable;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.ColumnConstraints;
@@ -29,8 +30,8 @@ public class StatGrid extends GridPane{
     private StatBlock stats;
     
     private static final int WIDTH = MenuWrapper.MENU_ITEM_WIDTH;
-    private static final int NAME_WIDTH = 72;
-    private static final int MOD_WIDTH = 108;
+    private static final int NAME_WIDTH = 120;
+    private static final int MOD_WIDTH = 120;
     private static final int FIELD_WIDTH = WIDTH - NAME_WIDTH - MOD_WIDTH;
     
     
@@ -43,7 +44,7 @@ public class StatGrid extends GridPane{
         getColumnConstraints().addAll(
                 new ColumnConstraints(NAME_WIDTH),
                 new ColumnConstraints(MOD_WIDTH),
-                new ColumnConstraints(WIDTH-180)
+                new ColumnConstraints(FIELD_WIDTH)
                 );
         
         StackPane holder[] = new StackPane[6];
@@ -57,12 +58,12 @@ public class StatGrid extends GridPane{
             add(holder[i], 0, i);
         }
         
-        names[0] = new Label("STR");
-        names[1] = new Label("DEX"); 
-        names[2] = new Label("CON");
-        names[3] = new Label("INT");
-        names[4] = new Label("WIS");
-        names[5] = new Label("CHA");
+        names[0].setText("STR");
+        names[1].setText("DEX"); 
+        names[2].setText("CON");
+        names[3].setText("INT");
+        names[4].setText("WIS");
+        names[5].setText("CHA");
         
         
         StackPane modHolder[] = new StackPane[6];
@@ -88,6 +89,7 @@ public class StatGrid extends GridPane{
         for(int i = 0; i < statFields.length; i++) {
             statFields[i] = new TextField();
             statFields[i].setOnAction(fieldHandler);
+            statFields[i].setAlignment(Pos.CENTER);
             statFields[i].getStyleClass().add("brutal-blank-text-field");
             boxes[i] = new HBox(statFields[i]);
             boxes[i].setPrefWidth(FIELD_WIDTH);

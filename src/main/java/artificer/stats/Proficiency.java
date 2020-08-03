@@ -59,6 +59,12 @@ public class Proficiency {
         isSkill = skill;
     }
     
+    public Proficiency() {
+        name = "";
+        value = 0;
+        isSkill = true;
+    }
+
     public Proficiency copyProficiency() {
         return new Proficiency(name, value, isSkill);
     }

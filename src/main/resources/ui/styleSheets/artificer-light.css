@@ -154,6 +154,8 @@
 	-fx-padding: 0;
 	-fx-border-width: 0;
 	
+	-fx-alignment: top-left;
+	
 }
 
 #menu-scroller {
@@ -474,6 +476,11 @@
 	-fx-alignment: center;
 }
 
+.brutal-blank-left-holder {
+	-fx-background-color: white;
+	-fx-alignment: top-left;
+}
+
 #prof-list {
 	-fx-border-style:none;
 	-fx-border-width: 0;
@@ -572,9 +579,9 @@
 
 
 #search-menu {
-	-fx-background-color: black;	
-	-fx-padding: 0;
-	-fx-spacing: 0;
+	-fx-background-color: white;	
+	-fx-padding: 6 12 24 12;
+	-fx-spacing: 6;
 	-fx-border-width: 0;
 	
 	-fx-alignment: top-left;
@@ -611,6 +618,10 @@
 	-fx-border-width: 0;
 }
 
+#delete-prof-button {
+	-fx-background-color: tomato;
+	-fx-border-width: 0;
+}
 
 
 .cool-button {
